@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteBase "/v1/"
+RewriteRule "^index\.php" - [L,NC]
+RewriteRule "^([^/]+)$" "index.php?module=$1"
+RewriteRule "^([^/]+)/([^/]+)$" "index.php?module=$1&action=$2"
+RewriteRule "^([^/]+)/([^/]+)/([^/]+)$" "index.php?module=$1&action=$2&detail=$3"
