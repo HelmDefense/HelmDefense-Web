@@ -9,7 +9,7 @@
             <?php
             define("CHECK_INCLUDE", NULL);
 
-            include_once "include/utils.php";
+            include_once "include/Utils.php";
 
             $mod = Utils::get("module");
 
