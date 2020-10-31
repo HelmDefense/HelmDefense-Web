@@ -1,3 +1,4 @@
 .github/*
 .git-ftp-ignore
 .idea/*
+.dbconnect
