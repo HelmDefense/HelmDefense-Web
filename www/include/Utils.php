@@ -145,7 +145,7 @@ class Utils {
 			$mod = self::get("module");
 
 		if (is_null($mod) || !array_key_exists($mod, self::$modules))
-			self::error(404, "Module not found");
+			self::error(404);
 
 		$mod_class = self::$modules[$mod];
 		include_once "module/mod_$mod/$mod_class.php";
@@ -163,25 +163,19 @@ class Utils {
 		if (!Connection::init($e)) {
 			if ($display_errors)
 				echo "<pre>$e</pre>";
-			Utils::error(500, "Database connection error");
+			Utils::error();
 		}
 		self::$isConnectionInit = true;
 	}
 
 	/**
 	 * @param int $code
-	 * @param string $msg
 	 */
-	static function error($code = 500, $msg = "No information available") {
+	static function error($code = 500) {
 		if (!array_key_exists($code, self::$response_status))
 			$code = 500;
 
 		http_response_code($code);
-		echo json_encode(array(
-				"code" => $code,
-				"status" => self::$response_status[$code],
-				"msg" => $msg
-		));
-		die;
+		die("<pre>$code ". self::$response_status[$code] . "</pre>");
 	}
 }
