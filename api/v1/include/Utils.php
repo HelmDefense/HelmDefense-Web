@@ -11,6 +11,7 @@ class Utils {
 	 * @var string[]
 	 */
 	public static $modules = array(
+	        "entities" => "EntitiesModule",
 			"test" => "TestModule"
 	);
 
