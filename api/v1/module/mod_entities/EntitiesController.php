@@ -16,8 +16,8 @@ class EntitiesController {
         $this->view->list($this->model->list());
     }
 
-    public function get(){
-	    $this->view->get($this->model->get());
+    public function get($id){
+	    $this->view->get($this->model->get($id));
     }
 
     public function stat(){

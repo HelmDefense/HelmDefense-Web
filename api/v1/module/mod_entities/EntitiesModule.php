@@ -18,7 +18,7 @@ class EntitiesModule {
                 break;
 
             case "get":
-                $this->controller->get();
+                $this->controller->get(Utils::get("id"));
                 break;
 
             case "stat":

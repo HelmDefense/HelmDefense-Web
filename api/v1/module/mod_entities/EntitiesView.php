@@ -2,17 +2,21 @@
 include_once "include/check_include.php";
 
 class EntitiesView {
-    public function list($list){
-        $json = array();
+	public function list($list) {
+		$json = array();
 
-        foreach ($list as $value)
-            $json[] = $value{"id"};
+		foreach ($list as $value)
+			$json[] = $value{"id"};
 
-        echo json_encode($json);
-    }
+		echo json_encode($json);
+	}
 
-	public function get($list){
-
+	public function get($info) {
+		echo json_encode(array(
+			"id" => $info["id"],
+			"name" => $info["name"],
+			"description" => $info["description"]
+		));
 	}
 
 

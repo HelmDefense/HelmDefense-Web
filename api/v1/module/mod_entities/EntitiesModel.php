@@ -14,9 +14,10 @@ class EntitiesModel extends Connection {
     }
 
 	public function get($id) {
-		$query = self::$bdd->prepare("SELECT * FROM hd_game_entities where id = $id");
+		$query = self::$bdd->prepare("SELECT `name`, description FROM hd_game_entities where id = :id");
+		$params = array("id" => $id);
 
-		if (!$query->execute())
+		if (!$query->execute($params))
 			throw new PDOException();
 
 		return $query->fetchAll(PDO::FETCH_ASSOC);
