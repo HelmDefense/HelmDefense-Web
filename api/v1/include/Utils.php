@@ -11,7 +11,8 @@ class Utils {
 	 * @var string[]
 	 */
 	public static $modules = array(
-			"test" => "TestModule"
+			"test" => "TestModule",
+            "levels" => "LevelsModule"
 	);
 
 	/**

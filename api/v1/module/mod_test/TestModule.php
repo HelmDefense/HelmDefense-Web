@@ -8,6 +8,6 @@ class TestModule {
 	public function __construct() {
 		$this->controller = new TestController();
 
-		$this->controller->test();
+		//$this->controller->test();
 	}
 }
