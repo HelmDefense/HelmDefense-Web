@@ -11,6 +11,10 @@ class EntitiesView {
         echo json_encode($json);
     }
 
+	public function get($list){
+
+	}
+
 
 	public function test($users) {
 		foreach ($users as $user) {

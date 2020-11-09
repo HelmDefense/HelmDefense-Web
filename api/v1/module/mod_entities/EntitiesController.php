@@ -17,7 +17,7 @@ class EntitiesController {
     }
 
     public function get(){
-
+	    $this->view->get($this->model->get());
     }
 
     public function stat(){
