@@ -1,5 +1,6 @@
 <?php
 include_once "check_include.php";
+include_once "Connection.php";
 
 class Utils {
 	/**
@@ -10,14 +11,12 @@ class Utils {
 	/**
 	 * @var string[]
 	 */
-	public static $modules = array(
-			"test" => "TestModule"
-	);
+	public static $modules = array();
 
 	/**
 	 * @var string[]
 	 */
-	private static $response_status = array(
+	public static $response_status = array(
 			100 => "Continue",
 			101 => "Switching Protocols",
 			102 => "Processing",
@@ -166,6 +165,20 @@ class Utils {
 			Utils::error(500, "Database connection error");
 		}
 		self::$isConnectionInit = true;
+	}
+
+	/**
+	 * @param array $array
+	 * @return stdClass
+	 */
+	function toStdClass($array) {
+		$object = new stdClass();
+		foreach ($array as $key => $value) {
+			if (is_array($value))
+				$value = Utils::toStdClass($value);
+			$object->$key = $value;
+		}
+		return $object;
 	}
 
 	/**

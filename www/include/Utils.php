@@ -1,5 +1,6 @@
 <?php
 include_once "check_include.php";
+include_once "Connection.php";
 
 class Utils {
 	/**
@@ -17,7 +18,7 @@ class Utils {
 	/**
 	 * @var string[]
 	 */
-	private static $response_status = array(
+	public static $response_status = array(
 			100 => "Continue",
 			101 => "Switching Protocols",
 			102 => "Processing",
