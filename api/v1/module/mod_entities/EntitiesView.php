@@ -12,16 +12,7 @@ class EntitiesView {
 	}
 
 	public function get($info) {
-		echo json_encode(array(
-			"id" => $info["id"],
-			"name" => $info["name"],
-			"description" => $info["description"]
-			/*"abilities" => array(
-				"AreaDirectAttackAbility" => array(
-
-				)
-			)*/
-		));
+		echo json_encode($info);
 	}
 
 
