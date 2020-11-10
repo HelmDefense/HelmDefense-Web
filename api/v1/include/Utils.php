@@ -12,7 +12,8 @@ class Utils {
 	 */
 	public static $modules = array(
 			"test" => "TestModule",
-            "levels" => "LevelsModule"
+			"levels" => "LevelsModule"
+			"users" => "UsersModule"
 	);
 
 	/**
@@ -186,19 +187,18 @@ class Utils {
 		die;
 	}
 
-    /**
-     * @param PDO $bdd
-     * @param string $requete
-     * @param array $params
-     * @param bool $multiple
-     * @param int $fetch_style
-     * @return stdClass|array|false
-     */
-    static function executeRequest($bdd,$requete,$params = array(),$multiple = true,$fetch_style = PDO::FETCH_OBJ){
-        $query = $bdd->prepare($requete);
-        if (!$query->execute($params))
-            Utils::error(500,"SQL request error");
-        return $multiple ? $query->fetchAll($fetch_style) : $query->fetch($fetch_style);
-    }
-
+	/**
+	 * @param PDO $bdd
+	 * @param string $requete
+	 * @param array $params
+	 * @param bool $multiple
+	 * @param int $fetch_style
+	 * @return stdClass|array|false
+	 */
+	static function executeRequest($bdd, $requete, $params = array(), $multiple = true, $fetch_style = PDO::FETCH_OBJ){
+		$query = $bdd->prepare($requete);
+		if (!$query->execute($params))
+			Utils::error(500, "SQL request error");
+		return $multiple ? $query->fetchAll($fetch_style) : $query->fetch($fetch_style);
+	}
 }
