@@ -20,55 +20,60 @@ class LevelsModel extends connection {
 
     public function level($id){
 
-        $query = self::$bdd->prepare("SELECT * FROM `hd_game_levels` where id = :id");
-        $params = array("id" => $id);
-        if (!$query->execute($params))
-            throw new PDOException();
-        $result1 = $query->fetchAll(PDO::FETCH_ASSOC);
+        $level = Utils::executeRequest(self::$bdd,"SELECT * FROM `hd_game_levels` where id = :id", array("id" => $id),false);
+        $num = array("num" => $level->num);
+        $doors = Utils::executeRequest(self::$bdd,"SELECT * FROM `hd_game_level_doors` where level = :num",$num);
+        $spawns = Utils::executeRequest(self::$bdd,"SELECT * FROM `hd_game_level_spawns` where level = :num", $num);
+        $waves = Utils::executeRequest(self::$bdd,"SELECT * FROM `hd_game_level_waves` where level = :num", $num);
 
-         $query = self::$bdd->prepare("SELECT * FROM `hd_game_level_doors` where level = :num");
-         $params = array("num" => $result1[0]['num']);
-         if (!$query->execute($params))
-             throw new PDOException();
-         $result2 = $query->fetchAll(PDO::FETCH_ASSOC);
-
-         $query = self::$bdd->prepare("SELECT * FROM `hd_game_level_spawns` where level = :num");
-         $params = array("num" => $result1[0]['num']);
-         if (!$query->execute($params))
-             throw new PDOException();
-         $result3 = $query->fetchAll(PDO::FETCH_ASSOC);
-
-         $query = self::$bdd->prepare("SELECT * FROM `hd_game_level_waves` where level = :num");
-         $params = array("num" => $result1[0]['num']);
-         if (!$query->execute($params))
-             throw new PDOException();
-         $result4 = $query->fetchAll(PDO::FETCH_ASSOC);
-
-        $query = self::$bdd->prepare("SELECT * FROM 'hd_game_level_waves' INNER JOIN 'hd_game_level_wave_entities' where level = :num");
-        $params = array("num" => $result1[0]['num']);
-        if (!$query->execute($params))
-            throw new PDOException();
-        $result4 = $query->fetchAll(PDO::FETCH_ASSOC);
-
-
-        for ($i = 0;$i < sizeof($result3); $i++){
-            $liste["spawns"][$i]['x'] = $result3[$i]['x'];
-            $liste["spawns"][$i]['y'] = $result3[$i]['y'];
+        $lvl = new stdClass();
+        $map = explode("|",$level->map);
+        foreach ($map as &$line){
+            $line = explode(",",$line);
         }
-        $liste["target"]['x'] = $result1[0]['target_x'];
-        $liste["target"]["y"] = $result1[0]['target_y'];
-        for ($i = 0;$i < sizeof($result2); $i++){
-            $liste["doors"][$i]['x'] = $result2[$i]['x'];
-            $liste["doors"][$i]['y'] = $result2[$i]['y'];
+        $lvl->map = $map;
+
+        $lvl->spawns = array();
+        foreach ($spawns as $spawn) {
+            $s = new stdClass();
+            $s->x = $spawn->x;
+            $s->y = $spawn->y;
+            $lvl->spawns[] = $s;
         }
-        $liste["lives"] = $result1[0]['lives'];
-        $liste["names"] = $result1[0]['name'];
-        $liste["start-money"] = $result1[0]['start_money'];
-        for($i = 0;$i < sizeof($result4); $i++){
-            //$liste["waves"][$i]["name"] = $result4[]
+
+        $lvl->target = new stdClass();
+        $lvl->target->x = $level->target_x;
+        $lvl->target->y = $level->target_y;
+
+
+        $lvl->doors = array();
+        foreach ($doors as $door){
+            $d = new stdClass();
+            $d->x = $door->x;
+            $d->y = $door->y;
+            $d->hp = $door->hp;
+            $lvl->doors[] = $d;
         }
 
 
-        return  $liste;
+        $lvl->lives = $level->lives;
+        $lvl->names = $level->name;
+        $lvl->start_money = $level->start_money;
+
+        $lvl->waves = array();
+        foreach ($waves as $wave){
+            $w = new stdClass();
+
+            $w->names = $wave->name;
+            $w->reward = $wave->reward;
+
+            $entities = Utils::executeRequest(self::$bdd,"SELECT id,tick FROM hd_game_level_wave_entities INNER JOIN hd_game_entities ON entity = num WHERE wave = :wave",array("wave" => $wave->id));
+            $w->entities = new stdClass();
+            foreach ($entities as $entity){
+                $w->entities->{$entity->tick} = $entity->id;
+            }
+            $lvl->waves[] = $w;
+        }
+        return  $lvl;
     }
 }
