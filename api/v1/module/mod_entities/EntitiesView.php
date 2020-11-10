@@ -16,6 +16,11 @@ class EntitiesView {
 			"id" => $info["id"],
 			"name" => $info["name"],
 			"description" => $info["description"]
+			/*"abilities" => array(
+				"AreaDirectAttackAbility" => array(
+
+				)
+			)*/
 		));
 	}
 
