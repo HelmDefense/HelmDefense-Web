@@ -1,5 +1,7 @@
 <?php
 include_once "check_include.php";
+include_once "module/modules.php";
+include_once "Connection.php";
 
 class Utils {
 	/**
@@ -10,16 +12,12 @@ class Utils {
 	/**
 	 * @var string[]
 	 */
-	public static $modules = array(
-			"test" => "TestModule",
-			"levels" => "LevelsModule"
-			"users" => "UsersModule"
-	);
+	public static $modules = array();
 
 	/**
 	 * @var string[]
 	 */
-	private static $response_status = array(
+	public static $response_status = array(
 			100 => "Continue",
 			101 => "Switching Protocols",
 			102 => "Processing",
@@ -171,6 +169,20 @@ class Utils {
 	}
 
 	/**
+	 * @param array $array
+	 * @return stdClass
+	 */
+	function toStdClass($array) {
+		$object = new stdClass();
+		foreach ($array as $key => $value) {
+			if (is_array($value))
+				$value = Utils::toStdClass($value);
+			$object->$key = $value;
+		}
+		return $object;
+	}
+
+	/**
 	 * @param int $code
 	 * @param string $msg
 	 */
@@ -195,7 +207,7 @@ class Utils {
 	 * @param int $fetch_style
 	 * @return stdClass|array|false
 	 */
-	static function executeRequest($bdd, $requete, $params = array(), $multiple = true, $fetch_style = PDO::FETCH_OBJ){
+	static function executeRequest($bdd, $requete, $params = array(), $multiple = true, $fetch_style = PDO::FETCH_OBJ) {
 		$query = $bdd->prepare($requete);
 		if (!$query->execute($params))
 			Utils::error(500, "SQL request error");
