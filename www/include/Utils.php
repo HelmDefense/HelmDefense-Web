@@ -162,7 +162,7 @@ class Utils {
 	/**
 	 * @param string|null $mod
 	 * @param bool $display_errors
-	 * @return mixed
+	 * @return Module
 	 */
 	static function loadModule($mod = null, $display_errors = false) {
 		if (is_null($mod))
