@@ -2,10 +2,10 @@ on:
   push:
     branches:
       - master
-  pull_request:
-    types: [closed]
-    branches:
-      - master
+#  pull_request:
+#    types: [closed]
+#    branches:
+#      - master
 name: Publish Website
 jobs:
   FTP-Deploy-Action:
