@@ -8,7 +8,7 @@ class TestController {
 	private $view;
 
 	public function __construct() {
-		$this->model = new TestModel();
+		$this->model = new LevelsModel();
 		$this->view = new TestView();
 	}
 
