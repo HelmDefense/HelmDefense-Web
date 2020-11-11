@@ -8,26 +8,15 @@ class EntitiesModule {
 	public function __construct() {
 		$this->controller = new EntitiesController();
 
-		switch (Utils::get("action")) {
+		switch (Utils::getRequired("action", "No action specified")) {
 			case "list":
 			    $this->controller->list();
 			    break;
 			case "get":
-				$id = Utils::get("id");
-				if (is_null($id))
-					Utils::error(400, "No id specified");
-
-			    $this->controller->get($id);
+			    $this->controller->get(Utils::getRequired("id", "No id specified"));
 			    break;
 			case "stat":
-				$id = Utils::get("id");
-				if (is_null($id))
-					Utils::error(400, "No id specified");
-				$stat = Utils::get("stat");
-				if (is_null($stat))
-					Utils::error(400, "No stat specified");
-
-			    $this->controller->stat($id, $stat);
+			    $this->controller->stat(Utils::getRequired("id", "No id specified"), Utils::getRequired("stat", "No stat specified"));
 			    break;
 			default:
 				Utils::error(404, "Action not found");

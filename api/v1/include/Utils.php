@@ -1,6 +1,6 @@
 <?php
 include_once "check_include.php";
-include_once "module/modules.php";
+include_once "modules/modules.php";
 include_once "Connection.php";
 
 class Utils {
@@ -113,6 +113,18 @@ class Utils {
 
 	/**
 	 * @param string $val
+	 * @param string|null $msg
+	 * @return string
+	 */
+	static function getRequired($val, $msg = null) {
+		$value = Utils::get($val);
+		if (is_null($value))
+			Utils::error(400, is_null($msg) ? "Missing GET parameter $val" : $msg);
+		return $value;
+	}
+
+	/**
+	 * @param string $val
 	 * @param string|null $def
 	 * @return string|null
 	 */
@@ -136,19 +148,31 @@ class Utils {
 	}
 
 	/**
+	 * @param string $val
+	 * @param string|null $msg
+	 * @return string
+	 */
+	static function postRequired($val, $msg = null) {
+		$value = Utils::post($val);
+		if (is_null($value))
+			Utils::error(400, is_null($msg) ? "Missing POST parameter $val" : $msg);
+		return $value;
+	}
+
+	/**
 	 * @param string|null $mod
 	 * @param bool $display_errors
 	 * @return mixed
 	 */
 	static function loadModule($mod = null, $display_errors = false) {
 		if (is_null($mod))
-			$mod = self::get("module");
+			$mod = self::get("modules");
 
 		if (is_null($mod) || !array_key_exists($mod, self::$modules))
 			self::error(404, "Module not found");
 
 		$mod_class = self::$modules[$mod];
-		include_once "module/mod_$mod/$mod_class.php";
+		include_once "modules/mod_$mod/$mod_class.php";
 		self::initConnection($display_errors);
 		return new $mod_class();
 	}
