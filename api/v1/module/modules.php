@@ -1,2 +1,2 @@
 <?php
-Utils::$modules["error"] = "ErrorModule";
+Utils::$modules["entities"] = "EntitiesModule";

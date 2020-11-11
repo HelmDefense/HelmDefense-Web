@@ -6,19 +6,16 @@ class EntitiesView {
 		$json = array();
 
 		foreach ($list as $value)
-			$json[] = $value{"id"};
+			$json[] = $value->id;
 
 		echo json_encode($json);
 	}
 
 	public function get($info) {
-		echo json_encode($info);
+		echo json_encode($info, JSON_NUMERIC_CHECK);
 	}
 
-
-	public function test($users) {
-		foreach ($users as $user) {
-			echo "<p>${user["name"]} : ${user["description"]}</p>";
-		}
+	public function stat($stat) {
+		echo $stat;
 	}
 }

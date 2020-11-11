@@ -12,22 +12,15 @@ class EntitiesController {
 		$this->view = new EntitiesView();
 	}
 
-	public function list(){
+	public function list() {
         $this->view->list($this->model->list());
     }
 
-    public function get($id){
+    public function get($id) {
 	    $this->view->get($this->model->get($id));
     }
 
-    public function stat(){
-
+    public function stat($id, $stat) {
+	    $this->view->stat($this->model->stat($id, $stat));
     }
-
-
-
-
-	public function test() {
-		$this->view->test($this->model->test());
-	}
 }

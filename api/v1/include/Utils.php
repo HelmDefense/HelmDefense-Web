@@ -1,5 +1,6 @@
 <?php
 include_once "check_include.php";
+include_once "module/modules.php";
 include_once "Connection.php";
 
 class Utils {

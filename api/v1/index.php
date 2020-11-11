@@ -7,7 +7,8 @@ $mod = Utils::get("module");
 
 if (is_null($mod))
     Utils::error(400, "No request specified");
-else if ($mod == "error")
-	Utils::error(intval(Utils::get("code", "404")), Utils::get("msg", "Not found"));
-else
-    $module = Utils::loadModule($mod, true);
+
+if ($mod == "error")
+	Utils::error(intval(Utils::get("code", "400")), Utils::get("msg", "No information available"));
+
+$module = Utils::loadModule($mod, true);
