@@ -39,7 +39,7 @@ abstract class Controller {
 
 	/**
 	 * Get the module page title
-	 * @return mixed Page title
+	 * @return string Page title
 	 */
 	public abstract function getTitle();
 }
