@@ -27,7 +27,19 @@ abstract class Controller {
 	 * Get the module output
 	 * @return string The module output
 	 */
-	public function getViewDisplay() {
+	public function getBody() {
 		return $this->view->display();
 	}
+
+	/**
+	 * Get the module additional head elements
+	 * @return string Additional elements to be added to &lt;head&gt;
+	 */
+	public abstract function getHead();
+
+	/**
+	 * Get the module page title
+	 * @return mixed Page title
+	 */
+	public abstract function getTitle();
 }
