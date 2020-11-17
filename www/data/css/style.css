@@ -1,0 +1,30 @@
+@font-face {
+	font-family: "Ringbearer";
+	src: url("/data/fonts/ringbearer/ringbearer.ttf") format("truetype");
+}
+
+html {
+	--bg-color: #8e010f;
+	--fg-color: #444444;
+
+	--bg-color-r: 142;
+	--bg-color-g: 1;
+	--bg-color-b: 15;
+
+	--fg-color-r: 68;
+	--fg-color-g: 68;
+	--fg-color-b: 68;
+
+	--font-title: "Ringbearer", "Montserrat", sans-serif;
+	--font-body: "Montserrat", sans-serif;
+}
+
+body {
+	background-color: var(--bg-color);
+	font-family: var(--font-body);
+}
+
+h1 {
+	font-family: var(--font-title);
+	font-size: 60px;
+}
