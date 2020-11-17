@@ -23,9 +23,11 @@ abstract class Module {
 	 */
 	public function run() {
 		$this->execute();
+
 		$output = new stdClass();
-		$output->title = "";
-		$output->body = $this->controller->getViewDisplay();
+		$output->head = $this->controller->getHead();
+		$output->title = $this->controller->getTitle();
+		$output->body = $this->controller->getBody();
 		return $output;
 	}
 
