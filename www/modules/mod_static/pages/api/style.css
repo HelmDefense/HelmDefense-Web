@@ -1,0 +1,45 @@
+body {
+    background-color: #8e010f;
+    color: white;
+    font-family: Montserrat;
+    font-size: 12px;
+}
+
+/*BODY*/
+
+#h1api {
+    padding-top: 70px;
+    text-align: center;
+    font-size: 60px;
+    font-family: Ringbearer;
+}
+.defaultSec {
+    display: inline-block;
+    width: 350px;
+    weight: 150px;
+}
+
+#section1 {
+    padding-left: 100px;
+    float: left;
+}
+
+#section2 {
+    padding-left: 135px;
+    padding-right: 100px;
+}
+
+#section3 {
+    padding-right: 100px;
+    float: right;
+}
+
+#link {
+    padding-top: 50px;
+    text-align: center;
+    font-weight: bold;
+}
+
+a {
+    color: white;
+}
