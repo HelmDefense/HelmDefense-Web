@@ -166,7 +166,7 @@ class Utils {
 	 */
 	static function loadModule($mod = null, $display_errors = false) {
 		if (is_null($mod))
-			$mod = self::get("modules");
+			$mod = self::get("module");
 
 		if (is_null($mod) || !array_key_exists($mod, self::$modules))
 			self::error(404, "Module not found");
@@ -214,6 +214,7 @@ class Utils {
 		if (!array_key_exists($code, self::$response_status))
 			$code = 500;
 
+		header("Content-Type: application/json");
 		http_response_code($code);
 		echo json_encode(array(
 				"code" => $code,
