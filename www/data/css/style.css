@@ -22,9 +22,51 @@ html {
 body {
 	background-color: var(--bg-color);
 	font-family: var(--font-body);
+	font-size: 18px;
+	color: white;
+	padding-top: 100px;
 }
 
-h1 {
+header {
+	display: flex;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100px;
+	width: 100%;
+	background-color: var(--fg-color);
+	box-shadow: rgba(0, 0, 0, 0.16) 0 20px 20px;
+}
+
+#main-logo {
+	margin-left: 80px;
+}
+
+#main-logo img {
+	margin: 20px;
+	height: 60px;
+}
+
+#main-logo h1 {
+	font-family: var(--font-title);
+	font-size: 32px;
+	margin: 0 10px;
+}
+
+#main-logo,
+#main-logo:hover {
+	text-decoration: inherit;
+	color: inherit;
+}
+
+h2 {
 	font-family: var(--font-title);
 	font-size: 60px;
+	text-align: center;
+}
+
+footer {
+	height: 100px;
+	background-color: var(--fg-color);
+	box-shadow: rgba(0, 0, 0, 0.16) 0 -20px 20px;
 }
