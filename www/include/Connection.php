@@ -36,8 +36,8 @@ class Connection {
 	 * @return array|null
 	 */
 	private static function get_dbconnect_info() {
-		$file = file_get_contents($_SERVER["DOCUMENT_ROOT"] . "/../.dbconnect");
-		if (!$file)
+		$file = Utils::file($_SERVER["DOCUMENT_ROOT"] . "/../.dbconnect");
+		if (is_null($file))
 			return null;
 
 		$file = str_replace("\r", "", $file);

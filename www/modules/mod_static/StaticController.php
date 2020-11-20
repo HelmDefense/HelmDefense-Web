@@ -17,7 +17,7 @@ class StaticController extends Controller {
 	 */
 	public function loadPage($page) {
 		if (!preg_match("/^[a-z_]+$/", $page) || !file_exists("modules/mod_static/pages/$page/index.php"))
-			Utils::error(404, "Page not found");
+			Utils::error(404, "Page \"$page\" introuvable", array("page" => $page));
 
 		$this->model->setPage("modules/mod_static/pages/$page");
 		$this->view->displayPage("modules/mod_static/pages/$page/index.php");
