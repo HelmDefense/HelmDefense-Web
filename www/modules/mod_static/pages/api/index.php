@@ -3,7 +3,7 @@
 <section id="section1" class="page-content container px-4">
     <div class="row">
         <article id="article1" class="col-12 col-md">
-            <h3 class="h3api">modules Users</h3>
+            <h3 class="h3api">route Users</h3>
             <p>
                 Les données des utilisateurs sont intégralement stockées dans une base de données accessible via cette API.
                 Un utilisateur est composé d'un identifiant (dans notre cas, votre login), d'un nom, d'un avatar personnalisé,
@@ -17,7 +17,7 @@
         </article>
 
         <article id="article2" class="col-12 col-md">
-            <h3 class="h3api">modules Levels</h3>
+            <h3 class="h3api">route Levels</h3>
             <p>
                 Les données des niveaux sont intégralement stockées dans une base de données accessible via cette API.
                 Les niveaux sont constitués d'un identifiant de niveau (défini à partir de son nom), d'un nom, d'une somme
@@ -32,7 +32,7 @@
         </article>
 
         <article id="article3" class="col-12 col-md">
-            <h3 class="h3api">modules Entities</h3>
+            <h3 class="h3api">route Entities</h3>
             <p>
                 Les données des entités sont intégralement stockées dans une base de données accessible via cette API.
                 Une entité est composée d'un identifiant (défini à partir de son nom), d'un nom d'entité, d'un type (attaquant
