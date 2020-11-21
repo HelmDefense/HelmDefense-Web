@@ -1,35 +1,35 @@
 body {
-    background-color: #8e010f;
+	background-color: #8e010f;
 }
 
 #required-legend{
-    text-align: center;
-    font-size: 1.2em;
+	text-align: center;
+	font-size: 1.2em;
 }
 
 #id-container,
 #email-container{
-    padding:  15px 25px;
+	padding:  15px 25px;
 }
 
 #objet-container{
-    padding: 15px 10px;
+	padding: 15px 10px;
 }
 
 #message-container{
-    padding: 15px 10px;
+	padding: 15px 10px;
 }
 
 #message{
-    min-height: 200px;
+	min-height: 200px;
 }
 
 #submit{
-    padding: 5px 75px;
-    font-family: var(--font-title);
-    font-size: 1.5em;
-    color: white;
-    background-color: var(--fg-color);
-    border: 5px solid white;
-    margin: 20px 10px 75px;
+	padding: 5px 75px;
+	font-family: var(--font-title);
+	font-size: 1.5em;
+	color: white;
+	background-color: var(--fg-color);
+	border: 5px solid white;
+	margin: 20px 10px 75px;
 }
