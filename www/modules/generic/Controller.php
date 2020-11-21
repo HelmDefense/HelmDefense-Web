@@ -33,13 +33,13 @@ abstract class Controller {
 
 	/**
 	 * Get the module additional head elements
-	 * @return string Additional elements to be added to &lt;head&gt;
+	 * @return string|null Additional elements to be added to &lt;head&gt;
 	 */
 	public abstract function getHead();
 
 	/**
 	 * Get the module page title
-	 * @return string Page title
+	 * @return string|null Page title
 	 */
 	public abstract function getTitle();
 }
