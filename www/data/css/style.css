@@ -36,6 +36,7 @@ header {
 	width: 100%;
 	background-color: var(--fg-color);
 	box-shadow: rgba(0, 0, 0, 0.16) 0 20px 20px;
+	z-index: 1;
 }
 
 #main-logo {
