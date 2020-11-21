@@ -46,7 +46,7 @@
 <div class="container w-100">
 	<div class="presentation row">
 		<div class="col-12 col-lg-6">
-			<img src="https://via.placeholder.com/400 " class="rounded" alt="...">
+			<img src="https://via.placeholder.com/400 " class="rounded" alt="..."/>
 		</div>
 		<div class="col-12 col-lg-6">
 			<h2 class="mt-lg-0">Présentation du jeu</h2>
