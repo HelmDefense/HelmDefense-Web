@@ -3,8 +3,6 @@ RewriteBase "/"
 RewriteRule "^index\.php" - [L,NC]
 RewriteRule "^data/" - [L,NC]
 
-RewriteRule "^modules/mod_static/pages/home/" - [L,NC]
-
 RewriteRule "^(wiki|user|forum|panel)(/([^/]+)(/([^/]+)(/(.+))?)?)?$" "index.php?section=$1&module=$3&action=$5&extra=$7" [L,NC]
 RewriteRule "^([^/]+)/?$" "index.php?module=static&page=$1" [L,NC]
 RewriteRule "^$" "index.php?module=static&page=home" [L,NC]

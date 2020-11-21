@@ -1,14 +1,40 @@
-.carousel-inner {
+.carousel-acceuil {
 	height: calc(100vh - 100px);
 	min-height: 400px;
-	background: #777;
-	color: white;
-	position: relative;
 }
-.item {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	padding-bottom: 50px;
+
+.carousel-acceuil .carousel-item {
+	height: 100%;
+	background-position: 50%;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.presentation {
+	margin: 150px 0 100px;
+}
+
+.presentation h2 {
+	margin: 50px 0;
+}
+
+.presentation p{
+	text-indent: 4rem;
+	text-align: justify;
+}
+
+.presentation img{
+	width: 100%;
+}
+
+.presentation div{
+	padding: 0 35px 0;
+}
+.carousel-item h2{
+	font-size: 60px;
+	width: 100%;
+}
+.carousel-item h1{
+	font-family: var(--font-title);
+	font-size: 100px;
+	width: 100%;
 }
