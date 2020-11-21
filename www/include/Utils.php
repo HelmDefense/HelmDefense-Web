@@ -10,7 +10,7 @@ class Utils {
 	private static $isConnectionInit = false;
 
 	/**
-	 * @var string[]
+	 * @var Mod[]
 	 */
 	public static $modules = array();
 
@@ -98,9 +98,10 @@ class Utils {
 
 	/**
 	 * @param string[] $vals
-	 * @return string[]
+	 * @param bool $stdClass
+	 * @return string[]|stdClass
 	 */
-	static function getMany($vals) {
+	static function getMany($vals, $stdClass = false) {
 		$values = array();
 		foreach ($vals as $val => $def) {
 			if (is_int($val))
@@ -108,7 +109,7 @@ class Utils {
 			else
 				$values[$val] = self::get($val, $def);
 		}
-		return $values;
+		return $stdClass ? Utils::toStdClass($values) : $values;
 	}
 
 	/**
@@ -119,7 +120,7 @@ class Utils {
 	static function getRequired($val, $msg = null) {
 		$value = Utils::get($val);
 		if (is_null($value))
-			Utils::error(400, is_null($msg) ? "Missing GET parameter $val" : $msg);
+			Utils::error(400, is_null($msg) ? "Valeur du paramètre GET requis \"$val\" manquante" : $msg);
 		return $value;
 	}
 
@@ -134,9 +135,10 @@ class Utils {
 
 	/**
 	 * @param string[] $vals
-	 * @return string[]
+	 * @param bool $stdClass
+	 * @return string[]|stdClass
 	 */
-	static function postMany($vals) {
+	static function postMany($vals, $stdClass = false) {
 		$values = array();
 		foreach ($vals as $val => $def) {
 			if (is_int($val))
@@ -144,7 +146,7 @@ class Utils {
 			else
 				$values[$val] = self::post($val, $def);
 		}
-		return $values;
+		return $stdClass ? Utils::toStdClass($values) : $values;
 	}
 
 	/**
@@ -155,7 +157,7 @@ class Utils {
 	static function postRequired($val, $msg = null) {
 		$value = Utils::post($val);
 		if (is_null($value))
-			Utils::error(400, is_null($msg) ? "Missing POST parameter $val" : $msg);
+			Utils::error(400, is_null($msg) ? "Valeur du paramètre POST requis \"$val\" manquante" : $msg);
 		return $value;
 	}
 
@@ -169,11 +171,13 @@ class Utils {
 			$mod = self::get("module");
 
 		if (is_null($mod) || !array_key_exists($mod, self::$modules))
-			self::error(404, "Module not found");
+			self::error(404, "Module \"$mod\" introuvable");
 
-		$mod_class = self::$modules[$mod];
+		$mod_infos = self::$modules[$mod];
+		$mod_class = $mod_infos->className();
 		include_once "modules/mod_$mod/$mod_class.php";
-		self::initConnection($display_errors);
+		if ($mod_infos->needsDatabase())
+			self::initConnection($display_errors);
 		return new $mod_class();
 	}
 
@@ -185,9 +189,10 @@ class Utils {
 			return;
 
 		if (!Connection::init($e)) {
+			$msg = "Erreur lors de la connexion à la base de données";
 			if ($display_errors)
-				echo "<pre>$e</pre>";
-			Utils::error(500, "Database connection error");
+				$msg .= "<pre class='text-white'>" . $e->getMessage() . "</pre>";
+			Utils::error(500, $msg);
 		}
 		self::$isConnectionInit = true;
 	}
@@ -196,7 +201,7 @@ class Utils {
 	 * @param array $array
 	 * @return stdClass
 	 */
-	function toStdClass($array) {
+	static function toStdClass($array) {
 		$object = new stdClass();
 		foreach ($array as $key => $value) {
 			if (is_array($value))
@@ -209,19 +214,26 @@ class Utils {
 	/**
 	 * @param int $code
 	 * @param string $msg
+	 * @param array $params
 	 */
-	static function error($code = 500, $msg = "No information available") {
+	static function error($code = 500, $msg = "Une erreur est survenue", $params = array()) {
 		if (!array_key_exists($code, self::$response_status))
 			$code = 500;
 
-		header("Content-Type: application/json");
+		if (array_key_exists("error", self::$modules)) {
+			array_splice($_GET, 0);
+			$_GET["module"] = "error";
+			$_GET["code"] = $code;
+			$_GET["status"] = self::$response_status[$code];
+			$_GET["msg"] = $msg;
+			foreach ($params as $key => $val)
+				$_GET[$key] = $val;
+			include "index.php";
+			die;
+		}
+
 		http_response_code($code);
-		echo json_encode(array(
-				"code" => $code,
-				"status" => self::$response_status[$code],
-				"msg" => $msg
-		));
-		die;
+		die("<pre>$code " . self::$response_status[$code] . ": $msg</pre>");
 	}
 
 	/**
@@ -235,7 +247,17 @@ class Utils {
 	static function executeRequest($bdd, $requete, $params = array(), $multiple = true, $fetch_style = PDO::FETCH_OBJ) {
 		$query = $bdd->prepare($requete);
 		if (!$query->execute($params))
-			Utils::error(500, "SQL request error");
+			Utils::error(500, "Erreur lors de l'exécution d'une requête SQL");
 		return $multiple ? $query->fetchAll($fetch_style) : $query->fetch($fetch_style);
+	}
+
+	/**
+	 * @param string $filename
+	 * @param string $start
+	 * @param string $end
+	 * @return string|null
+	 */
+	static function file($filename, $start = "", $end = "") {
+		return file_exists($filename) ? $start . file_get_contents($filename) . $end : null;
 	}
 }

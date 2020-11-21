@@ -1,10 +1,20 @@
+# Enable apache rewrite module
 RewriteEngine On
+
+# Set rewrite base to server root
 RewriteBase "/"
+
+# Don't rewrite request when pointing index.php to allow direct access
 RewriteRule "^index\.php" - [L,NC]
+
+# Don't rewrite request when pointing files located under data folder
+RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" -f
 RewriteRule "^data/" - [L,NC]
 
+# Global rewrite rules
 RewriteRule "^(wiki|user|forum|panel)(/([^/]+)(/([^/]+)(/(.+))?)?)?$" "index.php?section=$1&module=$3&action=$5&extra=$7" [L,NC]
 RewriteRule "^([^/]+)/?$" "index.php?module=static&page=$1" [L,NC]
 RewriteRule "^$" "index.php?module=static&page=home" [L,NC]
 
-RewriteRule "^(.*)$" "index.php?module=error&code=404&page=$1"
+# Default rewrite rule to 404 error
+RewriteRule "^(.*)$" "index.php?module=error&code=404&msg=L'adresse+\%22$1\%22+n'a+pas+été+trouvée&page=$1"

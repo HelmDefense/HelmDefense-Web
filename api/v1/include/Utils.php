@@ -196,7 +196,7 @@ class Utils {
 	 * @param array $array
 	 * @return stdClass
 	 */
-	function toStdClass($array) {
+	static function toStdClass($array) {
 		$object = new stdClass();
 		foreach ($array as $key => $value) {
 			if (is_array($value))
