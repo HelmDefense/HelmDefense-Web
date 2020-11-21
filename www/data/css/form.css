@@ -1,0 +1,54 @@
+.custom-input {
+    position: relative;
+    border: 5px solid var(--fg-color);
+    background-color: white;
+}
+
+.custom-input input,
+.custom-input textarea{
+    /* Technical part */
+    border: none;
+    outline: 0;
+    box-shadow: none;
+    background-color: transparent;
+    box-sizing: border-box;
+    padding: 1em .8ex .35em;
+    font-size: 1.1em; /* Prefer modifying the parent's font-size instead of this one */
+    width: 100%;
+
+    /* Customizable part */
+    color: var(--fg-color);
+}
+
+.custom-input label {
+    /* Technical part */
+    position: absolute;
+    top: calc(50% + .25ex);
+    left: .7em;
+    transform-origin: top left;
+    transform: scale(1.5) translateY(-50%);
+    font-size: .7em; /* Prefer modifying the parent's font-size instead of this one */
+    cursor: text;
+    transition: .25s;
+
+    /* Customizable part */
+    color: var(--fg-color);
+}
+
+/* Note that ":placeholder-shown" may not be supported by old browsers */
+.custom-input input:focus ~ label,
+.custom-input input:not(:placeholder-shown) ~ label,
+.custom-input textarea:focus ~ label,
+.custom-input textarea:not(:placeholder-shown) ~ label{
+    top: .25ex;
+    transform: none;
+}
+
+/* Mark required fields */
+#required-legend::before,
+.custom-input input:required ~ label::after,
+.custom-input textarea:required ~ label::after{
+    content: "*";
+    color: red;
+    margin: 0 .25em;
+}

@@ -1,4 +1,4 @@
-<h2 class="page-title">Mentions Légales</h2>
+<h2>Mentions Légales</h2>
 <div class="page-content container px-4">
     <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit amet risus congue sem euismod eleifend in eu erat. In hendrerit elit ac diam ullamcorper, id tincidunt nunc luctus. Phasellus ac justo eget magna efficitur rhoncus. Phasellus luctus justo in rutrum dignissim. Donec dignissim odio nunc, quis pretium arcu vulputate non. Sed mollis massa vel tempus efficitur. Duis sit amet dolor vitae dolor volutpat laoreet. Phasellus ante lacus, pharetra non eros in, feugiat iaculis sem. Curabitur mollis ac odio vel efficitur. Quisque tincidunt ligula eu massa egestas, at blandit odio viverra. Phasellus massa odio, luctus id laoreet eu, interdum a ipsum. Pellentesque iaculis dolor turpis, at iaculis nisl tincidunt at.
