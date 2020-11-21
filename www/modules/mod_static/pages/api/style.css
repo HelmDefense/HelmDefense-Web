@@ -1,0 +1,36 @@
+/*BODY*/
+
+#h2api {
+	margin: 80px 0 50px;
+}
+
+.h3api {
+	font-family: var(--font-title);
+	font-weight: bold;
+	text-align: center;
+}
+
+#article2 {
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+.page-content p {
+	text-align: justify;
+	text-indent: 4rem;
+}
+
+#link {
+	margin-top: 50px;
+	text-align: center;
+	font-weight: bold;
+	margin-bottom: 100px;
+}
+
+a {
+	color: white;
+}
+
+a:hover {
+	color: white;
+}
