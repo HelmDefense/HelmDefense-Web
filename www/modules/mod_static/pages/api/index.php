@@ -1,81 +1,53 @@
-<!DOCTYPE html>
-<html lang="fr">
-	<head>
-		<meta charset="utf-8">
-		<title>Documentation API</title>
-        <link rel="stylesheet" href="style.css">
-	</head>
-	<body>
-		<main>
-			<h1 id="h1api">API</h1>
+<h2 id="h2api">API</h2>
 
-			<section id="section1" class="defaultSec">
-				<article id="article1">
-                    <p>
-                        Quam quidem partem accusationis admiratus sum et moleste tuli potissimum esse Atratino datam.
-                        Neque enim decebat neque aetas illa postulabat neque, id quod animadvertere poteratis, pudor
-                        patiebatur optimi adulescentis in tali illum oratione versari. Vellem aliquis ex vobis robustioribus
-                        hunc male dicendi locum suscepisset; aliquanto liberius et fortius et magis more nostro refutaremus
-                        istam male dicendi licentiam. Tecum, Atratine, agam lenius, quod et pudor tuus moderatur orationi
-                        meae et meum erga te parentemque tuum beneficium tueri debeo.
-                    </p>
-                    <p>
-                        Quam quidem partem accusationis admiratus sum et moleste tuli potissimum esse Atratino datam.
-                        Neque enim decebat neque aetas illa postulabat neque, id quod animadvertere poteratis, pudor
-                        patiebatur optimi adulescentis in tali illum oratione versari. Vellem aliquis ex vobis robustioribus
-                        hunc male dicendi locum suscepisset; aliquanto liberius et fortius et magis more nostro refutaremus
-                        istam male dicendi licentiam. Tecum, Atratine, agam lenius, quod et pudor tuus moderatur orationi
-                        meae et meum erga te parentemque tuum beneficium tueri debeo.
-                    </p>
-				</article>
-			</section>
+<section id="section1" class="page-content container px-4">
+    <div class="row">
+        <article id="article1" class="col-12 col-md">
+            <h3 class="h3api">modules Users</h3>
+            <p>
+                Les données des utilisateurs sont intégralement stockées dans une base de données accessible via cette API.
+                Un utilisateur est composé d'un identifiant (dans notre cas, votre login), d'un nom, d'un avatar personnalisé,
+                d'une description d'utilisateur, d'une date de création et, pour les personnes influentes du site, des grades.
+            </p>
+            <p>
+                Vous pourrez personnaliser votre profil comme bon vous semble : un avatar à votre image, une description
+                impressionnante, pouvoir montrer à votre disciple à quel point vous êtes un doyen de cette communauté, et
+                même vous démarquer des autres utilisateurs si un grade vous est attribué contrairement au commun des mortels !
+            </p>
+        </article>
 
-			<section id="section2" class="defaultSec">
-				<article id="article2">
-                    <p>
-                        Quam quidem partem accusationis admiratus sum et moleste tuli potissimum esse Atratino datam.
-                        Neque enim decebat neque aetas illa postulabat neque, id quod animadvertere poteratis, pudor
-                        patiebatur optimi adulescentis in tali illum oratione versari. Vellem aliquis ex vobis robustioribus
-                        hunc male dicendi locum suscepisset; aliquanto liberius et fortius et magis more nostro refutaremus
-                        istam male dicendi licentiam. Tecum, Atratine, agam lenius, quod et pudor tuus moderatur orationi
-                        meae et meum erga te parentemque tuum beneficium tueri debeo.
-                    </p>
-                    <p>
-                        Quam quidem partem accusationis admiratus sum et moleste tuli potissimum esse Atratino datam.
-                        Neque enim decebat neque aetas illa postulabat neque, id quod animadvertere poteratis, pudor
-                        patiebatur optimi adulescentis in tali illum oratione versari. Vellem aliquis ex vobis robustioribus
-                        hunc male dicendi locum suscepisset; aliquanto liberius et fortius et magis more nostro refutaremus
-                        istam male dicendi licentiam. Tecum, Atratine, agam lenius, quod et pudor tuus moderatur orationi
-                        meae et meum erga te parentemque tuum beneficium tueri debeo.
-                    </p>
-				</article>
-			</section>
+        <article id="article2" class="col-12 col-md">
+            <h3 class="h3api">modules Levels</h3>
+            <p>
+                Les données des niveaux sont intégralement stockées dans une base de données accessible via cette API.
+                Les niveaux sont constitués d'un identifiant de niveau (défini à partir de son nom), d'un nom, d'une somme
+                de départ, d'un nombre de vies, d'une carte, d'un point d'apparition et un point de destination des attaquants,
+                de portes, et de vagues d'attaquants.
+            </p>
+            <p>
+                Grâce à ces données, construisez vos stratégies en observant le terrain et préparez vos unités en fonction
+                des ennemis prévus dans les différentes vagues. Des données indispensables pour n'importe quel stratège
+                cherchant à rouler sur ses adversaires et ainsi réussir son niveau sans perdre une seule unité !
+            </p>
+        </article>
 
-			<section id="section3" class="defaultSec">
-				<article id="article3">
-                    <p>
-                        Quam quidem partem accusationis admiratus sum et moleste tuli potissimum esse Atratino datam.
-                        Neque enim decebat neque aetas illa postulabat neque, id quod animadvertere poteratis, pudor
-                        patiebatur optimi adulescentis in tali illum oratione versari. Vellem aliquis ex vobis robustioribus
-                        hunc male dicendi locum suscepisset; aliquanto liberius et fortius et magis more nostro refutaremus
-                        istam male dicendi licentiam. Tecum, Atratine, agam lenius, quod et pudor tuus moderatur orationi
-                        meae et meum erga te parentemque tuum beneficium tueri debeo.
-                    </p>
-                    <p>
-                        Quam quidem partem accusationis admiratus sum et moleste tuli potissimum esse Atratino datam.
-                        Neque enim decebat neque aetas illa postulabat neque, id quod animadvertere poteratis, pudor
-                        patiebatur optimi adulescentis in tali illum oratione versari. Vellem aliquis ex vobis robustioribus
-                        hunc male dicendi locum suscepisset; aliquanto liberius et fortius et magis more nostro refutaremus
-                        istam male dicendi licentiam. Tecum, Atratine, agam lenius, quod et pudor tuus moderatur orationi
-                        meae et meum erga te parentemque tuum beneficium tueri debeo.
-                    </p>
-				</article>
-			</section>
+        <article id="article3" class="col-12 col-md">
+            <h3 class="h3api">modules Entities</h3>
+            <p>
+                Les données des entités sont intégralement stockées dans une base de données accessible via cette API.
+                Une entité est composée d'un identifiant (défini à partir de son nom), d'un nom d'entité, d'un type (attaquant
+                ou défenseur), d'une liste de capacités, d'une taille, et de statistiques par niveau d'amélioration.
+            </p>
+            <p>
+                Que ce soit les fiers protecteurs de la forteresse avec nos héros, ou les vils attaquants tentant de conquérir
+                ce gouffre avec les différents boss, tout est ici. Apprenez les puissances et les capacités de chacun pour vous
+                préparer au mieux à la bataille qui vous attend. Avec cela, les différentes unités n'auront plus aucun secret
+                pour vous !
+            </p>
+        </article>
+    </div>
+</section>
 
-            <div id="link">
-                <a href="www.youtube.com">helmdefense.fr</a>
-            </div>
-		</main>
-	</body>
-</html>
-
+<div id="link">
+    <a href="https://helmdefense.theoszanto.fr">helmdefense.fr</a>
+</div>

@@ -1,45 +1,36 @@
-body {
-    background-color: #8e010f;
-    color: white;
-    font-family: Montserrat;
-    font-size: 12px;
-}
-
 /*BODY*/
 
-#h1api {
-    padding-top: 70px;
-    text-align: center;
-    font-size: 60px;
+#h2api {
+    margin: 80px 0 50px;
+}
+
+.h3api {
     font-family: Ringbearer;
-}
-.defaultSec {
-    display: inline-block;
-    width: 350px;
-    weight: 150px;
+    font-weight: bold;
+    text-align: center;
 }
 
-#section1 {
-    padding-left: 100px;
-    float: left;
+#article2 {
+    padding-left: 50px;
+    padding-right: 50px;
 }
 
-#section2 {
-    padding-left: 135px;
-    padding-right: 100px;
-}
-
-#section3 {
-    padding-right: 100px;
-    float: right;
+.page-content p {
+    text-align: justify;
+    text-indent: 4rem;
 }
 
 #link {
-    padding-top: 50px;
+    margin-top: 50px;
     text-align: center;
     font-weight: bold;
+    margin-bottom: 100px;
 }
 
 a {
+    color: white;
+}
+
+a:hover {
     color: white;
 }
