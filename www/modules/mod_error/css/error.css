@@ -46,5 +46,6 @@
 }
 
 .error-btn:hover {
+	text-decoration: underline;
 	color: white;
 }
