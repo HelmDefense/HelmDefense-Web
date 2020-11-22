@@ -11,10 +11,6 @@ class HeaderController extends Controller {
 	}
 
 	public function generateHeader() {
-		$currentActiveNav = $this->model->currentActiveNav();
-		$loggedInUsername = $this->model->loggedInUsername();
-		$panelAccess = $this->model->panelAccess($loggedInUsername);
-
-		$this->view->generateHeader($currentActiveNav, $panelAccess, $loggedInUsername);
+		$this->view->generateHeader($this->model->currentActiveNav(), $this->model->loggedInUser());
 	}
 }
