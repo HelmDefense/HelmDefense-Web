@@ -17,40 +17,29 @@
 	margin: 50px 0;
 }
 
-.presentation p{
+.presentation p {
 	text-indent: 4rem;
 	text-align: justify;
 	font-size: 15px;
 }
 
-.presentation img{
+.presentation img {
 	width: 100%;
 }
 
-.presentation div{
+.presentation div {
 	padding: 0 35px 0;
 }
-.carousel-item h2{
+.carousel-item h2 {
 	font-size: 60px;
 	width: 100%;
 }
-.carousel-item p{
+.carousel-item p {
 	font-family: var(--font-title);
 	font-size: 100px;
 }
 
-.carousel-btn{
-	background-color: var(--bg-color);
-	font-family: var(--font-title);
+.carousel-btn {
 	font-size: 32px;
-	border-radius: 0;
-	border: 5px solid white;
-	color: white;
-	padding: 5px 75px;
 	margin-top: 35px;
-}
-
-.carousel-btn:hover{
-	text-decoration: underline;
-	color: white;
 }

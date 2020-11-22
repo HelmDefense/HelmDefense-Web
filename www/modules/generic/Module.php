@@ -1,7 +1,11 @@
 <?php
+namespace Module;
+
+use stdClass;
 
 /**
  * Generic module
+ * @package Module
  */
 abstract class Module {
 	/**
@@ -13,7 +17,7 @@ abstract class Module {
 	 * Create the module
 	 * @param Controller $controller
 	 */
-	public function __construct($controller) {
+	protected function __construct($controller) {
 		$this->controller = $controller;
 	}
 
@@ -21,7 +25,7 @@ abstract class Module {
 	 * Run the module and get output
 	 * @return stdClass The module output
 	 */
-	public function run() {
+	public final function run() {
 		$this->execute();
 
 		$output = new stdClass();
@@ -34,5 +38,5 @@ abstract class Module {
 	/**
 	 * Execute the module
 	 */
-	public abstract function execute();
+	protected abstract function execute();
 }

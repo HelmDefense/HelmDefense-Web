@@ -35,17 +35,6 @@
 }
 
 .error-btn {
-	background-color: var(--bg-color);
-	font-family: var(--font-title);
 	font-size: 32px;
-	border-radius: 0;
-	border: 5px solid white;
-	color: white;
-	padding: 5px 75px;
 	margin-top: 35px;
-}
-
-.error-btn:hover {
-	text-decoration: underline;
-	color: white;
 }

@@ -10,7 +10,7 @@
 				<div class="mx-auto box text-center">
 					<h2 class="col-12">bienvenue sur</h2>
 					<p class="col-12">Helm Denfense</p>
-					<a href="#" class="btn carousel-btn ">Téléchargement</a>
+					<a href="#" class="btn main-btn carousel-btn">Jouer maintenant</a>
 				</div>
 			</div>
 		</div>
@@ -19,7 +19,7 @@
 				<div class="mx-auto box text-center">
 					<h2 class="col-12">consultez</h2>
 					<p class="col-12">le Wiki</p>
-					<a href="#" class="btn carousel-btn ">Wiki</a>
+					<a href="#" class="btn main-btn carousel-btn">Wiki</a>
 				</div>
 			</div>
 		</div>
@@ -28,7 +28,7 @@
 				<div class="mx-auto box text-center">
 					<h2 class="col-12">échangez sur</h2>
 					<p class="col-12">le Forum</p>
-					<a href="#" class="btn carousel-btn ">Forum</a>
+					<a href="#" class="btn main-btn carousel-btn">Forum</a>
 				</div>
 			</div>
 		</div>

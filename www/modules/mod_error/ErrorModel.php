@@ -1,4 +1,6 @@
 <?php
+namespace Module;
+
 include_once "modules/generic/Model.php";
 
 class ErrorModel extends Model {

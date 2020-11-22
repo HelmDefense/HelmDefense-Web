@@ -1,10 +1,10 @@
 <?php
-namespace Module;
+namespace Component;
 
 use Connection;
 
 /**
- * Generic model
- * @package Module
+ * Generic component model
+ * @package Component
  */
 abstract class Model extends Connection {}

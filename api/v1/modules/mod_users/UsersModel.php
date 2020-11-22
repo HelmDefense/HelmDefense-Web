@@ -6,6 +6,9 @@ class UsersModel extends Connection {
 	public function get($id) {
 		$user = Utils::executeRequest(self::$bdd, "SELECT login, `name`, avatar, description, joined_at, ranks FROM hd_user_users WHERE login = :id", array("id" => $id), false);
 
+		if (!$user)
+			Utils::error(404, "User not found");
+
 		$ranks = $user->ranks;
 		$user->ranks = array();
 		if ($ranks & 0x01)
@@ -21,7 +24,12 @@ class UsersModel extends Connection {
 	}
 
 	public function auth($id, $passwd) {
-		$hash = Utils::executeRequest(self::$bdd, "SELECT password FROM hd_user_users WHERE login = :id", array("id" => $id), false)->password;
+		$user = Utils::executeRequest(self::$bdd, "SELECT password FROM hd_user_users WHERE login = :id", array("id" => $id), false);
+
+		if (!$user)
+			Utils::error(404, "User not found");
+
+		$hash = $user->password;
 		return password_verify($passwd, $hash);
 	}
 }
