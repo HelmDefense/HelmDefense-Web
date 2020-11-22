@@ -1,4 +1,8 @@
 <?php
+namespace Module;
+
+use Utils;
+
 include_once "modules/generic/Model.php";
 
 class StaticModel extends Model {
@@ -19,7 +23,7 @@ class StaticModel extends Model {
 	 * @return string|null The page style or null if style.css file is absent
 	 */
 	public function getStyle() {
-		return file_exists("$this->page/style.css") ? file_get_contents("$this->page/style.css") : null;
+		return Utils::file("$this->page/style.css");
 	}
 
 	/**
@@ -35,6 +39,6 @@ class StaticModel extends Model {
 	 * @return string|null The page name or null if name file is absent
 	 */
 	public function getName() {
-		return file_exists("$this->page/name") ? file_get_contents("$this->page/name") : null;
+		return Utils::file("$this->page/name");
 	}
 }

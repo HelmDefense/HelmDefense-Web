@@ -1,6 +1,7 @@
 <?php
 include_once "check_include.php";
 include_once "modules/modules.php";
+include_once "components/components.php";
 include_once "Connection.php";
 
 class Utils {
@@ -13,6 +14,11 @@ class Utils {
 	 * @var Mod[]
 	 */
 	public static $modules = array();
+
+	/**
+	 * @var Comp[]
+	 */
+	public static $components = array();
 
 	/**
 	 * @var string[]
@@ -109,7 +115,7 @@ class Utils {
 			else
 				$values[$val] = self::get($val, $def);
 		}
-		return $stdClass ? Utils::toStdClass($values) : $values;
+		return $stdClass ? self::toStdClass($values) : $values;
 	}
 
 	/**
@@ -118,9 +124,9 @@ class Utils {
 	 * @return string
 	 */
 	static function getRequired($val, $msg = null) {
-		$value = Utils::get($val);
+		$value = self::get($val);
 		if (is_null($value))
-			Utils::error(400, is_null($msg) ? "Valeur du paramètre GET requis \"$val\" manquante" : $msg);
+			self::error(400, is_null($msg) ? "Valeur du paramètre GET requis \"$val\" manquante" : $msg);
 		return $value;
 	}
 
@@ -146,7 +152,7 @@ class Utils {
 			else
 				$values[$val] = self::post($val, $def);
 		}
-		return $stdClass ? Utils::toStdClass($values) : $values;
+		return $stdClass ? self::toStdClass($values) : $values;
 	}
 
 	/**
@@ -155,30 +161,54 @@ class Utils {
 	 * @return string
 	 */
 	static function postRequired($val, $msg = null) {
-		$value = Utils::post($val);
+		$value = self::post($val);
 		if (is_null($value))
-			Utils::error(400, is_null($msg) ? "Valeur du paramètre POST requis \"$val\" manquante" : $msg);
+			self::error(400, is_null($msg) ? "Valeur du paramètre POST requis \"$val\" manquante" : $msg);
 		return $value;
 	}
 
 	/**
-	 * @param string|null $mod
+	 * @param string|null $mod_name
 	 * @param bool $display_errors
-	 * @return Module
+	 * @return \Module\Module
 	 */
-	static function loadModule($mod = null, $display_errors = false) {
-		if (is_null($mod))
-			$mod = self::get("module");
+	static function loadModule($mod_name = null, $display_errors = false) {
+		if (is_null($mod_name)) {
+			$mod_name = self::getRequired("module");
+			$section = self::get("section");
+			if (!is_null($section))
+				$mod_name = "$section/$mod_name";
+		}
 
-		if (is_null($mod) || !array_key_exists($mod, self::$modules))
-			self::error(404, "Module \"$mod\" introuvable");
+		if (!array_key_exists($mod_name, self::$modules))
+			self::error(404, "Module \"$mod_name\" introuvable");
 
-		$mod_infos = self::$modules[$mod];
-		$mod_class = $mod_infos->className();
-		include_once "modules/mod_$mod/$mod_class.php";
-		if ($mod_infos->needsDatabase())
+		$mod = self::$modules[$mod_name];
+		$mod_class = $mod->className();
+		$mod_section = $mod->isGlobal() ? "" : $mod->getSection() . "/";
+		include_once "modules/${mod_section}mod_$mod_name/$mod_class.php";
+		if ($mod->needsDatabase())
 			self::initConnection($display_errors);
-		return new $mod_class();
+		$full_mod_class = "\\Module\\$mod_class";
+		return new $full_mod_class();
+	}
+
+	/**
+	 * @param string $com_name
+	 * @param bool $display_errors
+	 * @return \Component\Component
+	 */
+	static function loadComponent($com_name, $display_errors = false) {
+		if (!array_key_exists($com_name, self::$components))
+			self::error(404, "Composant \"$com_name\" introuvable");
+
+		$com = self::$components[$com_name];
+		$com_class = $com->className();
+		include_once "components/com_$com_name/$com_class.php";
+		if ($com->needsDatabase())
+			self::initConnection($display_errors);
+		$full_com_class = "\\Component\\$com_class";
+		return new $full_com_class();
 	}
 
 	/**
@@ -192,7 +222,7 @@ class Utils {
 			$msg = "Erreur lors de la connexion à la base de données";
 			if ($display_errors)
 				$msg .= "<pre class='text-white'>" . $e->getMessage() . "</pre>";
-			Utils::error(500, $msg);
+			self::error(500, $msg);
 		}
 		self::$isConnectionInit = true;
 	}
@@ -205,7 +235,7 @@ class Utils {
 		$object = new stdClass();
 		foreach ($array as $key => $value) {
 			if (is_array($value))
-				$value = Utils::toStdClass($value);
+				$value = self::toStdClass($value);
 			$object->$key = $value;
 		}
 		return $object;
@@ -247,7 +277,7 @@ class Utils {
 	static function executeRequest($bdd, $requete, $params = array(), $multiple = true, $fetch_style = PDO::FETCH_OBJ) {
 		$query = $bdd->prepare($requete);
 		if (!$query->execute($params))
-			Utils::error(500, "Erreur lors de l'exécution d'une requête SQL");
+			self::error(500, "Erreur lors de l'exécution d'une requête SQL");
 		return $multiple ? $query->fetchAll($fetch_style) : $query->fetch($fetch_style);
 	}
 

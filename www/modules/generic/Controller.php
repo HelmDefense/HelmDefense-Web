@@ -1,7 +1,9 @@
 <?php
+namespace Module;
 
 /**
  * Generic controller
+ * @package Module
  */
 abstract class Controller {
 	/**
@@ -9,7 +11,7 @@ abstract class Controller {
 	 */
 	protected $model;
 	/**
-	 * @var View Model view
+	 * @var View Module view
 	 */
 	protected $view;
 
@@ -18,7 +20,7 @@ abstract class Controller {
 	 * @param Model $model
 	 * @param View $view
 	 */
-	public function __construct($model, $view) {
+	protected function __construct($model, $view) {
 		$this->model = $model;
 		$this->view = $view;
 	}
@@ -27,7 +29,7 @@ abstract class Controller {
 	 * Get the module output
 	 * @return string The module output
 	 */
-	public function getBody() {
+	public final function getBody() {
 		return $this->view->display();
 	}
 

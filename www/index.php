@@ -5,6 +5,12 @@ include_once "include/Utils.php";
 
 $module = Utils::loadModule();
 $output = $module->run();
+
+$header = Utils::loadComponent("header");
+$header->generateRender();
+
+$footer = Utils::loadComponent("footer");
+$footer->generateRender();
 ?>
 
 <!doctype html>
@@ -25,19 +31,12 @@ $output = $module->run();
 		<title><?php if (!is_null($output->title)) echo "$output->title - "; ?>Helm Defense</title>
 	</head>
 	<body>
-		<header>
-			<a id="main-logo" class="d-flex align-items-center" href="/">
-				<img src="/data/img/logo.png" alt="" />
-				<h1>Helm Defense</h1>
-			</a>
-		</header>
+		<?php $header->display(); ?>
 
 		<main>
-			<?php echo $output->body; ?>
+			<?= $output->body ?>
 		</main>
 
-		<footer>
-
-		</footer>
+		<?php $footer->display(); ?>
 	</body>
 </html>

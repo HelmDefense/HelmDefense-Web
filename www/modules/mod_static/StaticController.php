@@ -1,4 +1,8 @@
 <?php
+namespace Module;
+
+use Utils;
+
 include_once "modules/generic/Controller.php";
 include_once "StaticModel.php";
 include_once "StaticView.php";
