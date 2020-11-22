@@ -1,6 +1,7 @@
 <?php
-Utils::$modules["static"] = new Mod("StaticModule", false);
-Utils::$modules["error"] = new Mod("ErrorModule", false);
+Utils::$modules["static"] = new Mod("StaticModule");
+Utils::$modules["error"] = new Mod("ErrorModule");
+//Utils::$modules["wiki/page"] = new Mod("WikiPageModule", true, "wiki");
 
 class Mod {
 	/**
@@ -11,14 +12,20 @@ class Mod {
 	 * @var bool
 	 */
 	private $db;
+	/**
+	 * @var string|null
+	 */
+	private $section;
 
 	/**
 	 * @param string $class
 	 * @param bool $db
+	 * @param string|null $section
 	 */
-	public function __construct($class, $db) {
+	public function __construct($class, $db = false, $section = null) {
 		$this->class = $class;
 		$this->db = $db;
+		$this->section = $section;
 	}
 
 	/**
@@ -33,5 +40,19 @@ class Mod {
 	 */
 	public function needsDatabase() {
 		return $this->db;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isGlobal() {
+		return is_null($this->section);
+	}
+
+	/**
+	 * @return string|null
+	 */
+	public function getSection() {
+		return $this->section;
 	}
 }

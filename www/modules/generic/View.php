@@ -1,7 +1,9 @@
 <?php
+namespace Module;
 
 /**
  * Generic view
+ * @package Module
  */
 abstract class View {
 	/**
@@ -12,7 +14,7 @@ abstract class View {
 	/**
 	 * Create view and start output buffering
 	 */
-	public function __construct() {
+	public final function __construct() {
 		ob_start();
 	}
 
@@ -20,7 +22,7 @@ abstract class View {
 	 * End output buffering and return buffer content
 	 * @return string The buffer content
 	 */
-	public function display() {
+	public final function display() {
 		if (!($buffer = ob_get_clean()))
 			return $this->buffer;
 		return $this->buffer = $buffer;

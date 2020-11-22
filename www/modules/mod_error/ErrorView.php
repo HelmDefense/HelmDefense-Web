@@ -1,4 +1,8 @@
 <?php
+namespace Module;
+
+use Utils;
+
 include_once "modules/generic/View.php";
 
 class ErrorView extends View {
@@ -21,7 +25,7 @@ class ErrorView extends View {
 							<p><?= $msg ?></p>
 							<?php if (!is_null($additional)) echo "<p>$additional</p>"; ?>
 						</div>
-						<a class="btn error-btn" href="/">Retour à l'accueil</a>
+						<a class="btn main-btn error-btn" href="/">Retour à l'accueil</a>
 					</div>
 				</div>
 			</div>
