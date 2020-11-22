@@ -13,7 +13,7 @@ class HeaderModel extends Model {
 	}
 
 	public function panelAccess($username) {
-		$user = json_decode(file_get_contents("http://helmdefense-api/v1/users/$username", false, stream_context_create(array(
+		$user = json_decode(file_get_contents("https://api.helmdefense.theoszanto.fr/v1/users/$username", false, stream_context_create(array(
 				"http" => array(
 						"ignore_errors" => true
 				)
