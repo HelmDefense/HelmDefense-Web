@@ -18,7 +18,7 @@ class HeaderModel extends Model {
 			return null;
 
 		$user = json_decode(file_get_contents("https://api.helmdefense.theoszanto.fr/v1/users/$loggedInUser", false, stream_context_create(array("http" => array("ignore_errors" => true)))));
-		$user->avatar = "http://helmdefense/data/img/avatar/indyteo.png";
+		$user->avatar = "https://helmdefense.theoszanto.fr/data/img/avatar/indyteo.png";
 		return property_exists($user, "id") ? $user : null;
 	}
 }
