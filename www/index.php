@@ -3,6 +3,21 @@ if (!defined("CHECK_INCLUDE"))
 	define("CHECK_INCLUDE", NULL);
 include_once "include/Utils.php";
 
+if (session_status() !== PHP_SESSION_ACTIVE)
+	session_start(array("cookie_lifetime" => 86400));
+
+if (Utils::get("section") == "user" && Utils::get("module") == "login") {
+	$_SESSION["login"] = "indyteo";
+	header("Location: /");
+	exit;
+}
+
+if (Utils::get("section") == "user" && Utils::get("module") == "logout") {
+	unset($_SESSION["login"]);
+	header("Location: /");
+	exit;
+}
+
 $module = Utils::loadModule();
 $output = $module->run();
 
@@ -25,7 +40,9 @@ $footer->generateRender();
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 		<link rel="preconnect" href="https://fonts.gstatic.com" />
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 		<link rel="stylesheet" href="/data/css/style.css" />
+		<link rel="stylesheet" href="/data/css/nav.css" />
 		<link rel="icon" href="/data/img/icon.png" />
 		<?php if (!is_null($output->head)) echo $output->head; ?>
 		<title><?php if (!is_null($output->title)) echo "$output->title - "; ?>Helm Defense</title>

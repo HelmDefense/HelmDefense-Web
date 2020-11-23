@@ -18,7 +18,7 @@ class ErrorView extends View {
 			<div class="container-fluid d-flex align-items-center page-background" style="background-image: url('/data/img/<?= $background ?>-background.jpg')">
 				<div class="container box page-content">
 					<div class="col-md-10 mx-auto">
-						<h2>Erreur <span class="error-code"><?= $code ?></span></h2>
+						<h2 class="page-title">Erreur <span class="error-code"><?= $code ?></span></h2>
 						<p class="error-status"><?= $status ?></p>
 						<p class="error-text"><?= $text ?></p>
 						<div class="error-info">

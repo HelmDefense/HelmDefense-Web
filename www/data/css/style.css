@@ -38,6 +38,7 @@ header {
 	background-color: var(--fg-color);
 	box-shadow: rgba(0, 0, 0, 0.16) 0 20px 20px;
 	z-index: 50;
+	padding-right: 100px;
 }
 
 #main-logo {
@@ -64,7 +65,7 @@ header {
 .download-btn {
 	font-size: 24px;
 	padding: 5px 10px !important;
-	margin-right: 100px;
+	margin-left: 15px;
 }
 
 h2 {

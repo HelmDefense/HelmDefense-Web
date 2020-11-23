@@ -11,13 +11,13 @@ class UsersModel extends Connection {
 
 		$ranks = $user->ranks;
 		$user->ranks = array();
-		if ($ranks & 0x01)
+		if ($ranks & 0b0001)
 			$user->ranks[] = "administrator";
-		if ($ranks & 0x02)
+		if ($ranks & 0b0010)
 			$user->ranks[] = "developer";
-		if ($ranks & 0x03)
+		if ($ranks & 0b0100)
 			$user->ranks[] = "moderator";
-		if ($ranks & 0x04)
+		if ($ranks & 0b1000)
 			$user->ranks[] = "redactor";
 
 		return $user;
