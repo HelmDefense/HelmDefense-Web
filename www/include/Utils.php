@@ -94,12 +94,52 @@ class Utils {
 	);
 
 	/**
+	 * @param array $arr
+	 * @param mixed $val
+	 * @param mixed|null $def
+	 * @return mixed|null
+	 */
+	static function arr($arr, $val, $def = null) {
+		return isset($arr[$val]) ? $arr[$val] : $def;
+	}
+
+	/**
+	 * @param array $arr
+	 * @param mixed[] $vals
+	 * @param bool $stdClass
+	 * @return mixed[]|stdClass
+	 */
+	static function arrMany($arr, $vals, $stdClass = false) {
+		$values = array();
+		foreach ($vals as $val => $def) {
+			if (is_int($val))
+				$values[$def] = self::arr($arr, $def);
+			else
+				$values[$val] = self::arr($arr, $val, $def);
+		}
+		return $stdClass ? self::toStdClass($values) : $values;
+	}
+
+	/**
+	 * @param array $arr
+	 * @param mixed $val
+	 * @param string|null $msg
+	 * @return mixed
+	 */
+	static function arrRequired($arr, $val, $msg = null) {
+		$value = self::arr($arr, $val);
+		if (is_null($value))
+			self::error(400, is_null($msg) ? "Valeur requise \"$val\" manquante" : $msg);
+		return $value;
+	}
+
+	/**
 	 * @param string $val
 	 * @param string|null $def
 	 * @return string|null
 	 */
 	static function get($val, $def = null) {
-		return isset($_GET[$val]) ? $_GET[$val] : $def;
+		return self::arr($_GET, $val, $def);
 	}
 
 	/**
@@ -108,14 +148,7 @@ class Utils {
 	 * @return string[]|stdClass
 	 */
 	static function getMany($vals, $stdClass = false) {
-		$values = array();
-		foreach ($vals as $val => $def) {
-			if (is_int($val))
-				$values[$def] = self::get($def);
-			else
-				$values[$val] = self::get($val, $def);
-		}
-		return $stdClass ? self::toStdClass($values) : $values;
+		return self::arrMany($_GET, $vals, $stdClass);
 	}
 
 	/**
@@ -124,10 +157,7 @@ class Utils {
 	 * @return string
 	 */
 	static function getRequired($val, $msg = null) {
-		$value = self::get($val);
-		if (is_null($value))
-			self::error(400, is_null($msg) ? "Valeur du paramètre GET requis \"$val\" manquante" : $msg);
-		return $value;
+		return self::arrRequired($_GET, $val, is_null($msg) ? "Valeur du paramètre GET requis \"$val\" manquante" : $msg);
 	}
 
 	/**
@@ -136,7 +166,7 @@ class Utils {
 	 * @return string|null
 	 */
 	static function post($val, $def = null) {
-		return isset($_POST[$val]) ? $_POST[$val] : $def;
+		return self::arr($_POST, $val, $def);
 	}
 
 	/**
@@ -145,14 +175,7 @@ class Utils {
 	 * @return string[]|stdClass
 	 */
 	static function postMany($vals, $stdClass = false) {
-		$values = array();
-		foreach ($vals as $val => $def) {
-			if (is_int($val))
-				$values[$def] = self::post($def);
-			else
-				$values[$val] = self::post($val, $def);
-		}
-		return $stdClass ? self::toStdClass($values) : $values;
+		return self::arrMany($_POST, $vals, $stdClass);
 	}
 
 	/**
@@ -161,10 +184,34 @@ class Utils {
 	 * @return string
 	 */
 	static function postRequired($val, $msg = null) {
-		$value = self::post($val);
-		if (is_null($value))
-			self::error(400, is_null($msg) ? "Valeur du paramètre POST requis \"$val\" manquante" : $msg);
-		return $value;
+		return self::arrRequired($_POST, $val, is_null($msg) ? "Valeur du paramètre POST requis \"$val\" manquante" : $msg);
+	}
+
+	/**
+	 * @param string $val
+	 * @param string|null $def
+	 * @return string|null
+	 */
+	static function session($val, $def = null) {
+		return self::arr($_SESSION, $val, $def);
+	}
+
+	/**
+	 * @param string[] $vals
+	 * @param bool $stdClass
+	 * @return string[]|stdClass
+	 */
+	static function sessionMany($vals, $stdClass = false) {
+		return self::arrMany($_SESSION, $vals, $stdClass);
+	}
+
+	/**
+	 * @param string $val
+	 * @param string|null $msg
+	 * @return string
+	 */
+	static function sessionRequired($val, $msg = null) {
+		return self::arrRequired($_SESSION, $val, is_null($msg) ? "Valeur de la variable de session requise \"$val\" manquante" : $msg);
 	}
 
 	/**
