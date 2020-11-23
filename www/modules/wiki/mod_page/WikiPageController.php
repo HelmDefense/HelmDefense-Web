@@ -1,8 +1,6 @@
 <?php
 namespace Module;
 
-use Utils;
-
 include_once "WikiPageModel.php";
 include_once "WikiPageView.php";
 include_once "modules/generic/Controller.php";
@@ -19,17 +17,29 @@ class WikiPageController extends Controller {
 	 * @inheritDoc
 	 */
 	public function getHead() {
-		return $this->view->getHead($this->model->getHeadFilename(), $this->model->getStyle());
+		return null;
 	}
 
 	/**
 	 * @inheritDoc
 	 */
 	public function getTitle() {
-		return $this->model->getName();
+		return "Wiki";
 	}
 
-	public function entityPage(){
+	public function page() {
+
+	}
+
+	public function homePage() {
+
+	}
+
+	public function entityPage() {
+
+	}
+
+	public function levelPage() {
 
 	}
 }
