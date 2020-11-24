@@ -4,7 +4,7 @@ namespace Module;
 use Connection;
 
 /**
- * Generic model
+ * Generic module model
  * @package Module
  */
 abstract class Model extends Connection {}

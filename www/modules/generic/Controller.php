@@ -2,7 +2,7 @@
 namespace Module;
 
 /**
- * Generic controller
+ * Generic module controller
  * @package Module
  */
 abstract class Controller {
