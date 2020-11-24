@@ -1,7 +1,7 @@
 <?php
 Utils::$modules["static"] = new Mod("static", "StaticModule");
 Utils::$modules["error"] = new Mod("error", "ErrorModule");
-Utils::$modules["wiki/"] = //new Mod("home", "WikiHomeModule", true, "wiki"); // Thanks to the comment, the default wiki module is wiki/page
+Utils::$modules["wiki/"] = Utils::$modules["wiki/entity"] = Utils::$modules["wiki/level"] = new Mod("home", "WikiHomeModule", true, "wiki"); // Thanks to the comment, the default wiki module is wiki/page
 Utils::$modules["wiki/page"] = new Mod("page", "WikiPageModule", true, "wiki");
 
 class Mod {
