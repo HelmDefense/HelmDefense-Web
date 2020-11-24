@@ -1,6 +1,7 @@
 <?php
 Utils::$components["header"] = new Comp("HeaderComponent");
 Utils::$components["footer"] = new Comp("FooterComponent");
+Utils::$components["markdowntext"] = new Comp("MarkDownTextComponent");
 
 class Comp {
 	/**
