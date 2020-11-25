@@ -6,20 +6,31 @@ include_once "WikiHomeView.php";
 include_once "modules/generic/Controller.php";
 
 class WikiHomeController extends Controller {
-	private $title;
-
+	/**
+	 * @inheritDoc
+	 */
 	public function __construct() {
 		parent::__construct(new WikiHomeModel(), new WikiHomeView());
+		$this->setTitle(null);
 	}
 
 	public function pageList($type) {
-		$this->title = $type == "entity" ? "Entités" : "Niveaux";
-		echo "$type";
+		if ($type == "entity") {
+			$this->setTitle("Entités");
+
+		} else {
+			$this->setTitle("Niveaux");
+
+		}
 	}
 
 	public function home() {
-		$this->title = null;
-		$this->view->homePage($this->model->recentPages(), $this->model->entities(), $this->model->levels());
+		$this->view->homePage(
+				$this->model->homeText(),
+				$this->model->recentPages(8),
+				$this->model->entities(4),
+				$this->model->levels(4)
+		);
 	}
 
 	/**
@@ -29,10 +40,7 @@ class WikiHomeController extends Controller {
 		return "<link rel='stylesheet' href='/data/css/wiki.css' />";
 	}
 
-	/**
-	 * @inheritDoc
-	 */
-	public function getTitle() {
-		return (is_null($this->title) ? "" : "$this->title - ") . "Wiki";
+	private function setTitle($title) {
+		$this->title = (is_null($title) ? "" : "$title - ") . "Wiki";
 	}
 }
