@@ -490,7 +490,7 @@ class Utils {
 			die;
 		}
 
-		// Otherwise, die with the code, status and message as default behaviour
+		// Otherwise, die with the code, status and message as default behavior
 		http_response_code($code);
 		die("<pre>$code " . self::$response_status[$code] . ": $msg</pre>");
 	}
