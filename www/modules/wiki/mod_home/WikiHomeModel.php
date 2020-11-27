@@ -7,7 +7,7 @@ include_once "modules/generic/Model.php";
 
 class WikiHomeModel extends Model {
 	public function homeText() {
-		$home = Utils::executeRequest(self::$bdd, "SELECT content FROM hd_wiki_pages WHERE id = 'home' AND published", array(), false);
+		$home = Utils::executeRequest(self::$bdd, "SELECT content FROM hd_wiki_pages WHERE id = 'home'", array(), false);
 		return $home ? $home->content : "";
 	}
 

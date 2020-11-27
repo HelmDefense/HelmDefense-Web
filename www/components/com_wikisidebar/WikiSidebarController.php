@@ -14,6 +14,6 @@ class WikiSidebarController extends Controller {
 	}
 
 	public function generateSidebar() {
-		echo "WikiSidebar";
+		$this->view->sidebar($this->model->sidebarText(), $this->model->recentActions(3));
 	}
 }
