@@ -14,5 +14,7 @@ class WikiPagePreviewController extends Controller {
 		parent::__construct(new WikiPagePreviewModel(), new WikiPagePreviewView());
 	}
 
-
+	public function generatePagePreview($idPage, $heading) {
+		$this->view->generatePagePreview($this->model->getPreview($idPage), $heading);
+	}
 }
