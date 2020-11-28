@@ -13,8 +13,21 @@ include_once "Connection.php";
  * @see Utils::get(), Utils::post(), Utils::session()
  * @see Utils::loadModule(), Utils::loadComponent()
  * @see Utils::error()
+ * @see Utils::API_URL, Utils::SITE_URL
  */
 class Utils {
+	/**
+	 * The URL of the website
+	 * @see Utils::API_URL
+	 */
+	const SITE_URL = "https://helmdefense.theoszanto.fr/";
+
+	/**
+	 * The URL of the API
+	 * @see Utils::SITE_URL
+	 */
+	const API_URL = "https://api.helmdefense.theoszanto.fr/";
+
 	/**
 	 * @var bool Whether the connection has been initialized or not
 	 * @see Utils::initConnection(), Connection::init()
@@ -121,7 +134,7 @@ class Utils {
 	 * @param mixed|null $def The value to return if the key isn't it the array
 	 * @return mixed|null The value associated, or the default one if the key is absent
 	 * @see Utils::arrMany(), Utils::arrRequired()
-	 * @see Utils::get(), Utils::post(), Utils::session()
+	 * @see Utils::get(), Utils::post(), Utils::session(), Utils::extra()
 	 */
 	static function arr($arr, $val, $def = null) {
 		return isset($arr[$val]) ? $arr[$val] : $def;
@@ -134,7 +147,7 @@ class Utils {
 	 * @param bool $stdClass Whether to return an stdClass or not (an array is used by default)
 	 * @return mixed[]|stdClass The values associated to keys in the array, or the default values of some were absent
 	 * @see Utils::arr(), Utils::arrRequired()
-	 * @see Utils::getMany(), Utils::postMany(), Utils::sessionMany()
+	 * @see Utils::getMany(), Utils::postMany(), Utils::sessionMany(), Utils::extraMany()
 	 */
 	static function arrMany($arr, $vals, $stdClass = false) {
 		$values = array();
@@ -156,7 +169,7 @@ class Utils {
 	 * @param string|null $msg The error message if the key is absent
 	 * @return mixed The value associated
 	 * @see Utils::arr(), Utils::arrMany()
-	 * @see Utils::getRequired(), Utils::postRequired(), Utils::sessionRequired()
+	 * @see Utils::getRequired(), Utils::postRequired(), Utils::sessionRequired(), Utils::extraRequired()
 	 */
 	static function arrRequired($arr, $val, $msg = null) {
 		$value = self::arr($arr, $val);
@@ -263,6 +276,58 @@ class Utils {
 	 */
 	static function sessionRequired($val, $msg = null) {
 		return self::arrRequired($_SESSION, $val, is_null($msg) ? "Valeur de la variable de session requise \"$val\" manquante" : $msg);
+	}
+
+	/**
+	 * Parse the extra route parameters contained into the `extra` GET parameter
+	 * @return string[] The extra parameters (an empty array is returned when the extra parameter is absent)
+	 */
+	static function parseExtra() {
+		$extra = self::get("extra");
+		// Check if the value was present
+		if (is_null($extra) || empty($extra))
+			return array();
+		return explode("/", $extra);
+	}
+
+	/**
+	 * Shortcut for `Utils::arr(Utils::parseExtra(), $index, $def)`
+	 * @param int $index The index of the extra route parameter to search for
+	 * @param string|null $def The value to return if the index isn't it the array
+	 * @return string|null The value associated, or the default one if the index is absent
+	 * @see Utils::arr(), Utils::parseExtra()
+	 */
+	static function extra($index, $def = null) {
+		return self::arr(self::parseExtra(), $index, $def);
+	}
+
+	/**
+	 * Return the array of extra route parameters with given `$indexes`
+	 * @param int[] $indexes The indexes to search for, and the default string values associated, if any
+	 * @return mixed[]|stdClass The values associated to keys in the array, or the default values of some were absent
+	 * @see Utils::arrMany(), Utils::parseExtra()
+	 */
+	static function extraMany($indexes) {
+		$values = array();
+		foreach ($indexes as $index => $def) {
+			// Check if a default string value is present, otherwise there is no associated default value
+			if (is_string($def))
+				$values[$index] = self::extra($index, $def);
+			else
+				$values[$def] = self::extra($def);
+		}
+		return $values;
+	}
+
+	/**
+	 * Shortcut for `Utils::arrRequired(Utils::parseExtra(), $index, $msg)`
+	 * @param int $index The index of the extra route parameter to search for
+	 * @param string|null $msg The error message if the index is absent
+	 * @return string The value associated
+	 * @see Utils::arrRequired(), Utils::parseExtra()
+	 */
+	static function extraRequired($index, $msg = null) {
+		return self::arrRequired(self::parseExtra(), $index, is_null($msg) ? "Valeur de la route additionnelle requise \"$index\" manquante" : $msg);
 	}
 
 	/**
@@ -425,7 +490,7 @@ class Utils {
 			die;
 		}
 
-		// Otherwise, die with the code, status and message as default behaviour
+		// Otherwise, die with the code, status and message as default behavior
 		http_response_code($code);
 		die("<pre>$code " . self::$response_status[$code] . ": $msg</pre>");
 	}
@@ -446,7 +511,7 @@ class Utils {
 		$query = $db->prepare($request);
 		// Execute it with the parameters and handle possibles SQL errors
 		if (!$query->execute($params))
-			self::error(500, "Erreur lors de l'exécution d'une requête SQL");
+			self::error(500, "Erreur lors de l'exécution d'une requête SQL<pre class='text-white'>" . $query->errorInfo()[2] . "</pre>");
 		// Fetch and return the data in the requested format
 		return $multiple ? $query->fetchAll($fetch_style) : $query->fetch($fetch_style);
 	}

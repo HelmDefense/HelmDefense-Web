@@ -18,20 +18,17 @@ class WikiPageModule extends Module {
 	 * @inheritDoc
 	 */
 	protected function execute() {
-		$action = Utils::get("action");
+		$action = Utils::getRequired("action");
 
 		switch ($action) {
-			case "entity":
-				$this->controller->entityPage();
-				break;
-			case "level":
-				$this->controller->levelPage();
-				break;
-			case null: // Temporary home page
-				$this->controller->homePage();
-				break;
-			default:
-				$this->controller->page();
+		case "entity":
+			$this->controller->entityPage(Utils::extraRequired(0));
+			break;
+		case "level":
+			$this->controller->levelPage(Utils::extraRequired(0));
+			break;
+		default:
+			$this->controller->page($action);
 		}
 	}
 }

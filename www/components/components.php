@@ -1,6 +1,8 @@
 <?php
 Utils::$components["header"] = new Comp("HeaderComponent");
 Utils::$components["footer"] = new Comp("FooterComponent");
+Utils::$components["markdowntext"] = new Comp("MarkDownTextComponent");
+Utils::$components["wikisidebar"] = new Comp("WikiSidebarComponent", true);
 Utils::$components["wikipagepreview"] = new Comp("WikiPagePreviewComponent", true);
 
 class Comp {

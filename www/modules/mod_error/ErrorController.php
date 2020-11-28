@@ -9,11 +9,6 @@ include_once "ErrorView.php";
 
 class ErrorController extends Controller {
 	/**
-	 * @var string
-	 */
-	private $title;
-
-	/**
 	 * @inheritDoc
 	 */
 	public function __construct() {
@@ -51,12 +46,5 @@ class ErrorController extends Controller {
 	 */
 	public function getHead() {
 		return $this->view->style();
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	public function getTitle() {
-		return $this->title;
 	}
 }

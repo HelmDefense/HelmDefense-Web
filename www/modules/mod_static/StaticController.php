@@ -25,6 +25,7 @@ class StaticController extends Controller {
 
 		$this->model->setPage("modules/mod_static/pages/$page");
 		$this->view->displayPage("modules/mod_static/pages/$page/index.php");
+		$this->title = $this->model->getName();
 	}
 
 	/**
@@ -32,12 +33,5 @@ class StaticController extends Controller {
 	 */
 	public function getHead() {
 		return $this->view->getHead($this->model->getHeadFilename(), $this->model->getStyle());
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	public function getTitle() {
-		return $this->model->getName();
 	}
 }

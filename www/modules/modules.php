@@ -1,7 +1,12 @@
 <?php
+// Global modules
 Utils::$modules["static"] = new Mod("static", "StaticModule");
 Utils::$modules["error"] = new Mod("error", "ErrorModule");
-Utils::$modules["wiki/"] = //new Mod("home", "WikiHomeModule", true, "wiki"); // Thanks to the comment, the default wiki module is wiki/page
+
+// Wiki modules
+Utils::$modules["wiki/entity"] = // We fake "entity" module to redirect to "home" module
+Utils::$modules["wiki/level"] = // We fake "level" module to redirect to "home" module
+Utils::$modules["wiki/"] = new Mod("home", "WikiHomeModule", true, "wiki");
 Utils::$modules["wiki/page"] = new Mod("page", "WikiPageModule", true, "wiki");
 Utils::$modules["wiki/search"] = new Mod("search", "SearchModule", true, "wiki");
 
