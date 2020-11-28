@@ -1,4 +1,5 @@
 <?php
+namespace Module;
 
 include_once "modules/generic/Controller.php";
 include_once "SearchModel.php";

@@ -1,4 +1,7 @@
 <?php
+namespace Module;
+
+use Utils;
 
 include_once "modules/generic/Module.php";
 include_once "SearchController.php";
