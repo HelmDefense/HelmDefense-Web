@@ -33,9 +33,9 @@ class SearchView extends View {
 				</div>
 				<div class="col-3">
 					<?php
-						/*$sidebar = Utils::loadComponent("wikisidebar");
+						$sidebar = Utils::loadComponent("wikisidebar");
 						$sidebar->generateRender();
-						$sidebar->display();*/
+						$sidebar->display();
 					?>
 				</div>
 			</div>
@@ -70,9 +70,9 @@ class SearchView extends View {
 
 				<div class="col-3">
 					<?php
-					/*$sidebar = Utils::loadComponent("wikisidebar");
+					$sidebar = Utils::loadComponent("wikisidebar");
 					$sidebar->generateRender();
-					$sidebar->display();*/
+					$sidebar->display();
 					?>
 				</div>
 			</div>

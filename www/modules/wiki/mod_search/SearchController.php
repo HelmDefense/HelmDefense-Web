@@ -9,6 +9,7 @@ class SearchController extends Controller {
 
 	public function __construct() {
 		parent::__construct(new SearchModel(), new SearchView());
+		$this->title = "Résultat de recherche";
 	}
 
 	/**
@@ -16,13 +17,6 @@ class SearchController extends Controller {
 	 */
 	public function getHead() {
 		return null;
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	public function getTitle() {
-		return "Résultat de recherche";
 	}
 
 	public function generateSearchPage() {
