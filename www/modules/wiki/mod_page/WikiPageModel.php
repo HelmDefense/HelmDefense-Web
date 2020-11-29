@@ -6,4 +6,9 @@ use Utils;
 include_once "modules/generic/Model.php";
 
 class WikiPageModel extends Model {
+
+	public function getEntityPage() {
+
+	}
+
 }

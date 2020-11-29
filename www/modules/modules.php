@@ -1,7 +1,7 @@
 <?php
 Utils::$modules["static"] = new Mod("StaticModule");
 Utils::$modules["error"] = new Mod("ErrorModule");
-//Utils::$modules["wiki/page"] = new Mod("WikiPageModule", true, "wiki");
+Utils::$modules["wiki/"] = Utils::$modules["wiki/page"] = new Mod("WikiPageModule", true, "wiki");
 
 class Mod {
 	/**

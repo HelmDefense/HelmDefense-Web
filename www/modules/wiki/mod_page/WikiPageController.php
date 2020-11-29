@@ -30,6 +30,6 @@ class WikiPageController extends Controller {
 	}
 
 	public function entityPage(){
-
+		$this->view->entityPage($this->model->getEntityPage());
 	}
 }
