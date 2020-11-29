@@ -9,7 +9,7 @@ class WikiHomeView extends View {
 	public function homePage($homeText, $pages, $entities, $levels) { ?>
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-9">
+					<div class="col-12 col-xl-9">
 						<h2>Wiki Helm Defense</h2>
 						<div>
 							<p>Bienvenue sur le Wiki de Helm Defense.</p>
@@ -32,7 +32,7 @@ class WikiHomeView extends View {
 							</div>
 						</div>
 					</div>
-					<div class="col-3 p-0">
+					<div class="wiki-sidebar-container col-12 col-xl-3">
 						<?php
 							$sidebar = Utils::loadComponent("wikisidebar");
 							$sidebar->generateRender();
