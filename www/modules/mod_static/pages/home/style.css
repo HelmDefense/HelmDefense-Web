@@ -1,6 +1,6 @@
 .carousel-accueil {
 	height: calc(100vh - 100px);
-	min-height: 400px;
+	min-height: 500px;
 }
 
 .carousel-accueil .carousel-item {

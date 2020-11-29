@@ -13,6 +13,7 @@ class WikiPageController extends Controller {
 	 */
 	public function __construct() {
 		parent::__construct(new WikiPageModel(), new WikiPageView());
+		$this->title = "Wiki";
 	}
 
 	/**
@@ -20,6 +21,7 @@ class WikiPageController extends Controller {
 	 */
 	public function getHead() {
 		return $this->view->getHead($this->model->getHeadFilename(), $this->model->getStyle());
+		//return "<link rel='stylesheet' href='/data/css/wiki.css' />";
 	}
 
 	/**
@@ -31,5 +33,9 @@ class WikiPageController extends Controller {
 
 	public function entityPage(){
 		$this->view->entityPage($this->model->getEntityPage());
+	}
+
+	public function levelPage($page) {
+		echo "Niveau $page";
 	}
 }

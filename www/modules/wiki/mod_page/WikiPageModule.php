@@ -7,7 +7,9 @@ include_once "WikiPageController.php";
 include_once "modules/generic/Module.php";
 
 class WikiPageModule extends Module {
-
+	/**
+	 * @inheritDoc
+	 */
 	public function __construct() {
 		parent::__construct(new WikiPageController());
 	}
@@ -16,19 +18,17 @@ class WikiPageModule extends Module {
 	 * @inheritDoc
 	 */
 	protected function execute() {
-		$action = Utils::get("action");
+		$action = Utils::getRequired("action");
 
-		switch ($action){
-			case "entity":
-				$this->controller->entityPage();
-
-			case "level":
-
-			case null:
-				$this->controller->homePage();
-
-			default:
+		switch ($action) {
+		case "entity":
+			$this->controller->entityPage(Utils::extraRequired(0));
+			break;
+		case "level":
+			$this->controller->levelPage(Utils::extraRequired(0));
+			break;
+		default:
+			$this->controller->page($action);
 		}
-
 	}
 }

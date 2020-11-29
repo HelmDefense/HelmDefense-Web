@@ -2,7 +2,7 @@
 namespace Component;
 
 /**
- * Generic component component
+ * Generic component
  * @package Component
  */
 abstract class Component {
