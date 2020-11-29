@@ -13,3 +13,17 @@
 .wiki-sidebar-inner {
 	padding-bottom: calc(100px + 2.5rem);
 }
+
+@media all and (max-width: 1199px) {
+	.wiki-sidebar-container {
+		position: unset;
+	}
+
+	.wiki-sidebar {
+		height: unset;
+	}
+
+	.wiki-sidebar-inner {
+		padding-bottom: 1.5rem;
+	}
+}
