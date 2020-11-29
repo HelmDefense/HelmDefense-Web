@@ -10,8 +10,8 @@ include_once "components/generic/View.php";
 
 class WikiSidebarView extends View {
 	public function sidebar($sidebarText, $recentActions) { ?>
-			<div class="container-fluid py-3" style="background-color: var(--fg-color); height: calc(100vh - 200px); overflow-y: auto;">
-				<div class="p-4">
+			<div class="wiki-sidebar container-fluid py-3">
+				<div class="wiki-sidebar-inner px-4 pt-4">
 					<div class="text-justify">
 						<?php
 							$sidebar = Utils::loadComponent("markdowntext", false, $sidebarText);

@@ -1,0 +1,15 @@
+.wiki-sidebar-container {
+	position: fixed;
+	right: 0;
+	padding: 0 !important;
+}
+
+.wiki-sidebar {
+	background-color: var(--fg-color);
+	height: calc(100vh - 100px);
+	overflow-y: auto;
+}
+
+.wiki-sidebar-inner {
+	padding-bottom: calc(100px + 2.5rem);
+}
