@@ -13,8 +13,10 @@ class SearchView extends View {
 				<div class="col-9">
 					<h2>Wiki Helm Defense</h2>
 					<div id="search-container">
-						<img src="">
-						<h3>Recherche</h3>
+						<div
+							<img src="/data/img/Loupe.svg">
+							<h3>Recherche</h3>
+						</div>
 						<form method="post">
 							<label class="sr-only" for="search">votre recherche...</label>
 							<input id="search" name="search" type="text" placeholder="" required />
@@ -50,9 +52,16 @@ class SearchView extends View {
 					<h2>Wiki Helm Defense</h2>
 					<div class="row">
 						<div id="search-container">
-							<img src="">
-							<h3>Recherche</h3>
-							<input id="search" name="recherche" type="text" placeholder="" required />
+							<div id="recherche" class="container">
+								<img src="/data/img/Loupe.svg">
+								<h3>Recherche</h3>
+							</div>
+							<form method="post">
+								<label class="sr-only" for="search">votre recherche...</label>
+								<input id="search" name="search" type="text" placeholder="" required />
+								<input type="hidden" name="check" value="check"/>
+								<input type="hidden" name="typeSearch" value="typeSearch" />
+							</form>
 						</div>
 					</div>
 
