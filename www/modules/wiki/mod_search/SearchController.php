@@ -16,7 +16,7 @@ class SearchController extends Controller {
 	 * @inheritDoc
 	 */
 	public function getHead() {
-		return null;
+		return "<link rel='stylesheet' href='/data/css/wiki.css' />";
 	}
 
 	public function generateSearchPage() {

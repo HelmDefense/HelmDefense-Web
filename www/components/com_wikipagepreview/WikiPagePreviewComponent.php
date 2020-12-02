@@ -7,9 +7,11 @@ include_once "WikiPagePreviewController.php";
 class WikiPagePreviewComponent extends Component {
 	private $idPage;
 	private $heading;
+	private $type;
 
-	public function __construct($idPage = null, $heading = "h3") {
+	public function __construct($idPage = null, $type = null, $heading = "h3") {
 		parent::__construct(new WikiPagePreviewController());
+		$this->type = $type;
 		$this->idPage = $idPage;
 		$this->heading = $heading;
 	}
@@ -21,6 +23,6 @@ class WikiPagePreviewComponent extends Component {
 		if(is_null($this->idPage))
 			echo "page non trouvé";
 		else
-			$this->controller->generatePagePreview($this->idPage, $this->heading);
+			$this->controller->generatePagePreview($this->idPage, $this->type, $this->heading);
 	}
 }
