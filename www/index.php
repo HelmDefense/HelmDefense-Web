@@ -26,9 +26,6 @@ $header->generateRender();
 
 $footer = Utils::loadComponent("footer");
 $footer->generateRender();
-
-$text = Utils::loadComponent("markdowntext",false,"# HelmDefense\nUn jeu de __Tower Defense__ basé sur l'univers de la __Terre du Milieu__ *(Et plus précisément la bataille du gouffre de Helm)* !");
-$text->generateRender();
 ?>
 
 <!doctype html>
@@ -58,6 +55,5 @@ $text->generateRender();
 		</main>
 
 		<?php $footer->display(); ?>
-		<?php $text->display(); ?>
 	</body>
 </html>
