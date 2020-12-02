@@ -527,4 +527,32 @@ class Utils {
 	static function file($filename, $start = "", $end = "") {
 		return file_exists($filename) ? $start . file_get_contents($filename) . $end : null;
 	}
+
+	/**
+	 * Make a HTTP GET request to the given URL
+	 * @param string $url The URL where to make the request
+	 * @param string[] $args The request arguments
+	 * @param bool $json Whether to return data in a JSON format or not
+	 * @param bool $api Whether to contact the API
+	 * @return mixed|string The request response
+	 * @see Utils::API_URL, json_decode()
+	 */
+	static function httpGetRequest($url, $args = array(), $json = true, $api = true) {
+		// Prepend API URL if needed
+		if ($api)
+			$url = Utils::API_URL . $url;
+
+		// Append request arguments if needed
+		if (count($args)) {
+			$associatedArgs = array();
+			foreach ($args as $key => $val)
+				$associatedArgs[] = "$key=$val";
+			$url .= "?" . join("&", $associatedArgs);
+		}
+
+		// Execute request
+		$response = file_get_contents($url, false, stream_context_create(array("http" => array("ignore_errors" => true))));
+		// Request data in the request format
+		return $json ? json_decode($response) : $response;
+	}
 }
