@@ -42,8 +42,8 @@ class HeaderView extends View {
 						<div class="custom-dropdown">
 							<a class="main-nav <?php if ($currentActiveNav == "wiki") echo "custom-dropdown-active"; ?>" href="/wiki"><span class="main-nav-label">Wiki</span></a>
 							<div class="custom-dropdown-content">
-								<a href="/wiki/page/entity">Entités</a>
-								<a href="/wiki/page/level">Niveaux</a>
+								<a href="/wiki/entity">Entités</a>
+								<a href="/wiki/level">Niveaux</a>
 								<a href="/wiki/search">Recherche</a>
 							</div>
 						</div>

@@ -11,35 +11,25 @@ class WikiPageController extends Controller {
 	 */
 	public function __construct() {
 		parent::__construct(new WikiPageModel(), new WikiPageView());
+		$this->title = "Wiki";
 	}
 
 	/**
 	 * @inheritDoc
 	 */
 	public function getHead() {
-		return null;
+		return "<link rel='stylesheet' href='/data/css/wiki.css' />";
 	}
 
-	/**
-	 * @inheritDoc
-	 */
-	public function getTitle() {
-		return "Wiki";
+	public function page($page) {
+		echo "Page $page";
 	}
 
-	public function page() {
-
+	public function entityPage($page) {
+		echo "Entité $page";
 	}
 
-	public function homePage() {
-
-	}
-
-	public function entityPage() {
-
-	}
-
-	public function levelPage() {
-
+	public function levelPage($page) {
+		echo "Niveau $page";
 	}
 }
