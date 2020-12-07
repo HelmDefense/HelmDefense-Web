@@ -25,6 +25,6 @@ class WikiPagePreviewController extends Controller {
 			$page = $this->model->getEntity($idPage);
 		else
 			Utils::error(400, "type de page incorrect");
-		$this->view->generatePagePreview($page, $heading);
+		$this->view->generatePagePreview($page, $type, $heading);
 	}
 }

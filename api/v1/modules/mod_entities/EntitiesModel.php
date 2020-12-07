@@ -30,18 +30,25 @@ class EntitiesModel extends Connection {
 				$type = "unknown";
 		}
 
+
 		$params = array("num" => $num);
-		$abilities = Utils::executeRequest(self::$bdd, "SELECT class, params FROM hd_game_entity_abilities WHERE entity = :num", $params);
+		$abilities = Utils::executeRequest(self::$bdd, "SELECT class, params, description FROM hd_game_entity_abilities WHERE entity = :num", $params);
 		$stats = Utils::executeRequest(self::$bdd, "SELECT `type`, hp, dmg, mvt_spd, atk_spd, atk_range, shoot_range, cost, reward, unlock_cost FROM hd_game_entity_stats WHERE entity = :num", $params);
 
 		$ent = new stdClass();
 		$ent->id = $entity->id;
 		$ent->name = $entity->name;
 		$ent->type = $type;
+		$ent->description = $entity->description;
+
+		$ent->img = "https://helmdefense.theoszanto.fr/data/img/wiki/entity/$num.png";
 
 		$ent->abilities = new stdClass();
-		foreach ($abilities as $ability)
+		foreach ($abilities as $ability) {
+			$a = new stdClass();
+			$a->params = $abilities;
 			$ent->abilities->{$ability->class} = is_null($ability->params) ? array() : explode("|", $ability->params);
+		}
 
 		$ent->size = new stdClass();
 		$ent->size->width = $entity->size_x;
