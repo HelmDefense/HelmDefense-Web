@@ -1,3 +1,49 @@
+.masterDiv {
+	padding-left: 125px;
+	padding-bottom: 50px;
+}
+
+#loupe {
+	height: 40px;
+	width: 40px;
+	padding-right: 5px;
+}
+
+#search {
+	width: 900px;
+	margin-top: 10px;
+	padding-left: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border: solid #444444;
+}
+
+#resultDiv {
+	padding-top: 50px;
+}
+
+#result-container {
+	padding-bottom: 75px;
+}
+
+.wiki-pagepreview-parent {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.wiki-pagepreview-container {
+	margin: 30px;
+	width: 250px;
+}
+
+.wiki-pagepreview-container .page-title {
+	overflow-wrap: break-word;
+	hyphens: auto;
+	font-weight: normal;
+	margin-top: 10px;
+}
+
+/* Sidebar */
 .wiki-sidebar-container {
 	position: fixed;
 	right: 0;

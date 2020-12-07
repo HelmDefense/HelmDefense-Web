@@ -19,15 +19,15 @@ class WikiHomeView extends View {
 								$home->display();
 							?>
 							<h3>Pages récentes</h3>
-							<div>
+							<div class="wiki-pagepreview-parent">
 								<?php $this->pagePreviewList($pages); ?>
 							</div>
 							<h3>Quelques entités</h3>
-							<div>
+							<div class="wiki-pagepreview-parent">
 								<?php $this->pagePreviewList($entities, "entity"); ?>
 							</div>
 							<h3>Quelques niveaux</h3>
-							<div>
+							<div class="wiki-pagepreview-parent">
 								<?php $this->pagePreviewList($levels, "level"); ?>
 							</div>
 						</div>
@@ -50,7 +50,7 @@ class WikiHomeView extends View {
 						<h2>Wiki Helm Defense</h2>
 						<div>
 							<h3><?= $type == "entity" ? "Entités" : "Niveaux" ?></h3>
-							<div>
+							<div class="wiki-pagepreview-parent">
 								<?php $this->pagePreviewList($pages, $type); ?>
 							</div>
 						</div>
@@ -68,10 +68,9 @@ class WikiHomeView extends View {
 
 	private function pagePreviewList($list, $type = null) {
 		foreach ($list as $item) {
-			// $preview = Utils::loadComponent("wikipagepreview", false, $item, $type);
-			// $preview->generateRender();
-			// $preview->display();
-			echo "<div><a href='/wiki/page/" . (is_null($type) ? "" : "$type/") . "$item'>$item</a></div>";
+			$preview = Utils::loadComponent("wikipagepreview", false, $item, $type, "h4");
+			$preview->generateRender();
+			$preview->display();
 		}
 	}
 }
