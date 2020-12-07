@@ -26,13 +26,24 @@
 	padding-bottom: 75px;
 }
 
-.wiki-pagepreview-container {
-	padding: 30px;
-	height: 250px;
-	width: 250px;
-	font-size: x-small;
+.wiki-pagepreview-parent {
+	display: flex;
+	flex-wrap: wrap;
 }
 
+.wiki-pagepreview-container {
+	margin: 30px;
+	width: 250px;
+}
+
+.wiki-pagepreview-container .page-title {
+	overflow-wrap: break-word;
+	hyphens: auto;
+	font-weight: normal;
+	margin-top: 10px;
+}
+
+/* Sidebar */
 .wiki-sidebar-container {
 	position: fixed;
 	right: 0;

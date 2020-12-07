@@ -69,14 +69,12 @@ class SearchView extends View {
 
 					<div id="resultDiv" class="row masterDiv">
 						<h3>Résultats de recherche</h3>
-						<div id="result-container" class="d-flex">
-							<?php foreach ($result as $value) { ?>
-								<div class="wiki-pagepreview-container">
-								<?php $preview = Utils::loadComponent("wikipagepreview", false, $value, null, "h4");
+						<div id="result-container" class="wiki-pagepreview-parent">
+							<?php foreach ($result as $value) {
+								$preview = Utils::loadComponent("wikipagepreview", false, $value, null, "h4");
 								$preview->generateRender();
-								$preview->display(); ?>
-								</div>
-							<?php } ?>
+								$preview->display();
+							} ?>
 						</div>
 					</div>
 				</div>
