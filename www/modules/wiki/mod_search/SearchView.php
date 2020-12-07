@@ -15,7 +15,7 @@ class SearchView extends View {
 					<div class="row">
 						<div class="masterDiv">
 							<div id="recherche" class="container d-flex">
-								<img id="loupe" src="/data/img/Loupe.svg">
+								<img id="loupe" src="/data/img/Loupe.svg" alt="">
 								<h3>Recherche</h3>
 							</div>
 							<form method="post">
@@ -35,7 +35,7 @@ class SearchView extends View {
 						</div>
 					</div>
 				</div>
-				<div class="col-3">
+				<div class="col-xl-3 wiki-sidebar-container col-12">
 					<?php
 						$sidebar = Utils::loadComponent("wikisidebar");
 						$sidebar->generateRender();
@@ -55,7 +55,7 @@ class SearchView extends View {
 					<div class="row">
 						<div class="masterDiv">
 							<div id="recherche" class="container d-flex">
-								<img id="loupe" src="/data/img/Loupe.svg">
+								<img id="loupe" src="/data/img/Loupe.svg" alt="">
 								<h3>Recherche</h3>
 							</div>
 							<form method="post">
