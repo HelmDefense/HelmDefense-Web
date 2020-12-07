@@ -40,13 +40,12 @@ class EntitiesModel extends Connection {
 		$ent->name = $entity->name;
 		$ent->type = $type;
 		$ent->description = $entity->description;
+		$ent->num = $entity->num;
 
 		$ent->img = "https://helmdefense.theoszanto.fr/data/img/wiki/entity/$num.png";
 
 		$ent->abilities = new stdClass();
 		foreach ($abilities as $ability) {
-			$a = new stdClass();
-			$a->params = $abilities;
 			$ent->abilities->{$ability->class} = is_null($ability->params) ? array() : explode("|", $ability->params);
 		}
 
