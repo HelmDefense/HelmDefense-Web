@@ -17,11 +17,12 @@ class WikiHomeController extends Controller {
 	public function pageList($type) {
 		if ($type == "entity") {
 			$this->setTitle("Entités");
-
+			$pages = $this->model->entities();
 		} else {
 			$this->setTitle("Niveaux");
-
+			$pages = $this->model->levels();
 		}
+		$this->view->pageList($pages, $type);
 	}
 
 	public function home() {
