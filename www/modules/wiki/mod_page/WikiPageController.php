@@ -1,6 +1,8 @@
 <?php
 namespace Module;
 
+use Utils;
+
 include_once "WikiPageModel.php";
 include_once "WikiPageView.php";
 include_once "modules/generic/Controller.php";
@@ -21,12 +23,8 @@ class WikiPageController extends Controller {
 		return "<link rel='stylesheet' href='/data/css/wiki.css' />";
 	}
 
-	public function page($page) {
-		echo "Page $page";
-	}
-
-	public function entityPage($page) {
-		echo "Entité $page";
+	public function entityPage($entity){
+		$this->view->entityPage($this->model->getEntityPage($entity));
 	}
 
 	public function levelPage($page) {

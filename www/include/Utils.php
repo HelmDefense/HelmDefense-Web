@@ -26,7 +26,8 @@ class Utils {
 	 * The URL of the API
 	 * @see Utils::SITE_URL
 	 */
-	const API_URL = "https://api.helmdefense.theoszanto.fr/";
+	//const API_URL = "https://api.helmdefense.theoszanto.fr/";
+	const API_URL = "http://helmdefense-api/";
 
 	/**
 	 * @var bool Whether the connection has been initialized or not
