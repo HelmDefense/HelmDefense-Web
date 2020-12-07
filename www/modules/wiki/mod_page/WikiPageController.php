@@ -20,19 +20,11 @@ class WikiPageController extends Controller {
 	 * @inheritDoc
 	 */
 	public function getHead() {
-		return $this->view->getHead($this->model->getHeadFilename(), $this->model->getStyle());
-		//return "<link rel='stylesheet' href='/data/css/wiki.css' />";
+		return "<link rel='stylesheet' href='/data/css/wiki.css' />";
 	}
 
-	/**
-	 * @inheritDoc
-	 */
-	public function getTitle() {
-		return $this->model->getName();
-	}
-
-	public function entityPage(){
-		$this->view->entityPage($this->model->getEntityPage());
+	public function entityPage($entity){
+		$this->view->entityPage($this->model->getEntityPage($entity));
 	}
 
 	public function levelPage($page) {
