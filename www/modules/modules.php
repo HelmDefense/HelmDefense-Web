@@ -8,6 +8,7 @@ Utils::$modules["wiki/entity"] = // We fake "entity" module to redirect to "home
 Utils::$modules["wiki/level"] = // We fake "level" module to redirect to "home" module
 Utils::$modules["wiki/"] = new Mod("home", "WikiHomeModule", true, "wiki");
 Utils::$modules["wiki/page"] = new Mod("page", "WikiPageModule", true, "wiki");
+Utils::$modules["wiki/search"] = new Mod("search", "SearchModule", true, "wiki");
 
 class Mod {
 	/**
