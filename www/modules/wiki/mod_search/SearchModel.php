@@ -10,27 +10,25 @@ class SearchModel extends Model {
 	public function search($search, $typeSearch) {
 		switch ($typeSearch) {
 			case 'page':
-				$this->searchPage($search);
-				break;
+				return $this->searchPage($search);
 			case 'entity':
-				$this->searchEntity($search);
-				break;
+				return $this->searchEntity($search);
 			case 'level':
-				$this->searchLevel($search);
-				break;
+				return $this->searchLevel($search);
 		}
+		return array();
 	}
 
 	public function searchPage($search) {
-		return Utils::executeRequest(self::$bdd, 'SELECT * FROM hd_wiki_pages WHERE title OR content LIKE %:`search`%', array("search" => $search), true);
+		return Utils::executeRequest(self::$bdd, "SELECT * FROM hd_wiki_pages WHERE title LIKE :search OR content LIKE :search", array("search" => "%$search%"), true);
 	}
 
 	public function searchEntity($search) {
-		return Utils::executeRequest(self::$bdd, 'SELECT * FROM hd_game_entities WHERE `name` OR description LIKE %:`search`%', array("search" => $search), true);
+		return Utils::executeRequest(self::$bdd, "SELECT * FROM hd_game_entities WHERE `name` LIKE :search OR description LIKE :search", array("search" => "%$search%"), true);
 	}
 
 	public  function searchLevel($search) {
-		return Utils::executeRequest(self::$bdd, 'SELECT * FROM hd_game_levels WHERE `name` OR description LIKE %:`search`%', array("search" => $search), true);
+		return Utils::executeRequest(self::$bdd, "SELECT * FROM hd_game_levels WHERE `name` LIKE :search OR description LIKE :search", array("search" => "%$search%"), true);
 
 	}
 

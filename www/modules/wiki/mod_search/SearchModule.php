@@ -17,11 +17,12 @@ class SearchModule extends Module {
 	 */
 	public function execute() {
 		$check = Utils::post("check");
-		if(is_null($check)) {
+		$typeSearch = Utils::post("typeSearch");
+		if(is_null($check) and is_null($typeSearch)) {
 			$this->controller->generateSearchPage();
 		}
 		else {
-			$this->controller->generateSearchResultPage(Utils::post("search"), Utils::post("typeSearch"));
+			$this->controller->generateSearchResultPage(Utils::post("search"), $typeSearch);
 		}
 	}
 }
