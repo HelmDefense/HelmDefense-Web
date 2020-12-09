@@ -35,19 +35,19 @@ class WikiSidebarView extends View {
 			$old = new DateTime($date);
 			$now = new DateTime("now", new DateTimeZone("Europe/Paris"));
 			$diff = $old->diff($now);
-			if ($diff->s < 1)
-				return "Il y a un instant";
-			if ($diff->i < 1)
-				return $diff->format("Il y a %s seconde" . ($diff->s > 1 ? "s" : ""));
-			if ($diff->h < 1)
-				return $diff->format("Il y a %i minute" . ($diff->i > 1 ? "s" : ""));
-			if ($diff->d < 1)
-				return $diff->format("Il y a %h heure" . ($diff->h > 1 ? "s" : ""));
-			if ($diff->m < 1)
-				return $diff->format("Il y a %d jour" . ($diff->d > 1 ? "s" : ""));
-			if ($diff->y < 1)
+			if ($diff->y > 0)
+				return $diff->format("Il y a %y an" . ($diff->y > 1 ? "s" : ""));
+			if ($diff->m > 0)
 				return $diff->format("Il y a %m mois et %d jour" . ($diff->d > 1 ? "s" : ""));
-			return $diff->format("Il y a %y an" . ($diff->y > 1 ? "s" : ""));
+			if ($diff->d > 0)
+				return $diff->format("Il y a %d jour" . ($diff->d > 1 ? "s" : ""));
+			if ($diff->h > 0)
+				return $diff->format("Il y a %h heure" . ($diff->h > 1 ? "s" : ""));
+			if ($diff->i > 0)
+				return $diff->format("Il y a %i minute" . ($diff->i > 1 ? "s" : ""));
+			if ($diff->s > 0)
+				return $diff->format("Il y a %s seconde" . ($diff->s > 1 ? "s" : ""));
+			return "Il y a un instant";
 		} catch (Exception $e) {
 			return "Date inconnue";
 		}
