@@ -86,7 +86,7 @@
 		</div>
 
 		<div id="submit-container" class="text-center text-lg-right">
-			<input id="submit" name="submit" type="submit" placeholder="" required />
+			<input id="submit" name="submit" type="submit" placeholder="" value="Envoyer" required />
 		</div>
 
 	</form>
