@@ -20,16 +20,18 @@ class SearchModel extends Model {
 	}
 
 	public function searchPage($search) {
-		return Utils::executeRequest(self::$bdd, "SELECT * FROM hd_wiki_pages WHERE title LIKE :search OR content LIKE :search", array("search" => "%$search%"), true);
+		$pages = Utils::executeRequest(self::$bdd, "SELECT id FROM hd_wiki_pages WHERE title LIKE :search OR content LIKE :search", array("search" => "%$search%"), true);
+		return array_map(function($page) { return $page->id; }, $pages);
 	}
 
 	public function searchEntity($search) {
-		return Utils::executeRequest(self::$bdd, "SELECT * FROM hd_game_entities WHERE `name` LIKE :search OR description LIKE :search", array("search" => "%$search%"), true);
+		$pages = Utils::executeRequest(self::$bdd, "SELECT id FROM hd_game_entities WHERE `name` LIKE :search OR description LIKE :search", array("search" => "%$search%"), true);
+		return array_map(function($page) { return $page->id; }, $pages);
 	}
 
 	public  function searchLevel($search) {
-		return Utils::executeRequest(self::$bdd, "SELECT * FROM hd_game_levels WHERE `name` LIKE :search OR description LIKE :search", array("search" => "%$search%"), true);
-
+		$pages = Utils::executeRequest(self::$bdd, "SELECT id FROM hd_game_levels WHERE `name` LIKE :search OR description LIKE :search", array("search" => "%$search%"), true);
+		return array_map(function($page) { return $page->id; }, $pages);
 	}
 
 }
