@@ -35,8 +35,21 @@
 	padding: 50px;
 }
 
+.titleTypeSearch {
+	padding-top: 75px;
+	padding-bottom: 20px;
+}
+
+.radioButton {
+	width: 20%;
+}
+
 #resultDiv {
 	padding-top: 50px;
+}
+
+.titleTypeSearch {
+	padding-top: 20px;
 }
 
 #result-container {

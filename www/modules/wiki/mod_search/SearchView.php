@@ -37,8 +37,8 @@ class SearchView extends View {
 							<?php $this->form($search, $typeSearch) ?>
 					</div>
 
-					<div id="resultDiv" class="row masterDiv">
-						<h3>Résultats de recherche</h3>
+					<div id="resultDiv" class="col">
+						<h3>Résultats de recherche pour "<?= $search ?>" (<?= $this->displayType($typeSearch) ?>)</h3>
 						<div id="result-container" class="wiki-pagepreview-parent">
 							<?php
 							if(count($result))
@@ -75,19 +75,32 @@ class SearchView extends View {
 				<input id="search" name="search" type="text" placeholder="" value="<?= $search ?>" required />
 				<input type="hidden" name="check" value="check"/>
 
-				<h3>Type de recherche</h3>
-				<div class="custom-control custom-radio custom-control-inline">
+				<h3 class="titleTypeSearch">Type de recherche</h3>
+				<div class="custom-control custom-radio custom-control-inline radioButton">
 					<input type="radio" id="customRadio2" name="typeSearch" class="custom-control-input" value="page" <?php if($typeSearch == "page") echo "checked"; ?> >
 					<label class="custom-control-label" for="customRadio2">Pages</label>
 				</div>
-				<div class="custom-control custom-radio custom-control-inline">
+				<div class="custom-control custom-radio custom-control-inline radioButton">
 					<input type="radio" id="customRadio3" name="typeSearch" class="custom-control-input" value="entity" <?php if($typeSearch == "entity") echo "checked"; ?> >
-					<label class="custom-control-label" for="customRadio3">Entities</label>
+					<label class="custom-control-label" for="customRadio3">Entités</label>
 				</div>
 				<div class="custom-control custom-radio custom-control-inline">
 					<input type="radio" id="customRadio4" name="typeSearch" class="custom-control-input" value="level" <?php if($typeSearch == "level") echo "checked"; ?> >
-					<label class="custom-control-label" for="customRadio4">Levels</label>
+					<label class="custom-control-label" for="customRadio4">Niveaux</label>
 				</div>
 			</form>
 	<?php }
+
+	private function displayType($typeSearch) {
+		switch ($typeSearch) {
+			case "page":
+				return "Page";
+			case "level":
+				return "Niveau";
+			case "entity":
+				return "Entité";
+			default:
+				return "";
+		}
+	}
 }
