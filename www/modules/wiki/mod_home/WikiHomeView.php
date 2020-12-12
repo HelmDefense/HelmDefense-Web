@@ -14,9 +14,9 @@ class WikiHomeView extends View {
 						<div>
 							<p>Bienvenue sur le Wiki de Helm Defense.</p>
 							<?php
-								$home = Utils::loadComponent("markdowntext", false, $homeText);
-								$home->generateRender();
-								$home->display();
+							$home = Utils::loadComponent("markdowntext", false, $homeText);
+							$home->generateRender();
+							$home->display();
 							?>
 							<h3>Pages récentes</h3>
 							<div class="wiki-pagepreview-parent">
