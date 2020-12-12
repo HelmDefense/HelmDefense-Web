@@ -23,6 +23,10 @@ class WikiPageController extends Controller {
 		return "<link rel='stylesheet' href='/data/css/wiki.css' />";
 	}
 
+	public function page($action){
+		$this->view->classicPage($this->model->getClassicPage($action));
+	}
+
 	public function entityPage($entity){
 		$this->view->entityPage($this->model->getEntityPage($entity));
 	}
