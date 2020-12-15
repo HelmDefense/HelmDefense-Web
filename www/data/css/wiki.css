@@ -29,11 +29,13 @@
 .wiki-pagepreview-parent {
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: center;
 }
 
 .wiki-pagepreview-container {
 	margin: 30px;
-	width: 250px;
+	/*width: 250px;*/
+	flex: 1 250px;
 }
 
 .wiki-pagepreview-container .page-title {
@@ -41,6 +43,16 @@
 	hyphens: auto;
 	font-weight: normal;
 	margin-top: 10px;
+}
+
+.section-title {
+	text-align: center;
+	font-size: 2.5em;
+	font-family: var(--font-title);
+}
+
+.wiki-body {
+	padding: 0 50px;
 }
 
 /* Sidebar */

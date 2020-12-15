@@ -11,22 +11,24 @@ class WikiHomeView extends View {
 				<div class="row">
 					<div class="col-12 col-xl-9">
 						<h2>Wiki Helm Defense</h2>
-						<div>
+						<div class="wiki-body">
 							<p>Bienvenue sur le Wiki de Helm Defense.</p>
-							<?php
-							$home = Utils::loadComponent("markdowntext", false, $homeText);
-							$home->generateRender();
-							$home->display();
-							?>
-							<h3>Pages récentes</h3>
+							<div class="text-justify">
+								<?php
+								$home = Utils::loadComponent("markdowntext", false, $homeText);
+								$home->generateRender();
+								$home->display();
+								?>
+							</div>
+							<h3 class="section-title">Pages récentes</h3>
 							<div class="wiki-pagepreview-parent">
 								<?php $this->pagePreviewList($pages); ?>
 							</div>
-							<h3>Quelques entités</h3>
+							<h3 class="section-title">Quelques entités</h3>
 							<div class="wiki-pagepreview-parent">
 								<?php $this->pagePreviewList($entities, "entity"); ?>
 							</div>
-							<h3>Quelques niveaux</h3>
+							<h3 class="section-title">Quelques niveaux</h3>
 							<div class="wiki-pagepreview-parent">
 								<?php $this->pagePreviewList($levels, "level"); ?>
 							</div>
@@ -48,8 +50,8 @@ class WikiHomeView extends View {
 				<div class="row">
 					<div class="col-12 col-xl-9">
 						<h2>Wiki Helm Defense</h2>
-						<div>
-							<h3><?= $type == "entity" ? "Entités" : "Niveaux" ?></h3>
+						<div class="wiki-body">
+							<h3 class="section-title"><?= $type == "entity" ? "Entités" : "Niveaux" ?></h3>
 							<div class="wiki-pagepreview-parent">
 								<?php $this->pagePreviewList($pages, $type); ?>
 							</div>

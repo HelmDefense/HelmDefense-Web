@@ -38,7 +38,7 @@ class WikiSidebarView extends View {
 			if ($diff->y > 0)
 				return $diff->format("Il y a %y an" . ($diff->y > 1 ? "s" : ""));
 			if ($diff->m > 0)
-				return $diff->format("Il y a %m mois et %d jour" . ($diff->d > 1 ? "s" : ""));
+				return $diff->format("Il y a %m mois" . ($diff->d > 0 ? " et %d jour" . ($diff->d > 1 ? "s" : "") : ""));
 			if ($diff->d > 0)
 				return $diff->format("Il y a %d jour" . ($diff->d > 1 ? "s" : ""));
 			if ($diff->h > 0)
