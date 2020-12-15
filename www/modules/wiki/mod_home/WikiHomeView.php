@@ -46,7 +46,7 @@ class WikiHomeView extends View {
 	public function pageList($pages, $type) { ?>
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-12 col-xl-9">
+
 						<h2>Wiki Helm Defense</h2>
 						<div>
 							<h3><?= $type == "entity" ? "Entités" : "Niveaux" ?></h3>
