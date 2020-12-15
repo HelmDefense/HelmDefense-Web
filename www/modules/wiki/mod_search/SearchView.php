@@ -76,7 +76,7 @@ class SearchView extends View {
 				<input type="hidden" name="check" value="check"/>
 
 				<h3 class="titleTypeSearch">Type de recherche</h3>
-				<div class="custom-control custom-radio custom-control-inline radioButton">
+				<div class="custom-control custom-radio custom-control-inline radioButton ">
 					<input type="radio" id="customRadio2" name="typeSearch" class="custom-control-input" value="page" <?php if($typeSearch == "page") echo "checked"; ?> >
 					<label class="custom-control-label" for="customRadio2">Pages</label>
 				</div>
