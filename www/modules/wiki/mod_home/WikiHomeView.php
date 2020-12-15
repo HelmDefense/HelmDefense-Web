@@ -68,7 +68,7 @@ class WikiHomeView extends View {
 			</div>
 	<?php }
 
-	private function pagePreviewList($list, $type = null) {
+	private function pagePreviewList($list, $type = "page") {
 		foreach ($list as $item) {
 			$preview = Utils::loadComponent("wikipagepreview", false, $item, $type, "h4");
 			$preview->generateRender();

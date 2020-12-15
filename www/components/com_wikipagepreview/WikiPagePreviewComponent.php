@@ -9,7 +9,7 @@ class WikiPagePreviewComponent extends Component {
 	private $heading;
 	private $type;
 
-	public function __construct($idPage = null, $type = null, $heading = "h3") {
+	public function __construct($idPage = null, $type = "page", $heading = "h3") {
 		parent::__construct(new WikiPagePreviewController());
 		$this->type = $type;
 		$this->idPage = $idPage;
