@@ -1,22 +1,38 @@
 <?php
 namespace Module;
 
+use Utils;
+
 include_once "modules/generic/View.php";
 
 class WikiPageView extends View {
 	public function classicPage($data) { ?>
-			<div class="container">
-				<div class="row mt-5">
-					<div class="col-6">
-						<img class="w-100" src="<?= $data->img ?>" alt="<?= $data->title ?>" />
-						<h2><?= $data->title ?></h2>
-					</div>
-					<div class="col-6">
-						<div class="border border-light px-5">
-							<h2>Description</h2>
-							<p><?= $data->content ?></p>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12 col-xl-9 wiki-body pt-5">
+						<div class="row">
+							<div class="col-6">
+								<img class="w-100" src="<?= $data->img ?>" alt="<?= $data->title ?>" />
+								<h2><?= $data->title ?></h2>
+							</div>
+							<div class="col-6">
+								<div class="border border-light px-5">
+									<h2>Description</h2>
+									<p><?= $data->content ?></p>
+								</div>
+								<h4>
+									Crée par <strong><?= $data->name ?></strong> le <?= Utils::formatDate($data->created_at) ?>
+									<?php if ($data->edited_at) echo " - Modifié le " . Utils::formatDate($data->edited_at); ?>
+								</h4>
+							</div>
 						</div>
-						<h4>Crée par <strong><?= $data->name ?></strong> le <?= $data->created_at?> - Modifié le <?= $data->edited_at ?></h4>
+					</div>
+					<div class="wiki-sidebar-container col-12 col-xl-3">
+						<?php
+						$sidebar = Utils::loadComponent("wikisidebar");
+						$sidebar->generateRender();
+						$sidebar->display();
+						?>
 					</div>
 				</div>
 			</div>
