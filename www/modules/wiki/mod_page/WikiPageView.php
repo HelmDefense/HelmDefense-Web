@@ -12,16 +12,27 @@ class WikiPageView extends View {
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-12 col-xl-9 mt-5">
-						<div class="col-4">
-							<img class="w-50" src=<?= $data->img ?>>
-							<h2><?= $data->title ?></h2>
-						</div>
-						<div class="col-4">
-							<div class="border border-light px-5">
-								<h2>Description</h2>
-								<p><?= $data->content ?></p>
+						<div class="row">
+							<div class="col-6">
+								<img class="w-100" src=<?= $data->img ?>>
+								<h2><?= $data->title ?></h2>
 							</div>
-							<h4>Crée par <strong> <?= $data->name ?> </strong> le <?= $data->created_at?> - Modifié le <?= $data->edited_at ?></h4>
+							<div class="col-6">
+								<div class="border border-light px-5">
+									<h2>Description</h2>
+									<p><?= $data->content ?></p>
+								</div>
+								<h4>
+									Crée par <strong>
+									<?=
+									$data->name
+									?> </strong> le <?=$data->created_at?>
+									<?php
+										if ($data->edited_at != null)
+											echo(" - Modifié le ".$data->edited_at);
+									?>
+								</h4>
+							</div>
 						</div>
 					</div>
 					<div class="wiki-sidebar-container col-12 col-xl-3">
