@@ -36,9 +36,9 @@ class WikiHomeView extends View {
 					</div>
 					<div class="wiki-sidebar-container col-12 col-xl-3">
 						<?php
-							$sidebar = Utils::loadComponent("wikisidebar");
-							$sidebar->generateRender();
-							$sidebar->display();
+						$sidebar = Utils::loadComponent("wikisidebar");
+						$sidebar->generateRender();
+						$sidebar->display();
 						?>
 					</div>
 				</div>

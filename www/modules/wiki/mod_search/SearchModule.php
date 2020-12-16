@@ -7,7 +7,6 @@ include_once "modules/generic/Module.php";
 include_once "SearchController.php";
 
 class SearchModule extends Module {
-
 	public function __construct() {
 		parent::__construct(new SearchController());
 	}
@@ -16,13 +15,10 @@ class SearchModule extends Module {
 	 * @inheritDoc
 	 */
 	public function execute() {
-		$check = Utils::post("check");
-		$typeSearch = Utils::post("typeSearch");
-		if(is_null($check) and is_null($typeSearch)) {
+		$type = Utils::get("action");
+		if (is_null($type))
 			$this->controller->generateSearchPage();
-		}
-		else {
-			$this->controller->generateSearchResultPage(Utils::post("search"), $typeSearch);
-		}
+		else
+			$this->controller->generateSearchResultPage(str_replace("%2F", "/", Utils::get("extra")), $type);
 	}
 }

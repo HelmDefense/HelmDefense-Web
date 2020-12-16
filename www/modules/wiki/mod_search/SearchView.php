@@ -6,14 +6,13 @@ use Utils;
 include_once "modules/generic/View.php";
 
 class SearchView extends View {
-
 	public function searchPage() { ?>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-12 col-xl-9">
 					<h2>Wiki Helm Defense</h2>
-					<div class="row">
-						<?php $this->form() ?>
+					<div class="wiki-body">
+						<?php $this->form(); ?>
 					</div>
 				</div>
 				<div class="col-xl-3 wiki-sidebar-container col-12">
@@ -25,35 +24,32 @@ class SearchView extends View {
 				</div>
 			</div>
 		</div>
-
 	<?php }
 
-	public function resultPage($result, $search, $typeSearch) { ?>
+	public function resultPage($result, $search, $type) { ?>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-12 col-xl-9">
 					<h2>Wiki Helm Defense</h2>
-					<div class="row">
-							<?php $this->form($search, $typeSearch) ?>
-					</div>
-
-					<div id="resultDiv" class="col">
-						<h3>Résultats de recherche pour "<?= $search ?>" (<?= $this->displayType($typeSearch) ?>)</h3>
-						<div id="result-container" class="wiki-pagepreview-parent">
-							<?php
-							if(count($result))
-								foreach ($result as $value) {
-									$preview = Utils::loadComponent("wikipagepreview", false, $value, $typeSearch, "h4");
-									$preview->generateRender();
-									$preview->display();
-								}
-							else {
-								echo "aucun résultat de recherche";
-							}?>
+					<div class="wiki-body">
+						<?php $this->form($search, $type); ?>
+						<div id="resultDiv" class="col">
+							<h3>Résultats de recherche pour "<?= htmlspecialchars($search) ?>" (<?= $this->displayType($type) ?>)</h3>
+							<div id="result-container" class="wiki-pagepreview-parent">
+								<?php
+								if (count($result))
+									foreach ($result as $value) {
+										$preview = Utils::loadComponent("wikipagepreview", false, $value, $type, "h4");
+										$preview->generateRender();
+										$preview->display();
+									}
+								else
+									echo "<p class='p-3'>Aucun résultat de recherche</p>";
+								?>
+							</div>
 						</div>
 					</div>
 				</div>
-
 				<div class="col-xl-3 wiki-sidebar-container col-12">
 					<?php
 					$sidebar = Utils::loadComponent("wikisidebar");
@@ -65,40 +61,52 @@ class SearchView extends View {
 		</div>
 	<?php }
 
-	private function form($search = "", $typeSearch = "page") { ?>
-			<form method="post">
-				<div id="recherche" class="container d-flex">
-					<img id="loupe" src="/data/img/Loupe.svg" alt="">
+	private function form($search = "", $type = "page") { ?>
+			<form id="search-form">
+				<div id="recherche" class="d-flex">
+					<img id="loupe" src="/data/img/loupe.svg" alt="" />
 					<h3>Recherche</h3>
 				</div>
-				<label class="sr-only" for="search">votre recherche...</label>
-				<input id="search" name="search" type="text" placeholder="" value="<?= $search ?>" required />
-				<input type="hidden" name="check" value="check"/>
-
+				<label class="sr-only" for="search">Votre recherche...</label>
+				<input id="search" name="search" type="text" placeholder="" value="<?= $search ?>" required autofocus />
 				<h3 class="titleTypeSearch">Type de recherche</h3>
-				<div class="custom-control custom-radio custom-control-inline radioButton ">
-					<input type="radio" id="customRadio2" name="typeSearch" class="custom-control-input" value="page" <?php if($typeSearch == "page") echo "checked"; ?> >
-					<label class="custom-control-label" for="customRadio2">Pages</label>
+				<div class="row">
+					<div class="col-12 col-md-auto">
+						<div class="custom-control custom-radio custom-control-inline">
+							<input type="radio" id="type-page" name="type" class="custom-control-input" value="page" <?php if ($type == "page") echo "checked"; ?> />
+							<label class="custom-control-label" for="type-page">Pages</label>
+						</div>
+					</div>
+					<div class="col-12 col-md-auto">
+						<div class="custom-control custom-radio custom-control-inline">
+							<input type="radio" id="type-entity" name="type" class="custom-control-input" value="entity" <?php if ($type == "entity") echo "checked"; ?> />
+							<label class="custom-control-label" for="type-entity">Entités</label>
+						</div>
+					</div>
+					<div class="col-12 col-md-auto">
+						<div class="custom-control custom-radio custom-control-inline">
+							<input type="radio" id="type-level" name="type" class="custom-control-input" value="level" <?php if ($type == "level") echo "checked"; ?> />
+							<label class="custom-control-label" for="type-level">Niveaux</label>
+						</div>
+					</div>
 				</div>
-				<div class="custom-control custom-radio custom-control-inline radioButton">
-					<input type="radio" id="customRadio3" name="typeSearch" class="custom-control-input" value="entity" <?php if($typeSearch == "entity") echo "checked"; ?> >
-					<label class="custom-control-label" for="customRadio3">Entités</label>
-				</div>
-				<div class="custom-control custom-radio custom-control-inline">
-					<input type="radio" id="customRadio4" name="typeSearch" class="custom-control-input" value="level" <?php if($typeSearch == "level") echo "checked"; ?> >
-					<label class="custom-control-label" for="customRadio4">Niveaux</label>
-				</div>
+				<script>
+					$("#search-form").on("submit", e => {
+						e.preventDefault();
+						window.location.href = `/wiki/search/${$("input[name=type]:checked").val()}/${encodeURIComponent($("#search").val().replaceAll("/", "%2F"))}`;
+					});
+				</script>
 			</form>
 	<?php }
 
-	private function displayType($typeSearch) {
-		switch ($typeSearch) {
+	private function displayType($type) {
+		switch ($type) {
 			case "page":
-				return "Page";
+				return "Pages";
 			case "level":
-				return "Niveau";
+				return "Niveaux";
 			case "entity":
-				return "Entité";
+				return "Entités";
 			default:
 				return "";
 		}

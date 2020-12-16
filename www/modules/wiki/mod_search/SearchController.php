@@ -6,10 +6,8 @@ include_once "SearchModel.php";
 include_once "SearchView.php";
 
 class SearchController extends Controller {
-
 	public function __construct() {
 		parent::__construct(new SearchModel(), new SearchView());
-		$this->title = "Résultat de recherche";
 	}
 
 	/**
@@ -20,11 +18,13 @@ class SearchController extends Controller {
 	}
 
 	public function generateSearchPage() {
+		$this->title = "Recherche";
 		$this->view->searchPage();
 	}
 
-	public function generateSearchResultPage($search, $typeSearch) {
-		$result = $this->model->search($search, $typeSearch);
-		$this->view->resultPage($result, $search, $typeSearch);
+	public function generateSearchResultPage($search, $type) {
+		$this->title = "Résultat de recherche";
+		$result = $this->model->search($search, $type);
+		$this->view->resultPage($result, $search, $type);
 	}
 }
