@@ -121,7 +121,7 @@ class WikiPageView extends View {
 								</tr>
 							<?php
 							}
-							if ($entity->type == 1 || $entity->type == 3){
+							if ($entity->type == "defender"){
 							?>
 								<tr>
 									<td>Coût à l'unité</td>
