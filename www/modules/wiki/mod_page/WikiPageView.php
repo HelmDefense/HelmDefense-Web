@@ -13,15 +13,19 @@ class WikiPageView extends View {
 						<div class="row">
 							<div class="col-6">
 								<img class="w-100" src="<?= $data->img ?>" alt="<?= $data->title ?>" />
-								<h2><?= $data->title ?></h2>
+								<h2><?= htmlspecialchars($data->title) ?></h2>
 							</div>
 							<div class="col-6">
 								<div class="border border-light px-5">
 									<h2>Description</h2>
-									<p><?= $data->content ?></p>
+									<?php
+									$content = Utils::loadComponent("markdowntext", false, $data->content);
+									$content->generateRender();
+									$content->display();
+									?>
 								</div>
 								<h4>
-									Crée par <strong><?= $data->name ?></strong> le <?= Utils::formatDate($data->created_at) ?>
+									Crée par <strong><?= htmlspecialchars($data->name) ?></strong> le <?= Utils::formatDate($data->created_at) ?>
 									<?php if ($data->edited_at) echo " - Modifié le " . Utils::formatDate($data->edited_at); ?>
 								</h4>
 							</div>

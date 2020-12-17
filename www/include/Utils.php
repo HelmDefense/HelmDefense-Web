@@ -26,8 +26,8 @@ class Utils {
 	 * The URL of the API
 	 * @see Utils::SITE_URL
 	 */
-	//const API_URL = "https://api.helmdefense.theoszanto.fr/";
-	const API_URL = "http://helmdefense-api/";
+	const API_URL = "https://api.helmdefense.theoszanto.fr/";
+	// const API_URL = "http://helmdefense-api/";
 
 	/**
 	 * @var bool Whether the connection has been initialized or not
@@ -541,7 +541,7 @@ class Utils {
 	static function httpGetRequest($url, $args = array(), $json = true, $api = true) {
 		// Prepend API URL if needed
 		if ($api)
-			$url = Utils::API_URL . $url;
+			$url = self::API_URL . $url;
 
 		// Append request arguments if needed
 		if (count($args)) {
@@ -603,5 +603,19 @@ class Utils {
 		} catch (Exception $e) {
 			return $def;
 		}
+	}
+
+	/**
+	 * Retrieve the current logged in user data
+	 * @return stdClass|null The user data or null if user is not logged in
+	 */
+	static function loggedInUser() {
+		$loggedInUser = self::session("login");
+		if (is_null($loggedInUser))
+			return null;
+
+		$user = self::httpGetRequest("v1/users/$loggedInUser");
+		$user->avatar = self::SITE_URL . "data/img/avatar/indyteo.png";
+		return property_exists($user, "id") ? $user : null;
 	}
 }

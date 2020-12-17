@@ -1,6 +1,8 @@
 <?php
 namespace Component;
 
+use Utils;
+
 include_once "components/generic/Controller.php";
 include_once "HeaderModel.php";
 include_once "HeaderView.php";
@@ -11,6 +13,6 @@ class HeaderController extends Controller {
 	}
 
 	public function generateHeader() {
-		$this->view->generateHeader($this->model->currentActiveNav(), $this->model->loggedInUser());
+		$this->view->generateHeader($this->model->currentActiveNav(), Utils::loggedInUser());
 	}
 }

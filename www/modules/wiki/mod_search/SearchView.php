@@ -7,58 +7,58 @@ include_once "modules/generic/View.php";
 
 class SearchView extends View {
 	public function searchPage() { ?>
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-12 col-xl-9">
-					<h2>Wiki Helm Defense</h2>
-					<div class="wiki-body">
-						<?php $this->form(); ?>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12 col-xl-9">
+						<h2>Wiki Helm Defense</h2>
+						<div class="wiki-body">
+							<?php $this->form(); ?>
+						</div>
+					</div>
+					<div class="col-xl-3 wiki-sidebar-container col-12">
+						<?php
+							$sidebar = Utils::loadComponent("wikisidebar");
+							$sidebar->generateRender();
+							$sidebar->display();
+						?>
 					</div>
 				</div>
-				<div class="col-xl-3 wiki-sidebar-container col-12">
-					<?php
-						$sidebar = Utils::loadComponent("wikisidebar");
-						$sidebar->generateRender();
-						$sidebar->display();
-					?>
-				</div>
 			</div>
-		</div>
 	<?php }
 
 	public function resultPage($result, $search, $type) { ?>
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-12 col-xl-9">
-					<h2>Wiki Helm Defense</h2>
-					<div class="wiki-body">
-						<?php $this->form($search, $type); ?>
-						<div id="resultDiv" class="col">
-							<h3>Résultats de recherche pour "<?= htmlspecialchars($search) ?>" (<?= $this->displayType($type) ?>)</h3>
-							<div id="result-container" class="wiki-pagepreview-parent">
-								<?php
-								if (count($result))
-									foreach ($result as $value) {
-										$preview = Utils::loadComponent("wikipagepreview", false, $value, $type, "h4");
-										$preview->generateRender();
-										$preview->display();
-									}
-								else
-									echo "<p class='p-3'>Aucun résultat de recherche</p>";
-								?>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12 col-xl-9">
+						<h2>Wiki Helm Defense</h2>
+						<div class="wiki-body">
+							<?php $this->form($search, $type); ?>
+							<div id="resultDiv" class="col">
+								<h3>Résultats de recherche pour "<?= htmlspecialchars($search) ?>" (<?= $this->displayType($type) ?>)</h3>
+								<div id="result-container" class="wiki-pagepreview-parent">
+									<?php
+									if (count($result))
+										foreach ($result as $value) {
+											$preview = Utils::loadComponent("wikipagepreview", false, $value, $type, "h4");
+											$preview->generateRender();
+											$preview->display();
+										}
+									else
+										echo "<p class='p-3'>Aucun résultat de recherche</p>";
+									?>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-xl-3 wiki-sidebar-container col-12">
-					<?php
-					$sidebar = Utils::loadComponent("wikisidebar");
-					$sidebar->generateRender();
-					$sidebar->display();
-					?>
+					<div class="col-xl-3 wiki-sidebar-container col-12">
+						<?php
+						$sidebar = Utils::loadComponent("wikisidebar");
+						$sidebar->generateRender();
+						$sidebar->display();
+						?>
+					</div>
 				</div>
 			</div>
-		</div>
 	<?php }
 
 	private function form($search = "", $type = "page") { ?>
@@ -68,7 +68,10 @@ class SearchView extends View {
 					<h3>Recherche</h3>
 				</div>
 				<label class="sr-only" for="search">Votre recherche...</label>
-				<input id="search" name="search" type="text" placeholder="" value="<?= $search ?>" required autofocus />
+				<div class="position-relative">
+					<input id="search" name="search" type="text" placeholder="" value="<?= $search ?>" required autofocus />
+					<input class="submit-search" type="image" src="/data/img/arrow.svg" alt="->" onclick="$('#search-form').submit()" />
+				</div>
 				<h3 class="titleTypeSearch">Type de recherche</h3>
 				<div class="row">
 					<div class="col-12 col-md-auto">
