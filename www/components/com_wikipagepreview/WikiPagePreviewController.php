@@ -17,14 +17,19 @@ class WikiPagePreviewController extends Controller {
 	}
 
 	public function generatePagePreview($idPage, $type, $heading) {
-		if(is_null($type))
+		switch ($type) {
+		case "page":
 			$page = $this->model->getPreview($idPage);
-		else if($type == "level")
+			break;
+		case "level":
 			$page = $this->model->getLevel($idPage);
-		else if($type == "entity")
+			break;
+		case "entity":
 			$page = $this->model->getEntity($idPage);
-		else
+			break;
+		default:
 			Utils::error(400, "type de page incorrect");
+		}
 		$this->view->generatePagePreview($page, $type, $heading);
 	}
 }

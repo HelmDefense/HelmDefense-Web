@@ -42,18 +42,18 @@ class HeaderView extends View {
 						<div class="custom-dropdown">
 							<a class="main-nav <?php if ($currentActiveNav == "wiki") echo "custom-dropdown-active"; ?>" href="/wiki"><span class="main-nav-label">Wiki</span></a>
 							<div class="custom-dropdown-content">
+								<a href="/wiki/search">Recherche</a>
 								<a href="/wiki/entity">Entités</a>
 								<a href="/wiki/level">Niveaux</a>
-								<a href="/wiki/search">Recherche</a>
 							</div>
 						</div>
 						<div class="custom-dropdown">
 							<a class="main-nav <?php if ($currentActiveNav == "forum") echo "custom-dropdown-active"; ?>" href="/forum"><span class="main-nav-label">Forum</span></a>
 							<div class="custom-dropdown-content">
+								<a href="/forum/search">Recherche</a>
 								<a href="/forum/talk">Discussions</a>
 								<a href="/forum/strat">Stratégies</a>
 								<a href="/forum/rate">Avis</a>
-								<a href="/forum/search">Recherche</a>
 							</div>
 						</div>
 						<a class="main-nav <?php if ($currentActiveNav == "contact") echo "custom-dropdown-active"; ?>" href="/contact">Contact</a>

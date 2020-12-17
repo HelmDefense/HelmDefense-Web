@@ -26,8 +26,8 @@ class Utils {
 	 * The URL of the API
 	 * @see Utils::SITE_URL
 	 */
-	//const API_URL = "https://api.helmdefense.theoszanto.fr/";
-	const API_URL = "http://helmdefense-api/";
+	const API_URL = "https://api.helmdefense.theoszanto.fr/";
+	// const API_URL = "http://helmdefense-api/";
 
 	/**
 	 * @var bool Whether the connection has been initialized or not
@@ -129,7 +129,7 @@ class Utils {
 	private function __construct() {}
 
 	/**
-	 * Return the value for the key `$val` in the array `$arr` if it exists, `$def` otherwise
+	 * Return the value for the key `$val` in the array `$arr` if it exists and isn't empty, `$def` otherwise
 	 * @param array $arr The array to explore
 	 * @param mixed $val The key to search for
 	 * @param mixed|null $def The value to return if the key isn't it the array
@@ -138,7 +138,7 @@ class Utils {
 	 * @see Utils::get(), Utils::post(), Utils::session(), Utils::extra()
 	 */
 	static function arr($arr, $val, $def = null) {
-		return isset($arr[$val]) ? $arr[$val] : $def;
+		return isset($arr[$val]) && !empty($arr[$val]) ? $arr[$val] : $def;
 	}
 
 	/**
@@ -353,7 +353,7 @@ class Utils {
 		// Retrieve module from GET parameters if none passed
 		if (is_null($mod_full_name)) {
 			// Get required module
-			$mod_full_name = self::getRequired("module");
+			$mod_full_name = self::get("module");
 			// Get optional section
 			$section = self::get("section");
 			if (!is_null($section)) // Combine both
@@ -541,7 +541,7 @@ class Utils {
 	static function httpGetRequest($url, $args = array(), $json = true, $api = true) {
 		// Prepend API URL if needed
 		if ($api)
-			$url = Utils::API_URL . $url;
+			$url = self::API_URL . $url;
 
 		// Append request arguments if needed
 		if (count($args)) {
@@ -555,5 +555,67 @@ class Utils {
 		$response = file_get_contents($url, false, stream_context_create(array("http" => array("ignore_errors" => true))));
 		// Request data in the request format
 		return $json ? json_decode($response) : $response;
+	}
+
+	/**
+	 * Format the given date with the specified format and timezone
+	 * @param string $date The date to format
+	 * @param string $format The format
+	 * @param string $def The default value if the date is invalid
+	 * @param string $timezone The timezone
+	 * @return string The formatted date
+	 */
+	static function formatDate($date = "now", $format = "d/m/Y à H:i:s", $def = "Date inconnue", $timezone = "Europe/Paris") {
+		try {
+			$d = new DateTime($date, new DateTimeZone($timezone));
+			return $d->format($format);
+		} catch (Exception $e) {
+			return $def;
+		}
+	}
+
+	/**
+	 * Calculate and format the difference between two dates
+	 * @param string $date The first date
+	 * @param string $ref The reference data
+	 * @param string $def The default value if the date is invalid
+	 * @return string The formatted difference
+	 */
+	static function formatDateDiff($date, $ref = "now", $def = "Date inconnue") {
+		try {
+			$timezone = new DateTimeZone("Europe/Paris");
+			$old = new DateTime($date, $timezone);
+			$now = new DateTime($ref, $timezone);
+			$diff = $old->diff($now);
+			if ($diff->y > 0)
+				return $diff->format("Il y a %y an" . ($diff->y > 1 ? "s" : ""));
+			if ($diff->m > 0)
+				return $diff->format("Il y a %m mois" . ($diff->d > 0 ? " et %d jour" . ($diff->d > 1 ? "s" : "") : ""));
+			if ($diff->d > 0)
+				return $diff->format("Il y a %d jour" . ($diff->d > 1 ? "s" : ""));
+			if ($diff->h > 0)
+				return $diff->format("Il y a %h heure" . ($diff->h > 1 ? "s" : ""));
+			if ($diff->i > 0)
+				return $diff->format("Il y a %i minute" . ($diff->i > 1 ? "s" : ""));
+			if ($diff->s > 0)
+				return $diff->format("Il y a %s seconde" . ($diff->s > 1 ? "s" : ""));
+			return "Il y a un instant";
+		} catch (Exception $e) {
+			return $def;
+		}
+	}
+
+	/**
+	 * Retrieve the current logged in user data
+	 * @return stdClass|null The user data or null if user is not logged in
+	 */
+	static function loggedInUser() {
+		$loggedInUser = self::session("login");
+		if (is_null($loggedInUser))
+			return null;
+
+		$user = self::httpGetRequest("v1/users/$loggedInUser");
+		$user->avatar = self::SITE_URL . "data/img/avatar/indyteo.png";
+		return property_exists($user, "id") ? $user : null;
 	}
 }

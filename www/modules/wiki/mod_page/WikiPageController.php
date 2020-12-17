@@ -13,7 +13,7 @@ class WikiPageController extends Controller {
 	 */
 	public function __construct() {
 		parent::__construct(new WikiPageModel(), new WikiPageView());
-		$this->title = "Wiki";
+		$this->setTitle(null);
 	}
 
 	/**
@@ -23,11 +23,30 @@ class WikiPageController extends Controller {
 		return "<link rel='stylesheet' href='/data/css/wiki.css' />";
 	}
 
-	public function entityPage($entity){
-		$this->view->entityPage($this->model->getEntityPage($entity));
+	public function page($id) {
+		$page = $this->model->getClassicPage($id);
+		if (!$page)
+			Utils::error(404, "La page Wiki \"" . htmlspecialchars($id) . "\" que vous cherchez n'a pas été trouvée");
+		else if (!$page->published) {
+			$user = Utils::loggedInUser();
+			if (is_null($user) || !in_array("redactor", $user->ranks))
+				Utils::error(401, "Vous n'avez pas accès à cette page Wiki ! Connectez-vous avec un compte ayant des accès de rédacteur pour voir la page \"" . htmlspecialchars($id) . "\"");
+		}
+		$this->setTitle($page->title);
+		$this->view->classicPage($page);
+	}
+
+	public function entityPage($entity) {
+		$entity = $this->model->getEntityPage($entity);
+		$this->setTitle($entity->name);
+		$this->view->entityPage($entity);
 	}
 
 	public function levelPage($page) {
 		echo "Niveau $page";
+	}
+
+	private function setTitle($title) {
+		$this->title = (is_null($title) ? "" : "$title - ") . "Wiki";
 	}
 }

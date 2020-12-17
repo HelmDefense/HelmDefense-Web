@@ -1,25 +1,62 @@
-.masterDiv {
-	padding-left: 125px;
-	padding-bottom: 50px;
-}
-
 #loupe {
 	height: 40px;
 	width: 40px;
 	padding-right: 5px;
 }
 
+#recherche {
+	margin-bottom: 15px;
+}
+
 #search {
-	width: 900px;
-	margin-top: 10px;
+	width: 100%;
 	padding-left: 10px;
 	padding-top: 10px;
 	padding-bottom: 10px;
-	border: solid #444444;
+	border: 3px solid #444444;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+	border-color: var(--fg-color);
+	background-color: var(--fg-color);
+}
+
+.custom-control-input:focus ~ .custom-control-label::before {
+	box-shadow: 0 0 0 .2rem rgba(var(--fg-color-r), var(--fg-color-g), var(--fg-color-b), .25);
+}
+
+.custom-control-input:not(:disabled):active ~ .custom-control-label::before {
+	background-color: rgba(var(--fg-color-r), var(--fg-color-g), var(--fg-color-b), .25);
+	border-color: rgba(var(--fg-color-r), var(--fg-color-g), var(--fg-color-b), .25);
+}
+
+.custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+	border-color: rgba(var(--fg-color-r), var(--fg-color-g), var(--fg-color-b), .25);
+}
+
+.form-check {
+	padding: 50px;
+}
+
+.titleTypeSearch {
+	padding-top: 75px;
+	padding-bottom: 20px;
 }
 
 #resultDiv {
 	padding-top: 50px;
+}
+
+.titleTypeSearch {
+	padding-top: 25px;
+}
+
+.submit-search {
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+	height: 75%;
 }
 
 #result-container {
@@ -29,11 +66,25 @@
 .wiki-pagepreview-parent {
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: center;
 }
 
 .wiki-pagepreview-container {
 	margin: 30px;
-	width: 250px;
+	max-width: 250px;
+	flex: 1 250px;
+}
+
+.wiki-pagepreview-container .page-image {
+	overflow: hidden;
+}
+
+.wiki-pagepreview-container .page-image img {
+	transition: transform 1s ease;
+}
+
+.wiki-pagepreview-container:hover .page-image img {
+	transform: scale(1.2);
 }
 
 .wiki-pagepreview-container .page-title {
@@ -41,6 +92,16 @@
 	hyphens: auto;
 	font-weight: normal;
 	margin-top: 10px;
+}
+
+.section-title {
+	text-align: center;
+	font-size: 2.5em;
+	font-family: var(--font-title);
+}
+
+.wiki-body {
+	padding: 0 75px 65px;
 }
 
 /* Sidebar */

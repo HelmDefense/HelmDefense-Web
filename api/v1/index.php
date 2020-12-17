@@ -2,6 +2,7 @@
 define("CHECK_INCLUDE", NULL);
 include_once "include/Utils.php";
 header("Content-Type: application/json");
+header("Access-Control-Allow-Origin: *");
 
 $mod = Utils::getRequired("module", "No request specified");
 if ($mod == "error")

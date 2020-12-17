@@ -12,7 +12,7 @@ RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" -f
 RewriteRule "^data/" - [L,NC]
 
 # Global rewrite rules
-RewriteRule "^(wiki|user|forum|panel)(/([^/]+)(/([^/]+)(/(.+))?)?)?$" "index.php?section=$1&module=$3&action=$5&extra=$7" [L,NC]
+RewriteRule "^(wiki|user|forum|panel)(/([^/]+)(/([^/]+)(/(.+))?)?)?$" "index.php?section=$1&module=$3&action=$5&extra=$7" [B,L,NC]
 RewriteRule "^([^/]+)/?$" "index.php?module=static&page=$1" [L,NC]
 RewriteRule "^$" "index.php?module=static&page=home" [L,NC]
 
