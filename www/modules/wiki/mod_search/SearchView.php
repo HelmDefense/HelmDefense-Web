@@ -96,7 +96,10 @@ class SearchView extends View {
 				<script>
 					$("#search-form").on("submit", e => {
 						e.preventDefault();
-						window.location.href = `/wiki/search/${$("input[name=type]:checked").val()}/${encodeURIComponent($("#search").val().replaceAll("/", "%2F"))}`;
+						const type = $("input[name=type]:checked").val();
+						const search = encodeURIComponent($("#search").val().replaceAll("/", "%2F"));
+						if (type && search)
+							window.location.href = `/wiki/search/${type}/${search}`;
 					});
 				</script>
 			</form>
