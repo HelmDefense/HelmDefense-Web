@@ -46,7 +46,12 @@ class EntitiesModel extends Connection {
 
 		$ent->abilities = new stdClass();
 		foreach ($abilities as $ability) {
-			$ent->abilities->{$ability->class} = is_null($ability->params) ? array() : explode("|", $ability->params);
+			$a = new stdClass();
+			$a->params = is_null($ability->params) ? array() : explode("|", $ability->params);
+			if (!is_null($ability->description))
+				$a->description = $ability->description;
+
+			$ent->abilities->{$ability->class} = $a;
 		}
 
 		$ent->size = new stdClass();
