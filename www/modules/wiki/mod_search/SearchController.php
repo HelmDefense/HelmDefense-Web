@@ -10,13 +10,6 @@ class SearchController extends Controller {
 		parent::__construct(new SearchModel(), new SearchView());
 	}
 
-	/**
-	 * @inheritDoc
-	 */
-	public function getHead() {
-		return "<link rel='stylesheet' href='/data/css/wiki.css' />";
-	}
-
 	public function generateSearchPage() {
 		$this->title = "Recherche";
 		$this->view->searchPage();

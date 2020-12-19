@@ -16,13 +16,6 @@ class WikiPageController extends Controller {
 		$this->setTitle(null);
 	}
 
-	/**
-	 * @inheritDoc
-	 */
-	public function getHead() {
-		return "<link rel='stylesheet' href='/data/css/wiki.css' />";
-	}
-
 	public function page($id) {
 		$page = $this->model->getClassicPage($id);
 		if (!$page)
@@ -36,14 +29,16 @@ class WikiPageController extends Controller {
 		$this->view->classicPage($page);
 	}
 
-	public function entityPage($entity) {
-		$entity = $this->model->getEntityPage($entity);
+	public function entityPage($ent) {
+		$entity = $this->model->getEntityPage($ent);
 		$this->setTitle($entity->name);
 		$this->view->entityPage($entity);
 	}
 
-	public function levelPage($page) {
-		echo "Niveau $page";
+	public function levelPage($lvl) {
+		$level = $this->model->getEntityPage($lvl);
+		$this->setTitle($level->name);
+		$this->view->levelPage($level);
 	}
 
 	private function setTitle($title) {

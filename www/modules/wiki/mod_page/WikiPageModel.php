@@ -10,6 +10,10 @@ class WikiPageModel extends Model {
 		return Utils::httpGetRequest("v1/entities/$entity");
 	}
 
+	public function getLevelPage($level) {
+		return Utils::httpGetRequest("v1/levels/$level");
+	}
+
 	public function getClassicPage($id) {
 		$page = Utils::executeRequest(self::$bdd, "SELECT num, title, content, created_at, edited_at, `name`, published FROM hd_wiki_pages AS p INNER JOIN hd_user_users AS u ON p.author = u.id WHERE p.id = :id", array("id" => $id), false);
 		if (!$page)

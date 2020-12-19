@@ -36,6 +36,12 @@ class Utils {
 	private static $isConnectionInit = false;
 
 	/**
+	 * @var string[] Buffer for the page head resources
+	 * @see Utils::generateHead(), Utils::addResource()
+	 */
+	private static $head = array();
+
+	/**
 	 * @var Mod[] Registered modules
 	 * @see Utils::loadModule()
 	 * @see Module, Mod
@@ -334,7 +340,7 @@ class Utils {
 	/**
 	 * Load a specific module. The load process do the following:
 	 * * If `$mod_full_name` is `null`:
-	 *     * Retrieve the required GET parameter `module` (if none is present, an error occur)
+	 *     * Retrieve the required GET parameter `module` (if none is present and no section is specified, an error occur)
 	 *     * Retrieve the optional GET parameter `section`
 	 *     * Build the full module name "section/module"
 	 * * Verify that the module exists (if not, an error occur)
@@ -342,6 +348,7 @@ class Utils {
 	 * * Include the module
 	 * * If the module needs to access to the database:
 	 *     * Initialize database connection
+	 * * Add declared head resources
 	 * * Create the module with the arguments and return the instance
 	 * @param string|null $mod_full_name The full module name, including the section separated with a slash
 	 * @param bool $display_errors Whether to display additional informations about errors
@@ -376,6 +383,9 @@ class Utils {
 		if ($mod->needsDatabase())
 			self::initConnection($display_errors);
 
+		// Add declared head resources
+		self::$head = array_merge(self::$head, $mod->getResources());
+
 		// Create the module and return it
 		$full_mod_class = "\\Module\\$mod_class";
 		return new $full_mod_class(...$args);
@@ -388,6 +398,7 @@ class Utils {
 	 * * Include the component
 	 * * If the component needs to access to the database:
 	 *     * Initialize database connection
+	 * * Add declared head resources
 	 * * Create the component with the arguments and return the instance
 	 * @param string $com_name The component name
 	 * @param bool $display_errors Whether to display additional informations about errors
@@ -409,6 +420,9 @@ class Utils {
 		// Initialise database connection only if needed
 		if ($com->needsDatabase())
 			self::initConnection($display_errors);
+
+		// Add declared head resources
+		self::$head = array_merge(self::$head, $com->getResources());
 
 		// Create the component and return it
 		$full_com_class = "\\Component\\$com_class";
@@ -564,6 +578,7 @@ class Utils {
 	 * @param string $def The default value if the date is invalid
 	 * @param string $timezone The timezone
 	 * @return string The formatted date
+	 * @see Utils::formatDateDiff()
 	 */
 	static function formatDate($date = "now", $format = "d/m/Y à H:i:s", $def = "Date inconnue", $timezone = "Europe/Paris") {
 		try {
@@ -580,6 +595,7 @@ class Utils {
 	 * @param string $ref The reference data
 	 * @param string $def The default value if the date is invalid
 	 * @return string The formatted difference
+	 * @see Utils::formatDate()
 	 */
 	static function formatDateDiff($date, $ref = "now", $def = "Date inconnue") {
 		try {
@@ -608,6 +624,7 @@ class Utils {
 	/**
 	 * Retrieve the current logged in user data
 	 * @return stdClass|null The user data or null if user is not logged in
+	 * @see Utils::session(), Utils::httpGetRequest()
 	 */
 	static function loggedInUser() {
 		$loggedInUser = self::session("login");
@@ -617,5 +634,25 @@ class Utils {
 		$user = self::httpGetRequest("v1/users/$loggedInUser");
 		$user->avatar = self::SITE_URL . "data/img/avatar/indyteo.png";
 		return property_exists($user, "id") ? $user : null;
+	}
+
+	/**
+	 * Generate the page head additional content with the registered resources
+	 * @return string The head content from the head buffer
+	 * @see Utils::$head, Utils::addResource()
+	 */
+	static function generateHead() {
+		return implode(self::$head);
+	}
+
+	/**
+	 * Add the resource to the list of resources that the page must have.
+	 * If the resource has already been added, this method does nothing
+	 * @param string $resource The resource to add
+	 * @see Utils::$head, Utils::generateHead()
+	 */
+	static function addResource($resource) {
+		if (!in_array($resource, self::$head))
+			self::$head[] = $resource;
 	}
 }

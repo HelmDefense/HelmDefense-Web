@@ -89,4 +89,8 @@ class WikiPageView extends View {
 				</div>
 			</div>
 	<?php }
+
+	public function levelPage($level) { ?>
+
+	<?php }
 }

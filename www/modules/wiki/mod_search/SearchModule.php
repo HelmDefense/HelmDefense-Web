@@ -19,6 +19,6 @@ class SearchModule extends Module {
 		if (is_null($type))
 			$this->controller->generateSearchPage();
 		else
-			$this->controller->generateSearchResultPage(str_replace("%2F", "/", Utils::get("extra")), $type);
+			$this->controller->generateSearchResultPage(strtr(Utils::get("extra"), array("%2F" => "/", "%5C" => "\\")), $type);
 	}
 }

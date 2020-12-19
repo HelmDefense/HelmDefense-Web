@@ -97,7 +97,7 @@ class SearchView extends View {
 					$("#search-form").on("submit", e => {
 						e.preventDefault();
 						const type = $("input[name=type]:checked").val();
-						const search = encodeURIComponent($("#search").val().replaceAll("/", "%2F"));
+						const search = encodeURIComponent($("#search").val().replaceAll("/", "%2F").replaceAll("\\", "%5C"));
 						if (type && search)
 							window.location.href = `/wiki/search/${type}/${search}`;
 					});
