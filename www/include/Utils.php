@@ -26,8 +26,8 @@ class Utils {
 	 * The URL of the API
 	 * @see Utils::SITE_URL
 	 */
-	const API_URL = "https://api.helmdefense.theoszanto.fr/";
-	// const API_URL = "http://helmdefense-api/";
+	// const API_URL = "https://api.helmdefense.theoszanto.fr/";
+	const API_URL = "http://helmdefense-api/";
 
 	/**
 	 * @var bool Whether the connection has been initialized or not
@@ -569,6 +569,16 @@ class Utils {
 		$response = file_get_contents($url, false, stream_context_create(array("http" => array("ignore_errors" => true))));
 		// Request data in the request format
 		return $json ? json_decode($response) : $response;
+	}
+
+	/**
+	 * Determine whether the JSON API result is an error or not
+	 * @param mixed $json The JSON data resulting from the API
+	 * @return bool Whether or not the data represent an error
+	 * @see Utils::API_URL, Utils::httpGetRequest()
+	 */
+	static function isError($json) {
+		return isset($json->error) && $json->error;
 	}
 
 	/**

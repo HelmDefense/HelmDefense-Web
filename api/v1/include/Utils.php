@@ -216,6 +216,7 @@ class Utils {
 
 		http_response_code($code);
 		echo json_encode(array(
+				"error" => true,
 				"code" => $code,
 				"status" => self::$response_status[$code],
 				"msg" => $msg

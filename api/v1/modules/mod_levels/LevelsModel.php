@@ -8,11 +8,14 @@ class LevelsModel extends connection {
     }
 
     public function get($id) {
-        $level = Utils::executeRequest(self::$bdd, "SELECT * FROM `hd_game_levels` where id = :id", array("id" => $id), false);
-        $num = array("num" => $level->num);
-        $doors = Utils::executeRequest(self::$bdd, "SELECT * FROM `hd_game_level_doors` where level = :num", $num);
-        $spawns = Utils::executeRequest(self::$bdd, "SELECT * FROM `hd_game_level_spawns` where level = :num", $num);
-        $waves = Utils::executeRequest(self::$bdd, "SELECT * FROM `hd_game_level_waves` where level = :num", $num);
+        $level = Utils::executeRequest(self::$bdd, "SELECT * FROM `hd_game_levels` WHERE id = :id AND published", array("id" => $id), false);
+	    if (!$level)
+		    Utils::error(404, "Level not found");
+
+	    $num = array("num" => $level->num);
+        $doors = Utils::executeRequest(self::$bdd, "SELECT * FROM `hd_game_level_doors` WHERE `level` = :num", $num);
+        $spawns = Utils::executeRequest(self::$bdd, "SELECT * FROM `hd_game_level_spawns` WHERE `level` = :num", $num);
+        $waves = Utils::executeRequest(self::$bdd, "SELECT * FROM `hd_game_level_waves` WHERE `level` = :num", $num);
 
         $lvl = new stdClass();
         $map = explode("|", $level->map);
@@ -41,9 +44,11 @@ class LevelsModel extends connection {
             $lvl->doors[] = $d;
         }
 
-        $lvl->lives = $level->lives;
-        $lvl->names = $level->name;
+        $lvl->id = $level->id;
+        $lvl->name = $level->name;
+	    $lvl->lives = $level->lives;
         $lvl->start_money = $level->start_money;
+	    $lvl->img = "https://helmdefense.theoszanto.fr/data/img/wiki/level/$level->num.png";
 
         $lvl->waves = array();
         foreach ($waves as $wave) {
@@ -58,6 +63,6 @@ class LevelsModel extends connection {
                 $w->entities->{$entity->tick} = $entity->id;
             $lvl->waves[] = $w;
         }
-        return  $lvl;
+        return $lvl;
     }
 }
