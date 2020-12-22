@@ -192,7 +192,61 @@ class WikiPageView extends View {
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-12 col-xl-9 wiki-body">
+						<img src="<?= $level->img ?>" alt="<?= $level->name ?>" />
 						<h2><?= $level->name ?></h2>
+						<div class="wiki-level-description">
+							<h3>Description</h3>
+							<?php
+							$sidebar = Utils::loadComponent("markdowntext", false, $level->description);
+							$sidebar->generateRender();
+							$sidebar->display();
+							?>
+						</div>
+						<!-- TODO Faire la map -->
+						<div class="wiki-level-info">
+							<div>
+								<h3>Spawns</h3>
+								<?php
+								$i = 1;
+								foreach ($level->spawns as $spawn) {
+									echo "<p>Spawn $i ($spawn->x ; $spawn->y)</p>";
+									$i++;
+								}
+								?>
+							</div>
+							<div>
+								<h3>Portes</h3>
+								<?php
+								$i = 1;
+								foreach ($level->doors as $door) {
+									echo "<p>Porte $i ($door->x ; $door->y)</p>";
+									$i++;
+								}
+								?>
+							</div>
+							<div>
+								<h3>Fin</h3>
+								<p>Coordonnées (<?= $level->target->x ?> ; <?= $level->target->y ?>)</p>
+							</div>
+							<div>
+								<h3>Nombre de vies</h3>
+								<p><?= $level->lives ?></p>
+							</div>
+							<div>
+								<h3>Somme de départ</h3>
+								<p><?= $level->start_money ?></p>
+							</div>
+						</div>
+						<div class="wiki-level-waves">
+							<div>
+								<h3>Vagues</h3>
+								<ul class="pagination pagination-lg">
+									<?php foreach ($level->waves as $wave) { ?>
+										<li class="page-item"><a class="page-link" href="#"><?= $wave->name ?></a></li>
+									<?php } ?>
+								</ul>
+							</div>
+						</div>
 					</div>
 					<div class="wiki-sidebar-container col-12 col-xl-3">
 						<?php
