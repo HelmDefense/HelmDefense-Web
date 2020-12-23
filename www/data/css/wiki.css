@@ -38,17 +38,8 @@
 	padding: 50px;
 }
 
-.titleTypeSearch {
-	padding-top: 75px;
-	padding-bottom: 20px;
-}
-
-#resultDiv {
-	padding-top: 50px;
-}
-
-.titleTypeSearch {
-	padding-top: 25px;
+.search-type-title {
+	padding: 50px 0 20px;
 }
 
 .submit-search {
@@ -57,10 +48,6 @@
 	top: 50%;
 	transform: translateY(-50%);
 	height: 75%;
-}
-
-#result-container {
-	padding-bottom: 75px;
 }
 
 .wiki-pagepreview-parent {
@@ -98,10 +85,26 @@
 	text-align: center;
 	font-size: 2.5em;
 	font-family: var(--font-title);
+	margin-top: 75px;
 }
 
 .wiki-body {
 	padding: 0 75px 65px;
+}
+
+.wiki-link-container {
+	text-align: center;
+}
+
+.wiki-link {
+	font-size: 1.25em;
+	text-decoration: underline;
+	color: white;
+}
+
+.wiki-link:hover {
+	text-decoration: none;
+	color: white;
 }
 
 /* Sidebar */

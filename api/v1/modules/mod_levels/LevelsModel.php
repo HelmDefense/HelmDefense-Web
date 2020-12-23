@@ -46,6 +46,7 @@ class LevelsModel extends connection {
 
         $lvl->id = $level->id;
         $lvl->name = $level->name;
+        $lvl->description = $level->description;
 	    $lvl->lives = $level->lives;
         $lvl->start_money = $level->start_money;
 	    $lvl->img = "https://helmdefense.theoszanto.fr/data/img/wiki/level/$level->num.png";
@@ -54,7 +55,7 @@ class LevelsModel extends connection {
         foreach ($waves as $wave) {
             $w = new stdClass();
 
-            $w->names = $wave->name;
+            $w->name = $wave->name;
             $w->reward = $wave->reward;
 
             $entities = Utils::executeRequest(self::$bdd, "SELECT id, tick FROM hd_game_level_wave_entities INNER JOIN hd_game_entities ON entity = num WHERE wave = :wave", array("wave" => $wave->id));

@@ -26,8 +26,14 @@ class Utils {
 	 * The URL of the API
 	 * @see Utils::SITE_URL
 	 */
-	// const API_URL = "https://api.helmdefense.theoszanto.fr/";
-	const API_URL = "http://helmdefense-api/";
+	const API_URL = "https://api.helmdefense.theoszanto.fr/";
+	// const API_URL = "http://helmdefense-api/";
+
+	/**
+	 * The SQL escape character
+	 * @see Utils::escapeSqlLikeWildcards()
+	 */
+	const SQL_ESCAPE_CHAR = "\\";
 
 	/**
 	 * @var bool Whether the connection has been initialized or not
@@ -384,7 +390,8 @@ class Utils {
 			self::initConnection($display_errors);
 
 		// Add declared head resources
-		self::$head = array_merge(self::$head, $mod->getResources());
+		foreach ($mod->getResources() as $resource)
+			self::addResource($resource);
 
 		// Create the module and return it
 		$full_mod_class = "\\Module\\$mod_class";
@@ -422,7 +429,8 @@ class Utils {
 			self::initConnection($display_errors);
 
 		// Add declared head resources
-		self::$head = array_merge(self::$head, $com->getResources());
+		foreach ($com->getResources() as $resource)
+			self::addResource($resource);
 
 		// Create the component and return it
 		$full_com_class = "\\Component\\$com_class";
@@ -664,5 +672,16 @@ class Utils {
 	static function addResource($resource) {
 		if (!in_array($resource, self::$head))
 			self::$head[] = $resource;
+	}
+
+	/**
+	 * Escape the sql `LIKE` wildcards contained in the given string
+	 * @param string $string The string to escape
+	 * @param string $escape The escape char
+	 * @return string The escaped string
+	 * @see Utils::SQL_ESCAPE_CHAR
+	 */
+	static function escapeSqlLikeWildcards($string, $escape = self::SQL_ESCAPE_CHAR) {
+		return strtr($string, array("%" => "$escape%", "_" => "${escape}_"));
 	}
 }
