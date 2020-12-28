@@ -107,6 +107,40 @@
 	color: white;
 }
 
+#map {
+	position: relative;
+}
+
+.map-row {
+	display: flex;
+}
+
+.map-tile img {
+	width: 100%;
+}
+
+.map-element {
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	border-radius: 10px;
+	transform: translate(-50%, -50%);
+	transition: width .15s, height .15s;
+}
+
+.map-spawn {
+	background-color: var(--bg-color);
+}
+
+.map-door {
+	background-color: var(--fg-color);
+}
+
+.map-element.hovered {
+	width: 20px;
+	height: 20px;
+}
+
 /* Sidebar */
 .wiki-sidebar-container {
 	position: fixed;

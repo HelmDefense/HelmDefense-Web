@@ -19,11 +19,11 @@ nav .main-nav {
 
 nav .main-nav:hover,
 nav .custom-dropdown:hover .main-nav {
-	background-color: #555555;
+	background-color: var(--hover-color);
 }
 
 .custom-dropdown-active {
-	background-color: #666666 !important;
+	background-color: var(--active-color) !important;
 }
 
 .custom-dropdown {

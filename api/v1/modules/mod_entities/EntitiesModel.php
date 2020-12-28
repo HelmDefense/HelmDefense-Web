@@ -40,6 +40,7 @@ class EntitiesModel extends Connection {
 		$ent->type = $type;
 		$ent->description = $entity->description;
 		$ent->img = "https://helmdefense.theoszanto.fr/data/img/wiki/entity/$num.png";
+		// $ent->img = "http://helmdefense/data/img/wiki/entity/$num.png";
 
 		$ent->abilities = new stdClass();
 		foreach ($abilities as $ability) {
