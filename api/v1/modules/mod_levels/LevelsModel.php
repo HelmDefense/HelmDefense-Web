@@ -50,6 +50,7 @@ class LevelsModel extends connection {
 	    $lvl->lives = $level->lives;
         $lvl->start_money = $level->start_money;
 	    $lvl->img = "https://helmdefense.theoszanto.fr/data/img/wiki/level/$level->num.png";
+	    // $lvl->img = "http://helmdefense/data/img/wiki/level/$level->num.png";
 
         $lvl->waves = array();
         foreach ($waves as $wave) {

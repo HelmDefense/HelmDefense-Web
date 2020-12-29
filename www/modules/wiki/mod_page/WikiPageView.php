@@ -213,7 +213,9 @@ class WikiPageView extends View {
 
 	<?php }
 
-	public function levelPage($level) { ?>
+	public function levelPage($level) {
+		Utils::addResource("<link href='/data/css/pagination.css' rel='stylesheet' />");
+		?>
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-12 col-xl-9 wiki-body">
@@ -227,14 +229,32 @@ class WikiPageView extends View {
 							$sidebar->display();
 							?>
 						</div>
-						<!-- TODO Faire la map -->
+						<script>
+							/**
+							 * @type {{
+							 *  map: number[][],
+							 *  spawns: {x: number, y: number}[],
+							 *  target: {x: number, y: number},
+							 *  doors: {x: number, y: number, hp: number}[],
+							 *  id: string,
+							 *  name: string,
+							 *  description: string,
+							 *  lives: number,
+							 *  start_money: number,
+							 *  img: string,
+							 *  waves: {name: string, reward: number, entities: Object<number, string>}[]
+							 * }}
+							 */
+							const level = JSON.parse('<?= strtr(json_encode($level), array("\\" => "\\\\", "'" => "\'")) ?>');
+						</script>
+						<div id="map" class="d-none d-lg-block"></div>
 						<div class="wiki-level-info">
 							<div>
 								<h3>Spawns</h3>
 								<?php
 								$i = 1;
 								foreach ($level->spawns as $spawn) {
-									echo "<p>Spawn $i ($spawn->x ; $spawn->y)</p>";
+									echo "<p class='map-spawn-legend' data-pos='$spawn->x;$spawn->y'>Spawn $i ($spawn->x ; $spawn->y)</p>";
 									$i++;
 								}
 								?>
@@ -244,7 +264,7 @@ class WikiPageView extends View {
 								<?php
 								$i = 1;
 								foreach ($level->doors as $door) {
-									echo "<p>Porte $i ($door->x ; $door->y)</p>";
+									echo "<p class='map-door-legend' data-pos='$door->x;$door->y'>Porte $i ($door->x ; $door->y) : $door->hp PV</p>";
 									$i++;
 								}
 								?>
@@ -265,13 +285,22 @@ class WikiPageView extends View {
 						<div class="wiki-level-waves">
 							<div>
 								<h3>Vagues</h3>
-								<ul class="pagination pagination-lg">
-									<?php foreach ($level->waves as $wave) { ?>
-										<li class="page-item"><a class="page-link" href="#"><?= $wave->name ?></a></li>
-									<?php } ?>
-								</ul>
+								<div id="waves"></div>
+							</div>
+							<div>
+								<p>Récompense : <span id="wave-reward"></span></p>
+								<div id="entities" class="carousel slide" data-interval="false">
+									<div class="carousel-inner"></div>
+									<a class="carousel-control-prev" href="#entities" data-slide="prev">
+										<span class="carousel-control-prev-icon"></span>
+									</a>
+									<a class="carousel-control-next" href="#entities" data-slide="next">
+										<span class="carousel-control-next-icon"></span>
+									</a>
+								</div>
 							</div>
 						</div>
+						<script src="/data/js/wiki-level.js" async></script>
 					</div>
 					<div class="wiki-sidebar-container col-12 col-xl-3">
 						<?php

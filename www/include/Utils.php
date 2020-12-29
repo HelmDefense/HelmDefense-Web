@@ -558,7 +558,7 @@ class Utils {
 	 * @param bool $json Whether to return data in a JSON format or not
 	 * @param bool $api Whether to contact the API
 	 * @return mixed|string The request response
-	 * @see Utils::API_URL, json_decode()
+	 * @see Utils::API_URL, json_decode(), Utils::httpPostRequest()
 	 */
 	static function httpGetRequest($url, $args = array(), $json = true, $api = true) {
 		// Prepend API URL if needed
@@ -566,15 +566,47 @@ class Utils {
 			$url = self::API_URL . $url;
 
 		// Append request arguments if needed
-		if (count($args)) {
-			$associatedArgs = array();
-			foreach ($args as $key => $val)
-				$associatedArgs[] = "$key=$val";
-			$url .= "?" . join("&", $associatedArgs);
-		}
+		$query = http_build_query($args);
+		if ($query)
+			$url .= "?$query";
 
 		// Execute request
 		$response = file_get_contents($url, false, stream_context_create(array("http" => array("ignore_errors" => true))));
+		// Request data in the request format
+		return $json ? json_decode($response) : $response;
+	}
+
+	/**
+	 * Make a HTTP POST request to the given URL
+	 * @param string $url The URL where to make the request
+	 * @param string[] $args The request arguments
+	 * @param bool $jsonRequest Whether to encode request arguments as JSON or not
+	 * @param bool $json Whether to return data in a JSON format or not
+	 * @param bool $api Whether to contact the API
+	 * @return mixed|string The request response
+	 * @see Utils::API_URL, json_decode(), Utils::httpGetRequest()
+	 */
+	static function httpPostRequest($url, $args = array(), $jsonRequest = false, $json = true, $api = true) {
+		// Prepend API URL if needed
+		if ($api)
+			$url = self::API_URL . $url;
+
+		// Construct request body
+		if ($jsonRequest) {
+			$body = json_encode($args);
+			$contentType = "application/json";
+		} else {
+			$body = http_build_query($args);
+			$contentType = "application/x-www-form-urlencoded";
+		}
+
+		// Execute request
+		$response = file_get_contents($url, false, stream_context_create(array("http" => array(
+				"method" => "POST",
+				"header" => array("Content-Type: $contentType"),
+				"ignore_errors" => true,
+				"content" => $body
+		))));
 		// Request data in the request format
 		return $json ? json_decode($response) : $response;
 	}
