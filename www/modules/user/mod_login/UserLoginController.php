@@ -12,4 +12,5 @@ class UserLoginController extends Controller {
 	public function __construct(){
 		parent::__construct(new UserLoginModel(),new UserLoginView());
 	}
+
 }
