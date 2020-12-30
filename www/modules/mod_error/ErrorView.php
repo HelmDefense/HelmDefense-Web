@@ -44,11 +44,4 @@ class ErrorView extends View {
 		} else
 			return null;
 	}
-
-	/**
-	 * @return string|null
-	 */
-	public function style() {
-		return Utils::file("modules/mod_error/css/error.css", "<style>", "</style>");
-	}
 }

@@ -7,7 +7,15 @@ include_once "modules/generic/Model.php";
 
 class WikiPageModel extends Model {
 	public function getEntityPage($entity) {
+		// TODO Vérifier la réponse avant de transmettre le résultat
 		return Utils::httpGetRequest("v1/entities/$entity");
+	}
+
+	public function getLevelPage($level) {
+		$lvl = Utils::httpGetRequest("v1/levels/$level");
+		if (Utils::isError($lvl))
+			return null;
+		return $lvl;
 	}
 
 	public function getClassicPage($id) {

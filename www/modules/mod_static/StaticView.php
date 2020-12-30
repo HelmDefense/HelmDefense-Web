@@ -22,14 +22,14 @@ class StaticView extends View {
 		// Check if head exists
 		if (is_null($head))
 			// When head doesn't exists, we only have to return style if it exists or nothing otherwise
-			return is_null($style) ? "" : "<style>$style</style>";
+			return is_null($style) ? "" : $style;
 
 		// We need output buffering to include head file
 		ob_start();
 		include_once "$head";
 		// Check if style exists
 		if (!is_null($style))
-			echo "<style>$style</style>";
+			echo $style;
 
 		return ob_get_clean();
 	}

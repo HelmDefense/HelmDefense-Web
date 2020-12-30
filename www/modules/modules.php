@@ -1,14 +1,14 @@
 <?php
 // Global modules
 Utils::$modules["static"] = new Mod("static", "StaticModule");
-Utils::$modules["error"] = new Mod("error", "ErrorModule");
+Utils::$modules["error"] = new Mod("error", "ErrorModule", "<link rel='stylesheet' href='/data/css/error.css' />");
 
 // Wiki modules
 Utils::$modules["wiki/entity"] = // We fake "entity" module to redirect to "home" module
 Utils::$modules["wiki/level"] = // We fake "level" module to redirect to "home" module
-Utils::$modules["wiki/"] = new Mod("home", "WikiHomeModule", true, "wiki");
-Utils::$modules["wiki/page"] = new Mod("page", "WikiPageModule", true, "wiki");
-Utils::$modules["wiki/search"] = new Mod("search", "SearchModule", true, "wiki");
+Utils::$modules["wiki/"] = new Mod("home", "WikiHomeModule", "<link rel='stylesheet' href='/data/css/wiki.css' />", true, "wiki");
+Utils::$modules["wiki/page"] = new Mod("page", "WikiPageModule", "<link rel='stylesheet' href='/data/css/wiki.css' />", true, "wiki");
+Utils::$modules["wiki/search"] = new Mod("search", "SearchModule", "<link rel='stylesheet' href='/data/css/wiki.css' />", true, "wiki");
 
 class Mod {
 	/**
@@ -19,6 +19,10 @@ class Mod {
 	 * @var string
 	 */
 	private $class;
+	/**
+	 * @var string[]
+	 */
+	private $resources;
 	/**
 	 * @var bool
 	 */
@@ -31,12 +35,14 @@ class Mod {
 	/**
 	 * @param string $name
 	 * @param string $class
+	 * @param string[]|string $resources
 	 * @param bool $db
 	 * @param string|null $section
 	 */
-	public function __construct($name, $class, $db = false, $section = null) {
+	public function __construct($name, $class, $resources = array(), $db = false, $section = null) {
 		$this->name = $name;
 		$this->class = $class;
+		$this->resources = is_array($resources) ? $resources : array($resources);
 		$this->db = $db;
 		$this->section = $section;
 	}
@@ -53,6 +59,13 @@ class Mod {
 	 */
 	public function className() {
 		return $this->class;
+	}
+
+	/**
+	 * @return string[]
+	 */
+	public function getResources() {
+		return $this->resources;
 	}
 
 	/**

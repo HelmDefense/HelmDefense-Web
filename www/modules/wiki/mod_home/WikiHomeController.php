@@ -34,13 +34,6 @@ class WikiHomeController extends Controller {
 		);
 	}
 
-	/**
-	 * @inheritDoc
-	 */
-	public function getHead() {
-		return "<link rel='stylesheet' href='/data/css/wiki.css' />";
-	}
-
 	private function setTitle($title) {
 		$this->title = (is_null($title) ? "" : "$title - ") . "Wiki";
 	}

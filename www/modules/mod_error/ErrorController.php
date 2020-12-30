@@ -40,11 +40,4 @@ class ErrorController extends Controller {
 		$this->title = "$code $status";
 		$this->view->error($code, $status, "Vous ne passerez pas !", $msg);
 	}
-
-	/**
-	 * @inheritDoc
-	 */
-	public function getHead() {
-		return $this->view->style();
-	}
 }

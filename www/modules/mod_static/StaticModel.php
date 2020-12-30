@@ -23,7 +23,7 @@ class StaticModel extends Model {
 	 * @return string|null The page style or null if style.css file is absent
 	 */
 	public function getStyle() {
-		return Utils::file("$this->page/style.css");
+		return Utils::file("$this->page/style.css", "<style>", "</style>");
 	}
 
 	/**

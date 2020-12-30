@@ -17,9 +17,9 @@ class SearchView extends View {
 					</div>
 					<div class="col-xl-3 wiki-sidebar-container col-12">
 						<?php
-							$sidebar = Utils::loadComponent("wikisidebar");
-							$sidebar->generateRender();
-							$sidebar->display();
+						$sidebar = Utils::loadComponent("wikisidebar");
+						$sidebar->generateRender();
+						$sidebar->display();
 						?>
 					</div>
 				</div>
@@ -33,24 +33,22 @@ class SearchView extends View {
 						<h2>Wiki Helm Defense</h2>
 						<div class="wiki-body">
 							<?php $this->form($search, $type); ?>
-							<div id="resultDiv" class="col">
-								<h3>Résultats de recherche pour "<?= htmlspecialchars($search) ?>" (<?= $this->displayType($type) ?>)</h3>
-								<div id="result-container" class="wiki-pagepreview-parent">
-									<?php
-									if (count($result))
-										foreach ($result as $value) {
-											$preview = Utils::loadComponent("wikipagepreview", false, $value, $type, "h4");
-											$preview->generateRender();
-											$preview->display();
-										}
-									else
-										echo "<p class='p-3'>Aucun résultat de recherche</p>";
-									?>
-								</div>
+							<h3 class="mt-5">Résultats de recherche pour "<?= htmlspecialchars($search) ?>" (<?= $this->displayType($type) ?>)</h3>
+							<div class="wiki-pagepreview-parent">
+								<?php
+								if (count($result))
+									foreach ($result as $value) {
+										$preview = Utils::loadComponent("wikipagepreview", false, $value, $type, "h4");
+										$preview->generateRender();
+										$preview->display();
+									}
+								else
+									echo "<p class='p-3'>Aucun résultat de recherche</p>";
+								?>
 							</div>
 						</div>
 					</div>
-					<div class="col-xl-3 wiki-sidebar-container col-12">
+					<div class="col-12 col-xl-3 wiki-sidebar-container">
 						<?php
 						$sidebar = Utils::loadComponent("wikisidebar");
 						$sidebar->generateRender();
@@ -63,16 +61,17 @@ class SearchView extends View {
 
 	private function form($search = "", $type = "page") { ?>
 			<form id="search-form">
+				<div id="message-container"></div>
 				<div id="recherche" class="d-flex">
 					<img id="loupe" src="/data/img/loupe.svg" alt="" />
 					<h3>Recherche</h3>
 				</div>
-				<label class="sr-only" for="search">Votre recherche...</label>
+				<label class="sr-only" for="search">Votre recherche</label>
 				<div class="position-relative">
-					<input id="search" name="search" type="text" placeholder="" value="<?= $search ?>" required autofocus />
+					<input id="search" name="search" type="text" placeholder="" value="<?= $search ?>" autofocus />
 					<input class="submit-search" type="image" src="/data/img/arrow.svg" alt="->" onclick="$('#search-form').submit()" />
 				</div>
-				<h3 class="titleTypeSearch">Type de recherche</h3>
+				<h3 class="search-type-title">Type de recherche</h3>
 				<div class="row">
 					<div class="col-12 col-md-auto">
 						<div class="custom-control custom-radio custom-control-inline">
@@ -96,25 +95,29 @@ class SearchView extends View {
 				<script>
 					$("#search-form").on("submit", e => {
 						e.preventDefault();
-						const type = $("input[name=type]:checked").val();
-						const search = encodeURIComponent($("#search").val().replaceAll("/", "%2F"));
-						if (type && search)
-							window.location.href = `/wiki/search/${type}/${search}`;
+						let type = $("input[name=type]:checked").val();
+						let search = $("#search").val();
+						if (search.length < 3)
+							Utils.alerts.warning("Le terme recherché doit faire au minimum 3 caractères", true, true);
+						else if (!["page", "entity", "level"].includes(type))
+							Utils.alerts.warning("Le type de recherche est obligatoire", true, true);
+						else
+							window.location.href = `/wiki/search/${type}/${encodeURIComponent(search.replaceAll("/", "%2F").replaceAll("\\", "%5C"))}`;
 					});
 				</script>
 			</form>
 	<?php }
 
-	private function displayType($type) {
+	public function displayType($type) {
 		switch ($type) {
-			case "page":
-				return "Pages";
-			case "level":
-				return "Niveaux";
-			case "entity":
-				return "Entités";
-			default:
-				return "";
+		case "page":
+			return "Pages";
+		case "level":
+			return "Niveaux";
+		case "entity":
+			return "Entités";
+		default:
+			return "";
 		}
 	}
 }

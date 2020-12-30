@@ -8,7 +8,7 @@ class EntitiesModel extends Connection {
     }
 
 	public function get($id) {
-		$entity = Utils::executeRequest(self::$bdd, "SELECT num, id,`type`, `name`, description, size_x, size_y FROM hd_game_entities WHERE id = :id", array("id" => $id), false);
+		$entity = Utils::executeRequest(self::$bdd, "SELECT num, id,`type`, `name`, description, size_x, size_y FROM hd_game_entities WHERE id = :id AND published", array("id" => $id), false);
 		if (!$entity)
 			Utils::error(404, "Entity not found");
 
@@ -30,7 +30,6 @@ class EntitiesModel extends Connection {
 				$type = "unknown";
 		}
 
-
 		$params = array("num" => $num);
 		$abilities = Utils::executeRequest(self::$bdd, "SELECT class, params, description FROM hd_game_entity_abilities WHERE entity = :num", $params);
 		$stats = Utils::executeRequest(self::$bdd, "SELECT `type`, hp, dmg, mvt_spd, atk_spd, atk_range, shoot_range, cost, reward, unlock_cost FROM hd_game_entity_stats WHERE entity = :num", $params);
@@ -40,14 +39,17 @@ class EntitiesModel extends Connection {
 		$ent->name = $entity->name;
 		$ent->type = $type;
 		$ent->description = $entity->description;
-
 		$ent->img = "https://helmdefense.theoszanto.fr/data/img/wiki/entity/$num.png";
+		// $ent->img = "http://helmdefense/data/img/wiki/entity/$num.png";
 
 		$ent->abilities = new stdClass();
 		foreach ($abilities as $ability) {
 			$a = new stdClass();
-			$a->params = $abilities;
-			$ent->abilities->{$ability->class} = is_null($ability->params) ? array() : explode("|", $ability->params);
+			$a->params = is_null($ability->params) ? array() : explode("|", $ability->params);
+			if (!is_null($ability->description))
+				$a->description = $ability->description;
+
+			$ent->abilities->{$ability->class} = $a;
 		}
 
 		$ent->size = new stdClass();

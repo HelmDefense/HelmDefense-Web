@@ -30,10 +30,22 @@ class Utils {
 	// const API_URL = "http://helmdefense-api/";
 
 	/**
+	 * The SQL escape character
+	 * @see Utils::escapeSqlLikeWildcards()
+	 */
+	const SQL_ESCAPE_CHAR = "\\";
+
+	/**
 	 * @var bool Whether the connection has been initialized or not
 	 * @see Utils::initConnection(), Connection::init()
 	 */
 	private static $isConnectionInit = false;
+
+	/**
+	 * @var string[] Buffer for the page head resources
+	 * @see Utils::generateHead(), Utils::addResource()
+	 */
+	private static $head = array();
 
 	/**
 	 * @var Mod[] Registered modules
@@ -334,7 +346,7 @@ class Utils {
 	/**
 	 * Load a specific module. The load process do the following:
 	 * * If `$mod_full_name` is `null`:
-	 *     * Retrieve the required GET parameter `module` (if none is present, an error occur)
+	 *     * Retrieve the required GET parameter `module` (if none is present and no section is specified, an error occur)
 	 *     * Retrieve the optional GET parameter `section`
 	 *     * Build the full module name "section/module"
 	 * * Verify that the module exists (if not, an error occur)
@@ -342,6 +354,7 @@ class Utils {
 	 * * Include the module
 	 * * If the module needs to access to the database:
 	 *     * Initialize database connection
+	 * * Add declared head resources
 	 * * Create the module with the arguments and return the instance
 	 * @param string|null $mod_full_name The full module name, including the section separated with a slash
 	 * @param bool $display_errors Whether to display additional informations about errors
@@ -376,6 +389,10 @@ class Utils {
 		if ($mod->needsDatabase())
 			self::initConnection($display_errors);
 
+		// Add declared head resources
+		foreach ($mod->getResources() as $resource)
+			self::addResource($resource);
+
 		// Create the module and return it
 		$full_mod_class = "\\Module\\$mod_class";
 		return new $full_mod_class(...$args);
@@ -388,6 +405,7 @@ class Utils {
 	 * * Include the component
 	 * * If the component needs to access to the database:
 	 *     * Initialize database connection
+	 * * Add declared head resources
 	 * * Create the component with the arguments and return the instance
 	 * @param string $com_name The component name
 	 * @param bool $display_errors Whether to display additional informations about errors
@@ -409,6 +427,10 @@ class Utils {
 		// Initialise database connection only if needed
 		if ($com->needsDatabase())
 			self::initConnection($display_errors);
+
+		// Add declared head resources
+		foreach ($com->getResources() as $resource)
+			self::addResource($resource);
 
 		// Create the component and return it
 		$full_com_class = "\\Component\\$com_class";
@@ -536,7 +558,7 @@ class Utils {
 	 * @param bool $json Whether to return data in a JSON format or not
 	 * @param bool $api Whether to contact the API
 	 * @return mixed|string The request response
-	 * @see Utils::API_URL, json_decode()
+	 * @see Utils::API_URL, json_decode(), Utils::httpPostRequest()
 	 */
 	static function httpGetRequest($url, $args = array(), $json = true, $api = true) {
 		// Prepend API URL if needed
@@ -544,17 +566,59 @@ class Utils {
 			$url = self::API_URL . $url;
 
 		// Append request arguments if needed
-		if (count($args)) {
-			$associatedArgs = array();
-			foreach ($args as $key => $val)
-				$associatedArgs[] = "$key=$val";
-			$url .= "?" . join("&", $associatedArgs);
-		}
+		$query = http_build_query($args);
+		if ($query)
+			$url .= "?$query";
 
 		// Execute request
 		$response = file_get_contents($url, false, stream_context_create(array("http" => array("ignore_errors" => true))));
 		// Request data in the request format
 		return $json ? json_decode($response) : $response;
+	}
+
+	/**
+	 * Make a HTTP POST request to the given URL
+	 * @param string $url The URL where to make the request
+	 * @param string[] $args The request arguments
+	 * @param bool $jsonRequest Whether to encode request arguments as JSON or not
+	 * @param bool $json Whether to return data in a JSON format or not
+	 * @param bool $api Whether to contact the API
+	 * @return mixed|string The request response
+	 * @see Utils::API_URL, json_decode(), Utils::httpGetRequest()
+	 */
+	static function httpPostRequest($url, $args = array(), $jsonRequest = false, $json = true, $api = true) {
+		// Prepend API URL if needed
+		if ($api)
+			$url = self::API_URL . $url;
+
+		// Construct request body
+		if ($jsonRequest) {
+			$body = json_encode($args);
+			$contentType = "application/json";
+		} else {
+			$body = http_build_query($args);
+			$contentType = "application/x-www-form-urlencoded";
+		}
+
+		// Execute request
+		$response = file_get_contents($url, false, stream_context_create(array("http" => array(
+				"method" => "POST",
+				"header" => array("Content-Type: $contentType"),
+				"ignore_errors" => true,
+				"content" => $body
+		))));
+		// Request data in the request format
+		return $json ? json_decode($response) : $response;
+	}
+
+	/**
+	 * Determine whether the JSON API result is an error or not
+	 * @param mixed $json The JSON data resulting from the API
+	 * @return bool Whether or not the data represent an error
+	 * @see Utils::API_URL, Utils::httpGetRequest()
+	 */
+	static function isError($json) {
+		return isset($json->error) && $json->error;
 	}
 
 	/**
@@ -564,6 +628,7 @@ class Utils {
 	 * @param string $def The default value if the date is invalid
 	 * @param string $timezone The timezone
 	 * @return string The formatted date
+	 * @see Utils::formatDateDiff()
 	 */
 	static function formatDate($date = "now", $format = "d/m/Y à H:i:s", $def = "Date inconnue", $timezone = "Europe/Paris") {
 		try {
@@ -580,6 +645,7 @@ class Utils {
 	 * @param string $ref The reference data
 	 * @param string $def The default value if the date is invalid
 	 * @return string The formatted difference
+	 * @see Utils::formatDate()
 	 */
 	static function formatDateDiff($date, $ref = "now", $def = "Date inconnue") {
 		try {
@@ -608,6 +674,7 @@ class Utils {
 	/**
 	 * Retrieve the current logged in user data
 	 * @return stdClass|null The user data or null if user is not logged in
+	 * @see Utils::session(), Utils::httpGetRequest()
 	 */
 	static function loggedInUser() {
 		$loggedInUser = self::session("login");
@@ -617,5 +684,36 @@ class Utils {
 		$user = self::httpGetRequest("v1/users/$loggedInUser");
 		$user->avatar = self::SITE_URL . "data/img/avatar/indyteo.png";
 		return property_exists($user, "id") ? $user : null;
+	}
+
+	/**
+	 * Generate the page head additional content with the registered resources
+	 * @return string The head content from the head buffer
+	 * @see Utils::$head, Utils::addResource()
+	 */
+	static function generateHead() {
+		return implode(self::$head);
+	}
+
+	/**
+	 * Add the resource to the list of resources that the page must have.
+	 * If the resource has already been added, this method does nothing
+	 * @param string $resource The resource to add
+	 * @see Utils::$head, Utils::generateHead()
+	 */
+	static function addResource($resource) {
+		if (!in_array($resource, self::$head))
+			self::$head[] = $resource;
+	}
+
+	/**
+	 * Escape the sql `LIKE` wildcards contained in the given string
+	 * @param string $string The string to escape
+	 * @param string $escape The escape char
+	 * @return string The escaped string
+	 * @see Utils::SQL_ESCAPE_CHAR
+	 */
+	static function escapeSqlLikeWildcards($string, $escape = self::SQL_ESCAPE_CHAR) {
+		return strtr($string, array("%" => "$escape%", "_" => "${escape}_"));
 	}
 }

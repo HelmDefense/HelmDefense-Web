@@ -38,17 +38,8 @@
 	padding: 50px;
 }
 
-.titleTypeSearch {
-	padding-top: 75px;
-	padding-bottom: 20px;
-}
-
-#resultDiv {
-	padding-top: 50px;
-}
-
-.titleTypeSearch {
-	padding-top: 25px;
+.search-type-title {
+	padding: 50px 0 20px;
 }
 
 .submit-search {
@@ -57,10 +48,6 @@
 	top: 50%;
 	transform: translateY(-50%);
 	height: 75%;
-}
-
-#result-container {
-	padding-bottom: 75px;
 }
 
 .wiki-pagepreview-parent {
@@ -98,10 +85,60 @@
 	text-align: center;
 	font-size: 2.5em;
 	font-family: var(--font-title);
+	margin-top: 75px;
 }
 
 .wiki-body {
 	padding: 0 75px 65px;
+}
+
+.wiki-link-container {
+	text-align: center;
+}
+
+.wiki-link {
+	font-size: 1.25em;
+	text-decoration: underline;
+	color: white;
+}
+
+.wiki-link:hover {
+	text-decoration: none;
+	color: white;
+}
+
+#map {
+	position: relative;
+}
+
+.map-row {
+	display: flex;
+}
+
+.map-tile img {
+	width: 100%;
+}
+
+.map-element {
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	border-radius: 10px;
+	transform: translate(-50%, -50%);
+	transition: width .15s, height .15s;
+}
+
+.map-spawn {
+	background-color: var(--bg-color);
+}
+
+.map-door {
+	background-color: var(--fg-color);
+}
+
+.map-element.hovered {
+	width: 20px;
+	height: 20px;
 }
 
 /* Sidebar */
