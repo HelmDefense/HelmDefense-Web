@@ -31,7 +31,7 @@ class EntitiesModel extends Connection {
 		}
 
 		$params = array("num" => $num);
-		$abilities = Utils::executeRequest(self::$bdd, "SELECT class, params, description FROM hd_game_entity_abilities WHERE entity = :num", $params);
+		$abilities = Utils::executeRequest(self::$bdd, "SELECT class, params, `name`, description FROM hd_game_entity_abilities WHERE entity = :num", $params);
 		$stats = Utils::executeRequest(self::$bdd, "SELECT `type`, hp, dmg, mvt_spd, atk_spd, atk_range, shoot_range, cost, reward, unlock_cost FROM hd_game_entity_stats WHERE entity = :num", $params);
 
 		$ent = new stdClass();
@@ -40,12 +40,13 @@ class EntitiesModel extends Connection {
 		$ent->type = $type;
 		$ent->description = $entity->description;
 		$ent->img = "https://helmdefense.theoszanto.fr/data/img/wiki/entity/$num.png";
-		// $ent->img = "http://helmdefense/data/img/wiki/entity/$num.png";
 
 		$ent->abilities = new stdClass();
 		foreach ($abilities as $ability) {
 			$a = new stdClass();
 			$a->params = is_null($ability->params) ? array() : explode("|", $ability->params);
+			if (!is_null($ability->name))
+				$a->name = $ability->name;
 			if (!is_null($ability->description))
 				$a->description = $ability->description;
 

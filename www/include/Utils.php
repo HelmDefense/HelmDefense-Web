@@ -411,7 +411,7 @@ class Utils {
 	 * @param bool $display_errors Whether to display additional informations about errors
 	 * @param mixed ...$args Additional arguments to pass to the component constructor
 	 * @return Component The created component instance
-	 * @see Utils::$components, Component
+	 * @see Utils::$components, Component, Utils::renderComponent()
 	 */
 	static function loadComponent($com_name, $display_errors = false, ...$args) {
 		// Verify that the component is valid
@@ -435,6 +435,28 @@ class Utils {
 		// Create the component and return it
 		$full_com_class = "\\Component\\$com_class";
 		return new $full_com_class(...$args);
+	}
+
+	/**
+	 * Render a component
+	 * @param string $com_name The component name
+	 * @param mixed ...$args Additional arguments to pass to the component constructor
+	 * @return string The component render
+	 * @see Utils::loadComponent()
+	 */
+	static function renderComponent($com_name, ...$args) {
+		$com = self::loadComponent($com_name, false, ...$args);
+		$com->generateRender();
+		return $com->display(true);
+	}
+
+	/**
+	 * Shortcut for `Utils::renderComponent("markdowntext", $text)`
+	 * @param string $text The text to translate as Markdown
+	 * @return string The markdown translated text
+	 */
+	static function markdown($text) {
+		return self::renderComponent("markdowntext", $text);
 	}
 
 	/**

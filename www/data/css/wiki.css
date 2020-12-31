@@ -88,8 +88,12 @@
 	margin-top: 75px;
 }
 
+.wiki-title {
+	margin-bottom: 0;
+}
+
 .wiki-body {
-	padding: 0 75px 65px;
+	padding: 75px;
 }
 
 .wiki-link-container {
@@ -107,12 +111,35 @@
 	color: white;
 }
 
+.wiki-page-title {
+	overflow-wrap: break-word;
+	hyphens: auto;
+}
+
+.wiki-page-content {
+	padding: 30px;
+	border: 5px solid white;
+	margin-bottom: 35px;
+}
+
+.wiki-page-content + p {
+	font-size: 1.2em;
+}
+
+.wiki-level-image {
+	display: block;
+	height: 400px;
+	margin: auto;
+}
+
 #map {
 	position: relative;
+	margin-bottom: 35px;
 }
 
 .map-row {
 	display: flex;
+	justify-content: center;
 }
 
 .map-tile img {
@@ -139,6 +166,34 @@
 .map-element.hovered {
 	width: 20px;
 	height: 20px;
+}
+
+@media all and (min-width: 992px) {
+	.wiki-level-info {
+		padding: 40px 75px;
+	}
+}
+
+.wiki-level-info h3,
+.wiki-level-waves h3 {
+	font-family: var(--font-title);
+	font-size: 2em;
+}
+
+.wiki-level-waves {
+	background-color: rgba(var(--fg-color-r), var(--fg-color-g), var(--fg-color-b), .9);
+	padding: 50px;
+}
+
+.wave-reward-text {
+	font-size: 1.75em;
+	font-weight: 600;
+	margin: 25px 0;
+}
+
+#entities img {
+	width: 200px;
+	margin-bottom: 15px;
 }
 
 /* Sidebar */

@@ -16,11 +16,7 @@ class SearchView extends View {
 						</div>
 					</div>
 					<div class="col-xl-3 wiki-sidebar-container col-12">
-						<?php
-						$sidebar = Utils::loadComponent("wikisidebar");
-						$sidebar->generateRender();
-						$sidebar->display();
-						?>
+						<?= Utils::renderComponent("wikisidebar") ?>
 					</div>
 				</div>
 			</div>
@@ -37,11 +33,8 @@ class SearchView extends View {
 							<div class="wiki-pagepreview-parent">
 								<?php
 								if (count($result))
-									foreach ($result as $value) {
-										$preview = Utils::loadComponent("wikipagepreview", false, $value, $type, "h4");
-										$preview->generateRender();
-										$preview->display();
-									}
+									foreach ($result as $value)
+										echo Utils::renderComponent("wikipagepreview", $value, $type, "h4");
 								else
 									echo "<p class='p-3'>Aucun résultat de recherche</p>";
 								?>
@@ -49,11 +42,7 @@ class SearchView extends View {
 						</div>
 					</div>
 					<div class="col-12 col-xl-3 wiki-sidebar-container">
-						<?php
-						$sidebar = Utils::loadComponent("wikisidebar");
-						$sidebar->generateRender();
-						$sidebar->display();
-						?>
+						<?= Utils::renderComponent("wikisidebar") ?>
 					</div>
 				</div>
 			</div>

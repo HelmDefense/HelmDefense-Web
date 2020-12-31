@@ -17,7 +17,7 @@ function mapItems(item, elements, tooltip) {
 		let s = $(document.createElement("div"));
 		s.addClass(`map-${item} map-element`).attr("data-pos", `${element.x};${element.y}`);
 		Utils.tooltip.add(s, tooltip(element));
-		onResize.push(size => s.css("top", `${size * element.y}px`).css("left", `${size * element.x}px`));
+		onResize.push((size, dx) => s.css("top", `${size * element.y}px`).css("left", `${size * element.x + dx}px`));
 		map.append(s);
 	}
 	$(`.map-${item}-legend`).on("mouseenter", e => {
@@ -29,9 +29,11 @@ function mapItems(item, elements, tooltip) {
 mapItems("spawn", level.spawns, spawn => `Spawn (${spawn.x} ; ${spawn.y})`);
 mapItems("door", level.doors, door => `Porte (${door.x} ; ${door.y}) : ${door.hp} PV`);
 Utils.misc.jWindow.on("resize load", () => {
-	let size = $(".map-tile").first().width();
+	let tile = $(".map-tile").first();
+	let size = tile.width();
+	let dx = tile.offset().left - tile.parent().offset().left - tile.parent().scrollLeft();
 	for (let handler of onResize)
-		handler(size);
+		handler(size, dx);
 });
 
 const entitiesCarousel = $("#entities .carousel-inner");
@@ -42,16 +44,16 @@ Utils.pagination.show({
 		let wave = level.waves.filter(wave => wave.name === page.name)[0];
 		$("#wave-reward").text(wave.reward);
 		entitiesCarousel.empty();
-		let items = "<div class='carousel-item'><div class='d-flex'>";
+		let items = "<div class='carousel-item'><div class='d-flex flex-wrap justify-content-around'>";
 		let i = 0;
 		let entities = new Set();
 		let waveEntities = Object.entries(wave.entities).sort((e1, e2) => e1[0] - e2[0]);
 		for (let [tick, entity] of waveEntities) {
-			items += `<div class="wave-entity" data-wave-entity="${entity}"><img src="" alt="${entity}" /><p class="entity-name font-weight-bold">${entity}</p><p>Apparition : ${tick}</p></div>`;
+			items += `<div class="wave-entity text-center" data-wave-entity="${entity}"><img src="" alt="${entity}" /><p class="entity-name font-weight-bold">${entity}</p><p>Apparition : ${tick}</p></div>`;
 			entities.add(entity);
 			i++;
 			if (i % 4 === 0 && i !== waveEntities.length)
-				items += "</div></div><div class='carousel-item'><div class='d-flex'>";
+				items += "</div></div><div class='carousel-item'><div class='d-flex flex-wrap justify-content-around'>";
 		}
 		entitiesCarousel.append(items + "</div></div>");
 		entitiesCarousel.children().first().addClass("active");
@@ -71,5 +73,6 @@ Utils.pagination.show({
 		return true;
 	},
 	triggerOnCreation: true,
-	ignoreWhenSelected: true
+	ignoreWhenSelected: true,
+	customClass: "justify-content-center"
 });

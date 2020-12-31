@@ -37,5 +37,5 @@
 
 .custom-pagination .custom-pagination-prev:not(.disabled):hover .page-link,
 .custom-pagination .custom-pagination-next:not(.disabled):hover .page-link {
-	color: var(--hover-color);
+	transform: scale(1.25);
 }
