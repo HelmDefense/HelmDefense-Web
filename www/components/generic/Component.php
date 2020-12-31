@@ -2,7 +2,7 @@
 namespace Component;
 
 /**
- * Generic component component
+ * Generic component
  * @package Component
  */
 abstract class Component {
@@ -37,8 +37,13 @@ abstract class Component {
 
 	/**
 	 * Display the component
+	 * @param bool $return
+	 * @return string|null
 	 */
-	public final function display() {
+	public final function display($return = false) {
+		if ($return)
+			return $this->controller->display();
 		echo $this->controller->display();
+		return null;
 	}
 }

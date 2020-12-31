@@ -2,7 +2,7 @@
 namespace Module;
 
 /**
- * Generic view
+ * Generic module view
  * @package Module
  */
 abstract class View {

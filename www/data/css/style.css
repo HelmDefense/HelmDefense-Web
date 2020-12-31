@@ -15,6 +15,9 @@ html {
 	--fg-color-g: 68;
 	--fg-color-b: 68;
 
+	--hover-color: #555555;
+	--active-color: #666666;
+
 	--font-title: "Ringbearer", "Montserrat", sans-serif;
 	--font-body: "Montserrat", sans-serif;
 }

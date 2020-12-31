@@ -1,0 +1,41 @@
+.custom-pagination .page-item .page-link {
+	background-color: inherit;
+	border: 5px solid transparent;
+	color: white;
+	font-size: 1.35em;
+	padding: 10px 15px;
+}
+
+.custom-pagination .custom-pagination-item .page-link {
+	border-color: white;
+	margin: 0 -2px;
+	font-family: var(--font-title);
+	padding: 10px 35px;
+	transition: .15s;
+}
+
+.custom-pagination .custom-pagination-item.active .page-link {
+	background-color: var(--bg-color) !important;
+}
+
+.custom-pagination .custom-pagination-item:hover .page-link {
+	background-color: var(--hover-color);
+}
+
+.custom-pagination .page-item.disabled .page-link {
+	opacity: .5;
+}
+
+.custom-pagination .page-link:focus {
+	box-shadow: none;
+}
+
+.custom-pagination .custom-pagination-prev .page-link,
+.custom-pagination .custom-pagination-next .page-link {
+	transition: .15s;
+}
+
+.custom-pagination .custom-pagination-prev:not(.disabled):hover .page-link,
+.custom-pagination .custom-pagination-next:not(.disabled):hover .page-link {
+	transform: scale(1.25);
+}

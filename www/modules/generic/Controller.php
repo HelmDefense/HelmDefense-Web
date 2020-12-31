@@ -2,7 +2,7 @@
 namespace Module;
 
 /**
- * Generic controller
+ * Generic module controller
  * @package Module
  */
 abstract class Controller {
@@ -14,6 +14,10 @@ abstract class Controller {
 	 * @var View Module view
 	 */
 	protected $view;
+	/**
+	 * @var string The page title
+	 */
+	protected $title;
 
 	/**
 	 * Create controller
@@ -34,14 +38,10 @@ abstract class Controller {
 	}
 
 	/**
-	 * Get the module additional head elements
-	 * @return string|null Additional elements to be added to &lt;head&gt;
-	 */
-	public abstract function getHead();
-
-	/**
 	 * Get the module page title
 	 * @return string|null Page title
 	 */
-	public abstract function getTitle();
+	public final function getTitle() {
+		return $this->title;
+	}
 }

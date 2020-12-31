@@ -29,7 +29,6 @@ abstract class Module {
 		$this->execute();
 
 		$output = new stdClass();
-		$output->head = $this->controller->getHead();
 		$output->title = $this->controller->getTitle();
 		$output->body = $this->controller->getBody();
 		return $output;
