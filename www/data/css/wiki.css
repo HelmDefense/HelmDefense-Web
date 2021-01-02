@@ -101,14 +101,15 @@
 }
 
 .wiki-link {
+	color: white;
 	font-size: 1.25em;
 	text-decoration: underline;
-	color: white;
+	transition: text-decoration-color .1s;
 }
 
 .wiki-link:hover {
-	text-decoration: none;
 	color: white;
+	text-decoration-color: transparent;
 }
 
 .wiki-page-title {

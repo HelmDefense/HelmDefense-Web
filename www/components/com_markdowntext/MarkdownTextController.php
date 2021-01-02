@@ -14,6 +14,6 @@ class MarkdownTextController extends Controller {
 	}
 
 	public function generateMarkdown() {
-		$this->view->generateMarkdown($this->text);
+		$this->view->displayMarkdown($this->model->parseMarkdown($this->text));
 	}
 }

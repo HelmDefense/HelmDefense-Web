@@ -1,3 +1,20 @@
+/**
+ * @const level
+ * @type {{
+ *  map: number[][],
+ *  spawns: {x: number, y: number}[],
+ *  target: {x: number, y: number},
+ *  doors: {x: number, y: number, hp: number}[],
+ *  id: string,
+ *  name: string,
+ *  description: string,
+ *  lives: number,
+ *  start_money: number,
+ *  img: string,
+ *  waves: {name: string, reward: number, entities: Object<number, string>}[]
+ * }}
+ */
+/**/
 const map = $("#map");
 for (let y = 0; y < level.map.length; y++) {
 	let row = $(document.createElement("div"));
@@ -41,7 +58,12 @@ Utils.pagination.show({
 	container: $("#waves"),
 	pages: level.waves.map(wave => wave.name),
 	callback: page => {
+		/**
+		 * @type {{name: string, reward: number, entities: Object<number, string>}}
+		 */
 		let wave = level.waves.filter(wave => wave.name === page.name)[0];
+		if (wave === undefined)
+			return false;
 		$("#wave-reward").text(wave.reward);
 		entitiesCarousel.empty();
 		let items = "<div class='carousel-item'><div class='d-flex flex-wrap justify-content-around'>";

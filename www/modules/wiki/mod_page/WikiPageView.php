@@ -169,24 +169,7 @@ class WikiPageView extends View {
 							<h1>Description</h1>
 							<?= Utils::markdown($level->description) ?>
 						</div>
-						<script>
-							/**
-							 * @type {{
-							 *  map: number[][],
-							 *  spawns: {x: number, y: number}[],
-							 *  target: {x: number, y: number},
-							 *  doors: {x: number, y: number, hp: number}[],
-							 *  id: string,
-							 *  name: string,
-							 *  description: string,
-							 *  lives: number,
-							 *  start_money: number,
-							 *  img: string,
-							 *  waves: {name: string, reward: number, entities: Object<number, string>}[]
-							 * }}
-							 */
-							const level = JSON.parse('<?= strtr(json_encode($level), array("\\" => "\\\\", "'" => "\'")) ?>');
-						</script>
+						<?= Utils::toJSObject($level, "level", "const") ?>
 						<div id="map" class="d-none d-lg-block"></div>
 						<div class="wiki-page-content wiki-level-info">
 							<div class="row">

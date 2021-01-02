@@ -503,6 +503,21 @@ class Utils {
 	}
 
 	/**
+	 * Transform an array into a JS object. Note that this function uses JSON as intermediate state
+	 * @param array $array The array to transform
+	 * @param string|null $varName The JS variable name
+	 * @param string|null $varType The JS variable declarative modifier ("const", "var" or "let")
+	 * @return string The formatted JS object, wrapped into &lt;script&gt; tags if $varName is not null
+	 */
+	static function toJSObject($array, $varName = null, $varType = null) {
+		// Encode array into JSON then decode JSON into JS object
+		$json = "JSON.parse('" . strtr(json_encode($array), array("\\" => "\\\\", "'" => "\'")) . "')";
+		if (is_null($varName))
+			return $json;
+		return "<script>" . (is_null($varType) ? "" : "$varType ") . "$varName = $json</script>";
+	}
+
+	/**
 	 * Create an error and stop the execution by calling the `error` module
 	 * @param int $code The HTTP response code, used to determine the status
 	 * @param string $msg The error message to display
