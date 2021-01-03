@@ -50,9 +50,9 @@ class WikiHomeView extends View {
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-12 col-xl-9">
-						<h2>Wiki Helm Defense</h2>
+						<h2 class="wiki-title">Wiki Helm Defense</h2>
 						<div class="wiki-body">
-							<h3 class="section-title"><?= $type == "entity" ? "Entités" : "Niveaux" ?></h3>
+							<h3 class="section-title mt-0"><?= $type == "entity" ? "Entités" : "Niveaux" ?></h3>
 							<div class="wiki-pagepreview-parent">
 								<?php $this->pagePreviewList($pages, $type); ?>
 							</div>

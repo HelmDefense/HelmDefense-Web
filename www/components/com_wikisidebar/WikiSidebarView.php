@@ -10,11 +10,7 @@ class WikiSidebarView extends View {
 			<div class="wiki-sidebar container-fluid py-3">
 				<div class="wiki-sidebar-inner px-4 pt-4">
 					<div class="text-justify">
-						<?php
-							$sidebar = Utils::loadComponent("markdowntext", false, $sidebarText);
-							$sidebar->generateRender();
-							$sidebar->display();
-						?>
+						<?= Utils::markdown($sidebarText); ?>
 					</div>
 					<h3 class="mt-5 mb-4">Activité récente du Wiki</h3>
 					<div>

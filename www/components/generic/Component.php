@@ -41,9 +41,10 @@ abstract class Component {
 	 * @return string|null
 	 */
 	public final function display($return = false) {
+		$display = $this->controller->display();
 		if ($return)
-			return $this->controller->display();
-		echo $this->controller->display();
+			return $display;
+		echo $display;
 		return null;
 	}
 }
