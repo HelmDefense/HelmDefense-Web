@@ -2,7 +2,6 @@
 namespace Component;
 
 include_once "components/generic/View.php";
-include_once "include/Parsedown.php";
 
 class MarkdownTextView extends View {
 	public function displayMarkdown($text) {

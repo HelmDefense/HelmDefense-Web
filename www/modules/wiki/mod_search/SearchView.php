@@ -10,7 +10,7 @@ class SearchView extends View {
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-12 col-xl-9">
-						<h2>Wiki Helm Defense</h2>
+						<h2 class="wiki-title">Wiki Helm Defense</h2>
 						<div class="wiki-body">
 							<?php $this->form(); ?>
 						</div>
@@ -26,7 +26,7 @@ class SearchView extends View {
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-12 col-xl-9">
-						<h2>Wiki Helm Defense</h2>
+						<h2 class="wiki-title">Wiki Helm Defense</h2>
 						<div class="wiki-body">
 							<?php $this->form($search, $type); ?>
 							<h3 class="mt-5">Résultats de recherche pour "<?= htmlspecialchars($search) ?>" (<?= $this->displayType($type) ?>)</h3>
