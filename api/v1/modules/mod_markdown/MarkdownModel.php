@@ -1,12 +1,9 @@
 <?php
-namespace Component;
-
-use Parsedown;
-
-include_once "components/generic/Model.php";
+include_once "include/check_include.php";
+include_once "include/Connection.php";
 include_once "include/Parsedown.php";
 
-class MarkdownTextModel extends Model {
+class MarkdownModel extends Connection {
 	private $parsedown;
 
 	public function __construct() {

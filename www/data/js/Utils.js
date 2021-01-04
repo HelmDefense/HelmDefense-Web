@@ -25,7 +25,7 @@ Utils.misc.API_URL = "https://api.helmdefense.theoszanto.fr/";
 
 /**
  * The window object as jQuery
- * @type {*|Window.jQuery|HTMLElement}
+ * @type {*|jQuery}
  */
 Utils.misc.jWindow = $(window);
 
@@ -446,7 +446,8 @@ Utils.pagination.Pagination = class {
 		else
 			prevElem.on("click", e => {
 				e.preventDefault();
-				this.pageChanged(this.currentPage + 1);
+				e.stopImmediatePropagation();
+				this.pageChanged(this.currentPage - 1);
 			});
 		prevElem.html(`<a class="page-link" href="#${this.toAnchorDisplay(this.currentPage - 1)}">&laquo;</a>`);
 		pagination.append(prevElem);
@@ -459,6 +460,7 @@ Utils.pagination.Pagination = class {
 			pageElem.html(`<a class="page-link" href="#${this.toAnchorDisplay(page.num)}">${page.name}</a>`);
 			pageElem.on("click", e => {
 				e.preventDefault();
+				e.stopImmediatePropagation();
 				this.pageChanged(page.num, page);
 			});
 			pagination.append(pageElem);
@@ -471,6 +473,7 @@ Utils.pagination.Pagination = class {
 		else
 			nextElem.on("click", e => {
 				e.preventDefault();
+				e.stopImmediatePropagation();
 				this.pageChanged(this.currentPage + 1);
 			});
 		nextElem.html(`<a class="page-link" href="#${this.toAnchorDisplay(this.currentPage + 1)}">&raquo;</a>`);
@@ -536,12 +539,13 @@ Utils.pagination.Pagination = class {
  * @param {boolean} [options.triggerOnCreation] - Whether to call the callback on creation or not
  * @param {boolean} [options.ignoreWhenSelected] - Whether to call the callback only when the clicked element wasn't selected or not
  * @param {string} [options.customClass] - The custom class to append to the pagination
+ * @return {Pagination|null} - The created pagination or `null` if the options were invalid
  * @see Utils.pagination.Pagination
  */
 Utils.pagination.show = function(options) {
 	if (!options.pages.length)
-		return;
-	new Utils.pagination.Pagination(
+		return null;
+	return new Utils.pagination.Pagination(
 			options.container,
 			options.pages,
 			options.callback,
