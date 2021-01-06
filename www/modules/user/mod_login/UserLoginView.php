@@ -46,12 +46,15 @@ class UserLoginView extends View {
 				</div>
 
 				<div id="submit-container" class="text-center text-lg-right">
-					<input id="submit" name="submit" type="submit" placeholder="" value="Envoyer" required />
+					<input id="submit" name="submit" type="submit" placeholder="" value="Connexion" required />
 				</div>
 			</form>
+
+			<a href="">Mot de passe oublié ?</a>
+			<a href="">Première visite ? Créer un compte</a>
+
 
 		</div>
 	<?php
 	}
-
 }

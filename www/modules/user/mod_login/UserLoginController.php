@@ -13,6 +13,10 @@ class UserLoginController extends Controller {
 		parent::__construct(new UserLoginModel(),new UserLoginView());
 	}
 
+	public function loginPage(){
+		$this->view->loginPage();
+	}
+
 	public function login($name, $password){
 		$result = $this->model->userConnect($name, $password);
 		if ($result) {
