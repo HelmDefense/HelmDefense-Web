@@ -13,8 +13,8 @@ class UserLoginController extends Controller {
 		parent::__construct(new UserLoginModel(),new UserLoginView());
 	}
 
-	public function loginPage(){
-		$this->view->loginPage();
+	public function loginPage($error = 0){
+		$this->view->login($error);
 	}
 
 	public function login($name, $password){

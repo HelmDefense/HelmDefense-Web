@@ -6,8 +6,14 @@ class UsersModel extends Connection {
 	public function get($id) {
 		$user = Utils::executeRequest(self::$bdd, "SELECT login, `name`, avatar, description, joined_at, ranks FROM hd_user_users WHERE login = :id", array("id" => $id), false);
 
+
 		if (!$user)
 			Utils::error(404, "User not found");
+
+		if (is_null($user->avatar))
+			$user->avatar = "https://helmdefense.theoszanto.fr/data/img/avatar/default.png";
+		else
+			$user->avatar = "https://helmdefense.theoszanto.fr/data/img/avatar/$user->avatar";
 
 		$ranks = $user->ranks;
 		$user->ranks = array();
