@@ -3,6 +3,7 @@ namespace Module;
 
 use Utils;
 
+include_once "UserProfileController.php";
 include_once "modules/generic/Module.php";
 
 class UserProfileModule extends Module {
@@ -20,12 +21,12 @@ class UserProfileModule extends Module {
 		$request = Utils::get("module", "profile");
 
 		switch ($request) {
-			case "profile":
 			case "settings":
 				echo "settings";
 				break;
+			case "profile":
 			default:
-				echo "default";
+				$this->controller->displayProfileUser(false);
 				break;
 		}
 	}

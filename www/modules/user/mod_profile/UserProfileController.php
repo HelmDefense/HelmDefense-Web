@@ -13,10 +13,13 @@ class UserProfileController extends Controller {
 		parent::__construct(new UserProfileModel(), new UserProfileView());
 	}
 
-	/**
-	 * @inheritDoc
-	 */
-	public function getHead() {
-		// TODO: Implement getHead() method.
+	function displayProfileUser($needUrlCorrection) {
+		if($needUrlCorrection) {
+			UserProfileView::defaultToProfile();
+		}
+		else {
+			$name = $this->model->searchInfo("nom", "");
+			$this->view->displayProfile();
+		}
 	}
 }

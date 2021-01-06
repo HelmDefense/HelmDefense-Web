@@ -1,0 +1,41 @@
+h3 {
+	font-family: "Ringbearer", "Montserrat", sans-serif;
+	padding: 10px;
+}
+#infoName {
+	text-align: center;
+	align-items: center;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+#pseudo {
+	font-size: 250%;
+}
+
+#imgProfile {
+	width: 70%;
+	margin-bottom: 15px;
+}
+
+#infoText {
+	border: white solid;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	margin-right: 40px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+/* Sidebar */
+
+.sidebar {
+	background-color: var(--fg-color);
+	height: calc(100vh - 100px);
+	padding-left: 40px;
+	padding-right: 40px;
+}
+
+.sidebar-container {
+	right: 0;
+}

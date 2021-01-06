@@ -13,7 +13,7 @@ Utils::$modules["wiki/search"] = new Mod("search", "SearchModule", "<link rel='s
 //User modules
 Utils::$modules["user/"] = // We fake "user" module to redirect to "profile" module
 Utils::$modules["user/settings"] = // We fake "settings" module to redirect to "profile" module
-Utils::$modules["user/profile"] = new Mod("profile", "UserProfileModule", array(), true, "user");
+Utils::$modules["user/profile"] = new Mod("profile", "UserProfileModule", "<link rel='stylesheet' href='/data/css/profile.css' />", true, "user");
 
 class Mod {
 	/**
