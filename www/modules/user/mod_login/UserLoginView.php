@@ -4,7 +4,28 @@ namespace Module;
 include_once "modules/generic/View.php";
 
 class UserLoginView extends View {
-	public function loginPage(){
+	public function login($error){
+		if ($error){
+			?>
+			<div class="alert alert-danger" role="alert">
+				<?php
+				switch ($error){
+					case 1:
+						echo "Votre login est incconu";
+						break;
+					case 2:
+						echo "votre mot de passe est incorrecte";
+						break;
+					default:
+						echo "il y a eu une erreur lors de votre authentification";
+						break;
+				}
+				?>
+				Une erreur est survenue lors de l'authentification !
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<?php
+		}
 	?>
 		<div class="container-fluid">
 			<h2>Connexion</h2>
@@ -30,12 +51,6 @@ class UserLoginView extends View {
 			</form>
 
 		</div>
-	<?php
-	}
-
-	public function loginError(){
-	?>
-		<div class="alert alert-danger" role="alert"> Il y a une erreur dans votre mot de passe et/ou dans votre nom </div>
 	<?php
 	}
 

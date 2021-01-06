@@ -14,11 +14,12 @@ class UserLoginController extends Controller {
 	}
 
 	public function login($name, $password){
-		if ($this->model->userConnect($name, $password)) {
+		$result = $this->model->userConnect($name, $password);
+		if ($result) {
+			$this->view->login($result);
+		}else{
 			header("Location: /");
 			exit(303);
-		}else{
-			$this->view->loginError();
 		}
 	}
 
