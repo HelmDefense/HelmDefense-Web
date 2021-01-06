@@ -25,9 +25,13 @@ class UserLoginView extends View {
 				</div>
 
 				<div id="submit-container" class="text-center text-lg-right">
-					<input id="submit" name="submit" type="submit" placeholder="" value="Envoyer" required />
+					<input id="submit" name="submit" type="submit" placeholder="" value="Connexion" required />
 				</div>
 			</form>
+
+			<a href="">Mot de passe oublié ?</a>
+			<a href="">Première visite ? Créer un compte</a>
+
 
 		</div>
 	<?php
@@ -35,7 +39,7 @@ class UserLoginView extends View {
 
 	public function loginError(){
 	?>
-		<div class="alert alert-danger" role="alert"> Il y a une erreur dans votre mot de passe et/ou dans votre nom </div>
+		<div class="alert alert-danger" role="alert"> Identifiant ou mot de passe incorrecte </div>
 	<?php
 	}
 
