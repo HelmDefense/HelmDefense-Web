@@ -13,4 +13,13 @@ class UserLoginController extends Controller {
 		parent::__construct(new UserLoginModel(),new UserLoginView());
 	}
 
+	public function login($name, $password){
+		if ($this->model->userConnect($name, $password)) {
+			header("Location: /");
+			exit(303);
+		}else{
+			$this->view->loginError();
+		}
+	}
+
 }

@@ -682,7 +682,6 @@ class Utils {
 			return null;
 
 		$user = self::httpGetRequest("v1/users/$loggedInUser");
-		$user->avatar = self::SITE_URL . "data/img/avatar/indyteo.png";
 		return property_exists($user, "id") ? $user : null;
 	}
 
