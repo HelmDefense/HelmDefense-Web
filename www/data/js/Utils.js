@@ -25,7 +25,7 @@ Utils.misc.API_URL = "https://api.helmdefense.theoszanto.fr/";
 
 /**
  * The window object as jQuery
- * @type {*|Window.jQuery|HTMLElement}
+ * @type {*|jQuery}
  */
 Utils.misc.jWindow = $(window);
 
@@ -402,13 +402,15 @@ Utils.pagination.Pagination = class {
 	 * @param {number} defaultPage - The selected page
 	 * @param {boolean} triggerOnCreation - Whether to call the callback on creation or not
 	 * @param {boolean} ignoreWhenSelected - Whether to call the callback only when the clicked element wasn't selected or not
+	 * @param {string} customClass - The custom class to append to the pagination
 	 */
-	constructor(container, pages, callback, defaultPage, triggerOnCreation, ignoreWhenSelected) {
+	constructor(container, pages, callback, defaultPage, triggerOnCreation, ignoreWhenSelected, customClass) {
 		this.container = container;
 		this.pages = pages;
 		this.callback = callback;
 		this.currentPage = this.isValidPage(defaultPage) ? defaultPage : 1;
 		this.ignoreWhenSelected = ignoreWhenSelected;
+		this.customClass = customClass;
 		/**
 		 * @type {Page[]}
 		 */
@@ -435,6 +437,7 @@ Utils.pagination.Pagination = class {
 
 		let pagination = $(document.createElement("ul"));
 		pagination.addClass("pagination custom-pagination");
+		pagination.addClass(this.customClass);
 
 		let prevElem = $(document.createElement("li"));
 		prevElem.addClass("page-item custom-pagination-prev");
@@ -443,7 +446,8 @@ Utils.pagination.Pagination = class {
 		else
 			prevElem.on("click", e => {
 				e.preventDefault();
-				this.pageChanged(this.currentPage + 1);
+				e.stopImmediatePropagation();
+				this.pageChanged(this.currentPage - 1);
 			});
 		prevElem.html(`<a class="page-link" href="#${this.toAnchorDisplay(this.currentPage - 1)}">&laquo;</a>`);
 		pagination.append(prevElem);
@@ -456,6 +460,7 @@ Utils.pagination.Pagination = class {
 			pageElem.html(`<a class="page-link" href="#${this.toAnchorDisplay(page.num)}">${page.name}</a>`);
 			pageElem.on("click", e => {
 				e.preventDefault();
+				e.stopImmediatePropagation();
 				this.pageChanged(page.num, page);
 			});
 			pagination.append(pageElem);
@@ -468,6 +473,7 @@ Utils.pagination.Pagination = class {
 		else
 			nextElem.on("click", e => {
 				e.preventDefault();
+				e.stopImmediatePropagation();
 				this.pageChanged(this.currentPage + 1);
 			});
 		nextElem.html(`<a class="page-link" href="#${this.toAnchorDisplay(this.currentPage + 1)}">&raquo;</a>`);
@@ -484,7 +490,7 @@ Utils.pagination.Pagination = class {
 	pageChanged(num = this.currentPage, page = null) {
 		if (this.ignoreWhenSelected && page?.selected)
 			return;
-		if (this.callback(page || {num: this.currentPage, name: this.pages[this.currentPage - 1], selected: false})) {
+		if (this.callback(page || {num: num, name: this.pages[num - 1], selected: false})) {
 			this.currentPage = num;
 			this.render();
 		}
@@ -532,18 +538,21 @@ Utils.pagination.Pagination = class {
  * @param {number} [options.defaultPage] - The selected page
  * @param {boolean} [options.triggerOnCreation] - Whether to call the callback on creation or not
  * @param {boolean} [options.ignoreWhenSelected] - Whether to call the callback only when the clicked element wasn't selected or not
+ * @param {string} [options.customClass] - The custom class to append to the pagination
+ * @return {Pagination|null} - The created pagination or `null` if the options were invalid
  * @see Utils.pagination.Pagination
  */
 Utils.pagination.show = function(options) {
 	if (!options.pages.length)
-		return;
-	new Utils.pagination.Pagination(
+		return null;
+	return new Utils.pagination.Pagination(
 			options.container,
 			options.pages,
 			options.callback,
 			options.defaultPage || 1,
 			options.triggerOnCreation,
-			options.ignoreWhenSelected
+			options.ignoreWhenSelected,
+			options.customClass
 	);
 };
 

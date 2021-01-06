@@ -10,15 +10,11 @@ class WikiHomeView extends View {
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-12 col-xl-9">
-						<h2>Wiki Helm Defense</h2>
+						<h2 class="wiki-title">Wiki Helm Defense</h2>
 						<div class="wiki-body">
 							<p>Bienvenue sur le Wiki de Helm Defense.</p>
 							<div class="text-justify">
-								<?php
-								$home = Utils::loadComponent("markdowntext", false, $homeText);
-								$home->generateRender();
-								$home->display();
-								?>
+								<?= Utils::markdown($homeText); ?>
 							</div>
 							<h3 class="section-title">Pages récentes</h3>
 							<div class="wiki-pagepreview-parent">
@@ -44,11 +40,7 @@ class WikiHomeView extends View {
 						</div>
 					</div>
 					<div class="wiki-sidebar-container col-12 col-xl-3">
-						<?php
-						$sidebar = Utils::loadComponent("wikisidebar");
-						$sidebar->generateRender();
-						$sidebar->display();
-						?>
+						<?= Utils::renderComponent("wikisidebar"); ?>
 					</div>
 				</div>
 			</div>
@@ -58,30 +50,23 @@ class WikiHomeView extends View {
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-12 col-xl-9">
-						<h2>Wiki Helm Defense</h2>
+						<h2 class="wiki-title">Wiki Helm Defense</h2>
 						<div class="wiki-body">
-							<h3 class="section-title"><?= $type == "entity" ? "Entités" : "Niveaux" ?></h3>
+							<h3 class="section-title mt-0"><?= $type == "entity" ? "Entités" : "Niveaux" ?></h3>
 							<div class="wiki-pagepreview-parent">
 								<?php $this->pagePreviewList($pages, $type); ?>
 							</div>
 						</div>
 					</div>
 					<div class="wiki-sidebar-container col-12 col-xl-3">
-						<?php
-						$sidebar = Utils::loadComponent("wikisidebar");
-						$sidebar->generateRender();
-						$sidebar->display();
-						?>
+						<?= Utils::renderComponent("wikisidebar"); ?>
 					</div>
 				</div>
 			</div>
 	<?php }
 
 	private function pagePreviewList($list, $type = "page") {
-		foreach ($list as $item) {
-			$preview = Utils::loadComponent("wikipagepreview", false, $item, $type, "h4");
-			$preview->generateRender();
-			$preview->display();
-		}
+		foreach ($list as $item)
+			echo Utils::renderComponent("wikipagepreview", $item, $type, "h4");
 	}
 }

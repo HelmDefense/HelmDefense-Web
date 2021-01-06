@@ -7,8 +7,10 @@ include_once "modules/generic/Model.php";
 
 class WikiPageModel extends Model {
 	public function getEntityPage($entity) {
-		// TODO Vérifier la réponse avant de transmettre le résultat
-		return Utils::httpGetRequest("v1/entities/$entity");
+		$ent = Utils::httpGetRequest("v1/entities/$entity");
+		if (Utils::isError($ent))
+			return null;
+		return $ent;
 	}
 
 	public function getLevelPage($level) {

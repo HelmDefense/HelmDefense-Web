@@ -6,18 +6,6 @@ include_once "include/Utils.php";
 if (session_status() !== PHP_SESSION_ACTIVE)
 	session_start(array("cookie_lifetime" => 86400));
 
-if (Utils::get("section") == "user" && Utils::get("module") == "login") {
-	$_SESSION["login"] = "indyteo";
-	header("Location: /");
-	exit;
-}
-
-if (Utils::get("section") == "user" && Utils::get("module") == "logout") {
-	unset($_SESSION["login"]);
-	header("Location: /");
-	exit;
-}
-
 $module = Utils::loadModule();
 $output = $module->run();
 
