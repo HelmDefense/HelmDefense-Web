@@ -34,7 +34,6 @@ class UserLoginView extends View {
 	}
 
 	public function loginError(){
-
 	?>
 		<div class="alert alert-danger" role="alert"> Il y a une erreur dans votre mot de passe et/ou dans votre nom </div>
 	<?php
