@@ -49,5 +49,5 @@
 </section>
 
 <div id="link">
-	<a href="https://helmdefense.theoszanto.fr">helmdefense.fr</a>
+	<a href="https://api.helmdefense.theoszanto.fr" target="_blank">api.helmdefense.fr</a>
 </div>

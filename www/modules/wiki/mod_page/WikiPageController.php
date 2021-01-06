@@ -31,7 +31,8 @@ class WikiPageController extends Controller {
 
 	public function entityPage($ent) {
 		$entity = $this->model->getEntityPage($ent);
-		// TODO Vérification de l'existant de l'entité, sinon erreur 404
+		if (!$entity)
+			Utils::error(404, "L'entité \"" . htmlspecialchars($ent) . "\" que vous cherchez n'a pas été trouvée");
 		$this->setTitle($entity->name);
 		$this->view->entityPage($entity);
 	}

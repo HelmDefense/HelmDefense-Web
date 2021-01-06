@@ -78,18 +78,35 @@ h2 {
 	margin: 80px 0 50px;
 }
 
+a {
+	color: white;
+	text-decoration: underline transparent;
+	transition: text-decoration-color .1s;
+}
+
+a:hover {
+	color: white;
+	text-decoration-color: white;
+}
+
+a.btn:focus {
+	box-shadow: none;
+}
+
 .main-btn {
 	background-color: var(--bg-color);
 	font-family: var(--font-title);
 	border-radius: 0;
 	border: 5px solid white;
-	color: white;
 	padding: 5px 75px;
+	color: white;
+	text-decoration: underline transparent;
+	transition: text-decoration-color .1s;
 }
 
 .main-btn:hover {
-	text-decoration: underline;
 	color: white;
+	text-decoration: underline white;
 }
 
 footer {
