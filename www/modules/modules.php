@@ -10,6 +10,11 @@ Utils::$modules["wiki/"] = new Mod("home", "WikiHomeModule", "<link rel='stylesh
 Utils::$modules["wiki/page"] = new Mod("page", "WikiPageModule", "<link rel='stylesheet' href='/data/css/wiki.css' />", true, "wiki");
 Utils::$modules["wiki/search"] = new Mod("search", "SearchModule", "<link rel='stylesheet' href='/data/css/wiki.css' />", true, "wiki");
 
+//User modules
+Utils::$modules["user/"] = // We fake "user" module to redirect to "profile" module
+Utils::$modules["user/settings"] = // We fake "settings" module to redirect to "profile" module
+Utils::$modules["user/profile"] = new Mod("profile", "UserProfileModule", array(), true, "user");
+
 class Mod {
 	/**
 	 * @var string
