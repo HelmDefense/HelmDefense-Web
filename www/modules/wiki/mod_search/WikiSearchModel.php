@@ -5,7 +5,7 @@ use Utils;
 
 include_once "modules/generic/Model.php";
 
-class SearchModel extends Model {
+class WikiSearchModel extends Model {
 	public function search($search, $type) {
 		switch ($type) {
 		case "page":

@@ -4,6 +4,7 @@ use Component\Component;
 use Module\Module;
 
 include_once "check_include.php";
+include_once "Element.php";
 include_once "modules/modules.php";
 include_once "components/components.php";
 include_once "Connection.php";
