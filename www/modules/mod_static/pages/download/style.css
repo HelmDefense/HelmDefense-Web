@@ -26,6 +26,7 @@
 	z-index: 100;
 	display: flex;
 	cursor: pointer;
+	background-color: rgba(0, 0, 0, .35);
 }
 
 #popup-content {
@@ -40,6 +41,10 @@
 #latest {
 	font-size: 1.35em;
 	padding: 5px 10px;
+}
+
+.name {
+	font-size: 2em;
 }
 
 .publish-date {

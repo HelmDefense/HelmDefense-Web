@@ -31,6 +31,12 @@
 	border-top: 1px solid #ddd;
 }
 
+.CodeMirror .editor-preview pre {
+	border-radius: .5em;
+	overflow-y: auto;
+	padding: .5em .5em .5em 1.5em;
+}
+
 .editor-preview,
 .editor-preview-side {
 	color: white;
@@ -148,6 +154,12 @@
 .editor-preview table th,
 .editor-preview-side table th {
 	font-weight: 600;
+}
+
+.editor-preview pre,
+.editor-preview-side pre {
+	background: var(--fg-color);
+	margin-bottom: 1rem;
 }
 
 .cm-quote {

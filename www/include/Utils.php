@@ -390,8 +390,7 @@ class Utils {
 			self::initConnection($display_errors);
 
 		// Add declared head resources
-		foreach ($mod->getResources() as $resource)
-			self::addResource($resource);
+		self::loadResources($mod);
 
 		// Create the module and return it
 		$full_mod_class = "\\Module\\$mod_class";
@@ -429,8 +428,7 @@ class Utils {
 			self::initConnection($display_errors);
 
 		// Add declared head resources
-		foreach ($com->getResources() as $resource)
-			self::addResource($resource);
+		self::loadResources($com);
 
 		// Create the component and return it
 		$full_com_class = "\\Component\\$com_class";
@@ -741,6 +739,15 @@ class Utils {
 	static function addResource($resource) {
 		if (!in_array($resource, self::$head))
 			self::$head[] = $resource;
+	}
+
+	/**
+	 * Load resources from a module or a component
+	 * @param Element $elem The module or component to load resources
+	 */
+	static function loadResources($elem) {
+		foreach ($elem->getResources() as $resource)
+			self::addResource($resource);
 	}
 
 	/**
