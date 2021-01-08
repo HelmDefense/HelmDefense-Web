@@ -5,6 +5,7 @@ Utils::$components["markdowntext"] = new Comp("MarkdownTextComponent", array("<s
 Utils::$components["markdowneditor"] = new Comp("MarkdownEditorComponent", array("<link rel='stylesheet' href='https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css'>", "<script src='https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js'></script>", "<script src='/data/plugins/prism/prism.js'></script>", "<link rel='stylesheet' href='/data/plugins/prism/prism.css' />", "<link rel='stylesheet' href='/data/css/markdown.css' />", "<link rel='stylesheet' href='/data/css/markdown-editor.css' />"));
 Utils::$components["wikisidebar"] = new Comp("WikiSidebarComponent", "<link rel='stylesheet' href='/data/css/wiki.css' />", true);
 Utils::$components["wikipagepreview"] = new Comp("WikiPagePreviewComponent", "<link rel='stylesheet' href='/data/css/wiki.css' />", true);
+Utils::$components["forumpostlist"] = new Comp("ForumPostListComponent", array(), true);
 
 class Comp extends Element {
 	/**
