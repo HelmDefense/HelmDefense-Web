@@ -6,31 +6,31 @@ use Utils;
 include_once "components/generic/View.php";
 
 class ForumPostListView extends View {
-	public function displayTopicList($topics) {
-		$this->displayTable(array("Sujet", "Auteur", "Nombre de messages", "Date de création", "Dernière activité"), function() use ($topics) {
-			foreach ($topics as $topic) { ?>
+	public function displayTalkList($talks) {
+		$this->displayTable(array("Sujet", "Auteur", "Nombre de messages", "Date de création", "Dernière activité"), function() use ($talks) {
+			foreach ($talks as $talk) { ?>
 				<tr>
-					<td><a href="/forum/topic/<?= $topic->id ?>"><?= htmlspecialchars($topic->title) ?></a></td>
-					<td><a href="/user/profile/<?= $topic->author->id ?>"><?= htmlspecialchars($topic->author->name) ?></a></td>
-					<td><?= htmlspecialchars($topic->message_count) ?></td>
-					<td><?= Utils::formatDate($topic->created_at) ?></td>
-					<td><?= Utils::formatDate($topic->last_activity) ?></td>
+					<td><a href="/forum/talk/<?= $talk->id ?>"><?= htmlspecialchars($talk->title) ?></a></td>
+					<td><a href="/user/profile/<?= $talk->author->id ?>"><?= htmlspecialchars($talk->author->name) ?></a></td>
+					<td><?= htmlspecialchars($talk->message_count) ?></td>
+					<td><?= Utils::formatDate($talk->created_at) ?></td>
+					<td><?= Utils::formatDate($talk->last_activity) ?></td>
 				</tr>
 			<?php }
 		});
 	}
 
-	public function displayCommentList($comments) {
-		$this->displayTable(array("Sujet", "Entité", "Note", "Auteur", "Nombre de messages", "Date de création", "Dernière activité"), function() use ($comments) {
-			foreach ($comments as $comment) { ?>
+	public function displayRateList($rates) {
+		$this->displayTable(array("Sujet", "Entité", "Note", "Auteur", "Nombre de messages", "Date de création", "Dernière activité"), function() use ($rates) {
+			foreach ($rates as $rate) { ?>
 				<tr>
-					<td><a href="/forum/comment/<?= $comment->id ?>"><?= htmlspecialchars($comment->title) ?></a></td>
-					<td><a href="/wiki/page/entity/<?= $comment->entity->id ?>"><?= htmlspecialchars($comment->entity->name) ?></a></td>
-					<td><?= htmlspecialchars($comment->rate) ?></td>
-					<td><a href="/user/profile/<?= $comment->author->id ?>"><?= htmlspecialchars($comment->author->name) ?></a></td>
-					<td><?= htmlspecialchars($comment->message_count) ?></td>
-					<td><?= Utils::formatDate($comment->created_at) ?></td>
-					<td><?= Utils::formatDate($comment->last_activity) ?></td>
+					<td><a href="/forum/rate/<?= $rate->id ?>"><?= htmlspecialchars($rate->title) ?></a></td>
+					<td><a href="/wiki/page/entity/<?= $rate->entity->id ?>"><?= htmlspecialchars($rate->entity->name) ?></a></td>
+					<td><?= htmlspecialchars($rate->rate) ?></td>
+					<td><a href="/user/profile/<?= $rate->author->id ?>"><?= htmlspecialchars($rate->author->name) ?></a></td>
+					<td><?= htmlspecialchars($rate->message_count) ?></td>
+					<td><?= Utils::formatDate($rate->created_at) ?></td>
+					<td><?= Utils::formatDate($rate->last_activity) ?></td>
 				</tr>
 			<?php }
 		});

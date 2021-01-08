@@ -3,9 +3,9 @@
 		<?php
 		$id = Utils::get("id");
 		if (is_null($id)) {
-			echo Utils::renderComponent("forumpostlist", Utils::get("type", "topic"), Utils::get("limit"), Utils::get("offset"));
+			echo Utils::renderComponent("forumpostlist", Utils::get("type", "talk"), Utils::get("limit"), Utils::get("offset"));
 		} else {
-			$topic = Utils::httpGetRequest("v1/forum/" . Utils::get("type", "topic") . "/$id");
+			$topic = Utils::httpGetRequest("v1/forum/" . Utils::get("type", "talk") . "/$id");
 			var_dump($topic);
 		}
 		?>

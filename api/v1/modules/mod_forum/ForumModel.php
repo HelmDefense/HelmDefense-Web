@@ -3,20 +3,28 @@ include_once "include/check_include.php";
 include_once "include/Connection.php";
 
 class ForumModel extends Connection {
+	public function types() {
+		return array(
+				"talk" => "/forum/talk",
+				"rate" => "/forum/rate",
+				"strat" => "/forum/strat"
+		);
+	}
+
 	public function list($type, $limit, $offset) {
 		switch ($type) {
-		case "topic":
-			$posts = Utils::executeRequest(self::$bdd, "SELECT t.id, t.title, d.`date` AS last_activity, t.opened, (SELECT m.id FROM hd_forum_msgs AS m WHERE m.topic = t.id AND m.type = 1 ORDER BY m.created_at ASC LIMIT 1) AS msg, (SELECT count(m.id) FROM hd_forum_msgs AS m WHERE m.topic = t.id AND m.type = 1) AS message_count FROM hd_forum_topics AS t INNER JOIN (SELECT m.topic, MAX(IFNULL(m.edited_at, m.created_at)) AS `date` FROM hd_forum_msgs AS m WHERE m.type = 1 GROUP BY m.topic ORDER BY `date` DESC) AS d ON t.id = d.topic ORDER BY d.`date` DESC LIMIT $limit OFFSET $offset");
+		case "talk":
+			$posts = Utils::executeRequest(self::$bdd, "SELECT t.id, t.title, d.`date` AS last_activity, t.opened, (SELECT m.id FROM hd_forum_msgs AS m WHERE m.topic = t.id AND m.type = 1 ORDER BY m.created_at ASC LIMIT 1) AS msg, (SELECT COUNT(m.id) FROM hd_forum_msgs AS m WHERE m.topic = t.id AND m.type = 1) AS message_count FROM hd_forum_topics AS t INNER JOIN (SELECT m.topic, MAX(IFNULL(m.edited_at, m.created_at)) AS `date` FROM hd_forum_msgs AS m WHERE m.type = 1 GROUP BY m.topic ORDER BY `date` DESC) AS d ON t.id = d.topic ORDER BY d.`date` DESC LIMIT $limit OFFSET $offset");
 			break;
-		case "comment":
-			$posts = Utils::executeRequest(self::$bdd, "SELECT `c`.id, `c`.title, e.id AS entity_id, e.name AS entity_name, `c`.rate, d.`date` AS last_activity, `c`.opened, (SELECT m.id FROM hd_forum_msgs AS m WHERE m.topic = `c`.id AND m.type = 2 ORDER BY m.created_at ASC LIMIT 1) AS msg, (SELECT count(m.id) FROM hd_forum_msgs AS m WHERE m.topic = `c`.id AND m.type = 2) AS message_count FROM hd_forum_comments AS `c` INNER JOIN hd_game_entities AS e ON `c`.entity = e.num INNER JOIN (SELECT m.topic, MAX(IFNULL(m.edited_at, m.created_at)) AS `date` FROM hd_forum_msgs AS m WHERE m.type = 2 GROUP BY m.topic ORDER BY `date` DESC) AS d ON `c`.id = d.topic ORDER BY d.`date` DESC LIMIT $limit OFFSET $offset");
+		case "rate":
+			$posts = Utils::executeRequest(self::$bdd, "SELECT `c`.id, `c`.title, e.id AS entity_id, e.name AS entity_name, `c`.rate, d.`date` AS last_activity, `c`.opened, (SELECT m.id FROM hd_forum_msgs AS m WHERE m.topic = `c`.id AND m.type = 2 ORDER BY m.created_at ASC LIMIT 1) AS msg, (SELECT COUNT(m.id) FROM hd_forum_msgs AS m WHERE m.topic = `c`.id AND m.type = 2) AS message_count FROM hd_forum_comments AS `c` INNER JOIN hd_game_entities AS e ON `c`.entity = e.num INNER JOIN (SELECT m.topic, MAX(IFNULL(m.edited_at, m.created_at)) AS `date` FROM hd_forum_msgs AS m WHERE m.type = 2 GROUP BY m.topic ORDER BY `date` DESC) AS d ON `c`.id = d.topic ORDER BY d.`date` DESC LIMIT $limit OFFSET $offset");
 			if (!$posts)
 				return null;
 			foreach ($posts as $post)
 				$this->setIdName($post, "entity");
 			break;
 		case "strat":
-			$posts = Utils::executeRequest(self::$bdd, "SELECT s.id, s.title, l.id AS level_id, l.name AS level_name, e.id AS hero_id, e.name AS hero_name, d.`date` AS last_activity, s.opened, (SELECT m.id FROM hd_forum_msgs AS m WHERE m.topic = s.id AND m.type = 3 ORDER BY m.created_at ASC LIMIT 1) AS msg, (SELECT count(m.id) FROM hd_forum_msgs AS m WHERE m.topic = s.id AND m.type = 3) AS message_count FROM hd_forum_strats AS s INNER JOIN hd_game_entities AS e ON s.hero = e.num INNER JOIN hd_game_levels AS l ON s.level = l.num INNER JOIN (SELECT m.topic, MAX(IFNULL(m.edited_at, m.created_at)) AS `date` FROM hd_forum_msgs AS m WHERE m.type = 3 GROUP BY m.topic ORDER BY `date` DESC) AS d ON s.id = d.topic ORDER BY d.`date` DESC LIMIT $limit OFFSET $offset");
+			$posts = Utils::executeRequest(self::$bdd, "SELECT s.id, s.title, l.id AS level_id, l.name AS level_name, e.id AS hero_id, e.name AS hero_name, d.`date` AS last_activity, s.opened, (SELECT m.id FROM hd_forum_msgs AS m WHERE m.topic = s.id AND m.type = 3 ORDER BY m.created_at ASC LIMIT 1) AS msg, (SELECT COUNT(m.id) FROM hd_forum_msgs AS m WHERE m.topic = s.id AND m.type = 3) AS message_count FROM hd_forum_strats AS s INNER JOIN hd_game_entities AS e ON s.hero = e.num INNER JOIN hd_game_levels AS l ON s.level = l.num INNER JOIN (SELECT m.topic, MAX(IFNULL(m.edited_at, m.created_at)) AS `date` FROM hd_forum_msgs AS m WHERE m.type = 3 GROUP BY m.topic ORDER BY `date` DESC) AS d ON s.id = d.topic ORDER BY d.`date` DESC LIMIT $limit OFFSET $offset");
 			if (!$posts)
 				return null;
 			foreach ($posts as $post) {
@@ -43,11 +51,11 @@ class ForumModel extends Connection {
 
 	public function get($type, $id) {
 		switch ($type) {
-		case "topic":
+		case "talk":
 			$post = Utils::executeRequest(self::$bdd, "SELECT id, title, opened FROM hd_forum_topics WHERE id = :id", array("id" => $id), false);
 			$type = 1;
 			break;
-		case "comment":
+		case "rate":
 			$post = Utils::executeRequest(self::$bdd, "SELECT `c`.id, `c`.title, e.id AS entity_id, e.name AS entity_name, `c`.rate, `c`.opened FROM hd_forum_comments AS `c` INNER JOIN hd_game_entities AS e ON `c`.entity = e.num WHERE `c`.id = :id", array("id" => $id), false);
 			$type = 2;
 			if (!$post)

@@ -11,7 +11,11 @@ class ForumModule {
 
 		switch (Utils::getRequired("action", "Not action specified")) {
 		case "list":
-			$this->controller->list(Utils::getRequired("type", "No type specified"), Utils::get("limit", "10"), Utils::get("offset", "0"));
+			$data = Utils::getMany(array("type", "limit" => "10", "offset" => "0"));
+			if (is_null($data["type"]))
+				$this->controller->types();
+			else
+				$this->controller->list($data["type"], $data["limit"], $data["offset"]);
 			break;
 		case "get":
 			$this->controller->get(Utils::getRequired("type", "No type specified"), Utils::getRequired("id", "No id specified"));

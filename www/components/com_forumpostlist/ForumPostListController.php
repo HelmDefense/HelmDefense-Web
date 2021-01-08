@@ -17,11 +17,11 @@ class ForumPostListController extends Controller {
 		if (is_null($posts))
 			Utils::error(404, "Type de post inconnu");
 		switch ($type) {
-		case "topic":
-			$this->view->displayTopicList($posts);
+		case "talk":
+			$this->view->displayTalkList($posts);
 			break;
-		case "comment":
-			$this->view->displayCommentList($posts);
+		case "rate":
+			$this->view->displayRateList($posts);
 			break;
 		case "strat":
 			$this->view->displayStratList($posts);

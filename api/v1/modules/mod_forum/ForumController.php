@@ -12,6 +12,10 @@ class ForumController {
 		$this->view = new ForumView();
 	}
 
+	public function types() {
+		$this->view->json($this->model->types());
+	}
+
 	public function list($type, $limit, $offset) {
 		$posts = $this->model->list($type, $limit, $offset);
 		if (is_null($posts))

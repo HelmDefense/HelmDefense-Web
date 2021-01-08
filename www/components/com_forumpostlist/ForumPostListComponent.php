@@ -10,7 +10,7 @@ class ForumPostListComponent extends Component {
 	private $offset;
 	private $navigable;
 
-	public function __construct($type = "topic", $limit = null, $offset = null, $navigable = false) {
+	public function __construct($type = "talk", $limit = null, $offset = null, $navigable = false) {
 		parent::__construct(new ForumPostListController());
 		$this->type = $type;
 		$this->limit = $limit;
