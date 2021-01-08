@@ -5,7 +5,7 @@ use Utils;
 
 include_once "modules/generic/View.php";
 
-class SearchView extends View {
+class WikiSearchView extends View {
 	public function searchPage() { ?>
 			<div class="container-fluid">
 				<div class="row">

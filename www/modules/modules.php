@@ -8,25 +8,13 @@ Utils::$modules["wiki/entity"] = // We fake "entity" module to redirect to "home
 Utils::$modules["wiki/level"] = // We fake "level" module to redirect to "home" module
 Utils::$modules["wiki/"] = new Mod("home", "WikiHomeModule", "<link rel='stylesheet' href='/data/css/wiki.css' />", true, "wiki");
 Utils::$modules["wiki/page"] = new Mod("page", "WikiPageModule", "<link rel='stylesheet' href='/data/css/wiki.css' />", true, "wiki");
-Utils::$modules["wiki/search"] = new Mod("search", "SearchModule", "<link rel='stylesheet' href='/data/css/wiki.css' />", true, "wiki");
+Utils::$modules["wiki/search"] = new Mod("search", "WikiSearchModule", "<link rel='stylesheet' href='/data/css/wiki.css' />", true, "wiki");
 
-class Mod {
+class Mod extends Element {
 	/**
 	 * @var string
 	 */
 	private $name;
-	/**
-	 * @var string
-	 */
-	private $class;
-	/**
-	 * @var string[]
-	 */
-	private $resources;
-	/**
-	 * @var bool
-	 */
-	private $db;
 	/**
 	 * @var string|null
 	 */
@@ -40,10 +28,8 @@ class Mod {
 	 * @param string|null $section
 	 */
 	public function __construct($name, $class, $resources = array(), $db = false, $section = null) {
+		parent::__construct($class, $resources, $db);
 		$this->name = $name;
-		$this->class = $class;
-		$this->resources = is_array($resources) ? $resources : array($resources);
-		$this->db = $db;
 		$this->section = $section;
 	}
 
@@ -52,27 +38,6 @@ class Mod {
 	 */
 	public function getName() {
 		return $this->name;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function className() {
-		return $this->class;
-	}
-
-	/**
-	 * @return string[]
-	 */
-	public function getResources() {
-		return $this->resources;
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function needsDatabase() {
-		return $this->db;
 	}
 
 	/**

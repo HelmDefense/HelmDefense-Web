@@ -4,12 +4,12 @@ namespace Module;
 use Utils;
 
 include_once "modules/generic/Controller.php";
-include_once "SearchModel.php";
-include_once "SearchView.php";
+include_once "WikiSearchModel.php";
+include_once "WikiSearchView.php";
 
-class SearchController extends Controller {
+class WikiSearchController extends Controller {
 	public function __construct() {
-		parent::__construct(new SearchModel(), new SearchView());
+		parent::__construct(new WikiSearchModel(), new WikiSearchView());
 	}
 
 	public function generateSearchPage() {
