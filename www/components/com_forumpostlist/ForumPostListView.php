@@ -6,6 +6,8 @@ use Utils;
 include_once "components/generic/View.php";
 
 class ForumPostListView extends View {
+	private static $i = 0;
+
 	public function displayTalkList($talks) {
 		$this->displayTable(array("Sujet", "Auteur", "Nombre de messages", "Date de création", "Dernière activité"), function() use ($talks) {
 			foreach ($talks as $talk) { ?>
@@ -53,7 +55,7 @@ class ForumPostListView extends View {
 	}
 
 	private function displayTable($columns, $contentGenerator) { ?>
-		<table class="custom-table">
+		<table class="custom-table post-list" data-id="<?= ++self::$i ?>">
 			<thead>
 				<tr>
 					<?php foreach ($columns as $column) echo "<th>$column</th>"; ?>
@@ -65,7 +67,36 @@ class ForumPostListView extends View {
 		</table>
 	<?php }
 
-	public function displayNavigation($type, $limit, $offset) {
-		// TODO Système de navigation
-	}
+	public function displayNavigation($type, $limit, $page, $total) {
+		Utils::addResource("<link href='/data/css/pagination.css' rel='stylesheet' />");
+		Utils::addResource("<script src='/data/js/forum-post-list.js'></script>");
+		$pages = ceil($total / $limit);
+		?>
+		<div class="navigation mt-4" data-id="<?= self::$i ?>"></div>
+		<script>
+			const table<?= self::$i ?> = $(".post-list[data-id=<?= self::$i ?>] tbody");
+			Utils.pagination.show({
+				container: $(".navigation[data-id=<?= self::$i ?>]"),
+				pages: ["<?= implode('", "', range(1, $pages)) ?>"],
+				callback: page => {
+					if (page.num <= 0 || page.num > <?= $pages ?>)
+						return false;
+					Utils.ajax.getWithCache({
+						url: "v1/forum/<?= $type ?>",
+						data: {limit: <?= $limit ?>, page: page.num},
+						callback: data => {
+							forum<?= $type ?>(table<?= self::$i ?>, data.result);
+							return data.count !== 0;
+						},
+						toApi: true
+					});
+					return true;
+				},
+				defaultPage: <?= $page ?>,
+				triggerOnCreation: false,
+				ignoreWhenSelected: true,
+				customClass: "justify-content-center"
+			});
+		</script>
+	<?php }
 }

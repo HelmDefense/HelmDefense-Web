@@ -12,21 +12,22 @@ class ForumModel extends Connection {
 	}
 
 	public function list($type, $limit, $offset) {
+		self::$bdd->beginTransaction();
 		switch ($type) {
 		case "talk":
-			$posts = Utils::executeRequest(self::$bdd, "SELECT t.id, t.title, d.`date` AS last_activity, t.opened, (SELECT m.id FROM hd_forum_msgs AS m WHERE m.topic = t.id AND m.type = 1 ORDER BY m.created_at ASC LIMIT 1) AS msg, (SELECT COUNT(m.id) FROM hd_forum_msgs AS m WHERE m.topic = t.id AND m.type = 1) AS message_count FROM hd_forum_topics AS t INNER JOIN (SELECT m.topic, MAX(IFNULL(m.edited_at, m.created_at)) AS `date` FROM hd_forum_msgs AS m WHERE m.type = 1 GROUP BY m.topic ORDER BY `date` DESC) AS d ON t.id = d.topic ORDER BY d.`date` DESC LIMIT $limit OFFSET $offset");
+			$posts = Utils::executeRequest(self::$bdd, "SELECT SQL_CALC_FOUND_ROWS t.id, t.title, d.`date` AS last_activity, t.opened, (SELECT m.id FROM hd_forum_msgs AS m WHERE m.topic = t.id AND m.type = 1 ORDER BY m.created_at LIMIT 1) AS msg, (SELECT COUNT(m.id) FROM hd_forum_msgs AS m WHERE m.topic = t.id AND m.type = 1) AS message_count FROM hd_forum_topics AS t INNER JOIN (SELECT m.topic, MAX(IFNULL(m.edited_at, m.created_at)) AS `date` FROM hd_forum_msgs AS m WHERE m.type = 1 GROUP BY m.topic ORDER BY `date` DESC) AS d ON t.id = d.topic ORDER BY d.`date` DESC LIMIT $offset, $limit");
 			break;
 		case "rate":
-			$posts = Utils::executeRequest(self::$bdd, "SELECT `c`.id, `c`.title, e.id AS entity_id, e.name AS entity_name, `c`.rate, d.`date` AS last_activity, `c`.opened, (SELECT m.id FROM hd_forum_msgs AS m WHERE m.topic = `c`.id AND m.type = 2 ORDER BY m.created_at ASC LIMIT 1) AS msg, (SELECT COUNT(m.id) FROM hd_forum_msgs AS m WHERE m.topic = `c`.id AND m.type = 2) AS message_count FROM hd_forum_comments AS `c` INNER JOIN hd_game_entities AS e ON `c`.entity = e.num INNER JOIN (SELECT m.topic, MAX(IFNULL(m.edited_at, m.created_at)) AS `date` FROM hd_forum_msgs AS m WHERE m.type = 2 GROUP BY m.topic ORDER BY `date` DESC) AS d ON `c`.id = d.topic ORDER BY d.`date` DESC LIMIT $limit OFFSET $offset");
+			$posts = Utils::executeRequest(self::$bdd, "SELECT SQL_CALC_FOUND_ROWS `c`.id, `c`.title, e.id AS entity_id, e.name AS entity_name, `c`.rate, d.`date` AS last_activity, `c`.opened, (SELECT m.id FROM hd_forum_msgs AS m WHERE m.topic = `c`.id AND m.type = 2 ORDER BY m.created_at LIMIT 1) AS msg, (SELECT COUNT(m.id) FROM hd_forum_msgs AS m WHERE m.topic = `c`.id AND m.type = 2) AS message_count FROM hd_forum_comments AS `c` INNER JOIN hd_game_entities AS e ON `c`.entity = e.num INNER JOIN (SELECT m.topic, MAX(IFNULL(m.edited_at, m.created_at)) AS `date` FROM hd_forum_msgs AS m WHERE m.type = 2 GROUP BY m.topic ORDER BY `date` DESC) AS d ON `c`.id = d.topic ORDER BY d.`date` DESC LIMIT $offset, $limit");
 			if (!$posts)
-				return null;
+				break;
 			foreach ($posts as $post)
 				$this->setIdName($post, "entity");
 			break;
 		case "strat":
-			$posts = Utils::executeRequest(self::$bdd, "SELECT s.id, s.title, l.id AS level_id, l.name AS level_name, e.id AS hero_id, e.name AS hero_name, d.`date` AS last_activity, s.opened, (SELECT m.id FROM hd_forum_msgs AS m WHERE m.topic = s.id AND m.type = 3 ORDER BY m.created_at ASC LIMIT 1) AS msg, (SELECT COUNT(m.id) FROM hd_forum_msgs AS m WHERE m.topic = s.id AND m.type = 3) AS message_count FROM hd_forum_strats AS s INNER JOIN hd_game_entities AS e ON s.hero = e.num INNER JOIN hd_game_levels AS l ON s.level = l.num INNER JOIN (SELECT m.topic, MAX(IFNULL(m.edited_at, m.created_at)) AS `date` FROM hd_forum_msgs AS m WHERE m.type = 3 GROUP BY m.topic ORDER BY `date` DESC) AS d ON s.id = d.topic ORDER BY d.`date` DESC LIMIT $limit OFFSET $offset");
+			$posts = Utils::executeRequest(self::$bdd, "SELECT SQL_CALC_FOUND_ROWS s.id, s.title, l.id AS level_id, l.name AS level_name, e.id AS hero_id, e.name AS hero_name, d.`date` AS last_activity, s.opened, (SELECT m.id FROM hd_forum_msgs AS m WHERE m.topic = s.id AND m.type = 3 ORDER BY m.created_at LIMIT 1) AS msg, (SELECT COUNT(m.id) FROM hd_forum_msgs AS m WHERE m.topic = s.id AND m.type = 3) AS message_count FROM hd_forum_strats AS s INNER JOIN hd_game_entities AS e ON s.hero = e.num INNER JOIN hd_game_levels AS l ON s.level = l.num INNER JOIN (SELECT m.topic, MAX(IFNULL(m.edited_at, m.created_at)) AS `date` FROM hd_forum_msgs AS m WHERE m.type = 3 GROUP BY m.topic ORDER BY `date` DESC) AS d ON s.id = d.topic ORDER BY d.`date` DESC LIMIT $offset, $limit");
 			if (!$posts)
-				return null;
+				break;
 			foreach ($posts as $post) {
 				$this->setIdName($post, "hero");
 				$this->setIdName($post, "level");
@@ -35,7 +36,9 @@ class ForumModel extends Connection {
 		default:
 			return null;
 		}
-		if (!$posts)
+		$total = Utils::executeRequest(self::$bdd, "SELECT FOUND_ROWS() AS total", array(), false)->total;
+		self::$bdd->commit();
+		if ($posts === false)
 			return null;
 		foreach ($posts as $post) {
 			$msg = Utils::executeRequest(self::$bdd, "SELECT u.login AS author, u.name AS author_name, m.created_at FROM hd_forum_msgs AS m INNER JOIN hd_user_users AS u ON m.author = u.id WHERE m.id = :id", array("id" => $post->msg), false);
@@ -46,7 +49,7 @@ class ForumModel extends Connection {
 			$post->opened = boolval($post->opened);
 			unset($post->msg);
 		}
-		return $posts;
+		return array("result" => $posts, "count" => $total);
 	}
 
 	public function get($type, $id) {
@@ -82,7 +85,7 @@ class ForumModel extends Connection {
 		if (!$post)
 			return null;
 
-		$msgs = Utils::executeRequest(self::$bdd, "SELECT u.login AS author_id, u.name AS author_name, m.content, m.created_at, m.edited_at FROM hd_forum_msgs AS m INNER JOIN hd_user_users AS u ON m.author = u.id WHERE m.topic = :id AND m.type = :type ORDER BY m.created_at ASC", array("id" => $post->id, "type" => $type));
+		$msgs = Utils::executeRequest(self::$bdd, "SELECT u.login AS author_id, u.name AS author_name, m.content, m.created_at, m.edited_at FROM hd_forum_msgs AS m INNER JOIN hd_user_users AS u ON m.author = u.id WHERE m.topic = :id AND m.type = :type ORDER BY m.created_at", array("id" => $post->id, "type" => $type));
 		$lastActivity = "1970-01-01 00:00:00";
 		foreach ($msgs as $msg) {
 			$this->setIdName($msg, "author");

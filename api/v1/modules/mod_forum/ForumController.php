@@ -16,7 +16,12 @@ class ForumController {
 		$this->view->json($this->model->types());
 	}
 
-	public function list($type, $limit, $offset) {
+	public function list($type, $limit, $page) {
+		if ($limit <= 0)
+			Utils::error(400, "Invalid limit");
+		if ($page <= 0)
+			Utils::error(400, "Invalid page");
+		$offset = ($page - 1) * $limit;
 		$posts = $this->model->list($type, $limit, $offset);
 		if (is_null($posts))
 			Utils::error(404, "Unknown post type");
