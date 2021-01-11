@@ -4,25 +4,38 @@ abstract class Element {
 	/**
 	 * @var string
 	 */
-	private $class;
+	protected $name;
+	/**
+	 * @var string
+	 */
+	protected $class;
 	/**
 	 * @var string[]
 	 */
-	private $resources;
+	protected $resources;
 	/**
 	 * @var bool
 	 */
-	private $db;
+	protected $db;
 
 	/**
+	 * @param string $name
 	 * @param string $class
 	 * @param string[]|string $resources
 	 * @param bool $db
 	 */
-	protected function __construct($class, $resources = array(), $db = false) {
+	protected function __construct($name, $class, $resources = array(), $db = false) {
+		$this->name = $name;
 		$this->class = $class;
 		$this->resources = is_array($resources) ? $resources : array($resources);
 		$this->db = $db;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getName() {
+		return $this->name;
 	}
 
 	/**
@@ -45,4 +58,9 @@ abstract class Element {
 	public function needsDatabase() {
 		return $this->db;
 	}
+
+	/**
+	 * @return void
+	 */
+	public abstract function include();
 }

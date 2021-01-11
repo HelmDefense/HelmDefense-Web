@@ -3,10 +3,6 @@ namespace Module;
 
 use Utils;
 
-include_once "WikiPageModel.php";
-include_once "WikiPageView.php";
-include_once "modules/generic/Controller.php";
-
 class WikiPageController extends Controller {
 	/**
 	 * @inheritDoc

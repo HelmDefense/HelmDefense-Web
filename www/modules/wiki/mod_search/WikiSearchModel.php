@@ -3,8 +3,6 @@ namespace Module;
 
 use Utils;
 
-include_once "modules/generic/Model.php";
-
 class WikiSearchModel extends Model {
 	public function search($search, $type) {
 		switch ($type) {

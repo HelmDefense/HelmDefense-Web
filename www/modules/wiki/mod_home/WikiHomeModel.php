@@ -3,8 +3,6 @@ namespace Module;
 
 use Utils;
 
-include_once "modules/generic/Model.php";
-
 class WikiHomeModel extends Model {
 	public function homeText() {
 		$home = Utils::executeRequest(self::$bdd, "SELECT content FROM hd_wiki_pages WHERE id = 'home'", array(), false);

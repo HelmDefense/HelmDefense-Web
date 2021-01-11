@@ -1,12 +1,12 @@
 <?php
 namespace Component;
 
-class WikiSidebarComponent extends Component {
+class ForumSidebarComponent extends Component {
 	/**
 	 * @inheritDoc
 	 */
 	public function __construct() {
-		parent::__construct(new WikiSidebarController());
+		parent::__construct(new ForumSidebarController());
 	}
 
 	/**

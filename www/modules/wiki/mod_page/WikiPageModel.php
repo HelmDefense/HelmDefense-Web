@@ -3,8 +3,6 @@ namespace Module;
 
 use Utils;
 
-include_once "modules/generic/Model.php";
-
 class WikiPageModel extends Model {
 	public function getEntityPage($entity) {
 		$ent = Utils::httpGetRequest("v1/entities/$entity");

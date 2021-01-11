@@ -3,10 +3,6 @@ namespace Module;
 
 use Utils;
 
-include_once "modules/generic/Controller.php";
-include_once "WikiSearchModel.php";
-include_once "WikiSearchView.php";
-
 class WikiSearchController extends Controller {
 	public function __construct() {
 		parent::__construct(new WikiSearchModel(), new WikiSearchView());

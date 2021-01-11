@@ -1,9 +1,6 @@
 <?php
 namespace Component;
 
-include_once "components/generic/Component.php";
-include_once "MarkdownEditorController.php";
-
 class MarkdownEditorComponent extends Component {
 	private $element;
 	private $defaultText;

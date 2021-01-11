@@ -3,8 +3,6 @@ namespace Component;
 
 use Utils;
 
-include_once "components/generic/View.php";
-
 class WikiSidebarView extends View {
 	public function sidebar($sidebarText, $recentActions) { ?>
 			<div class="wiki-sidebar container-fluid py-3">

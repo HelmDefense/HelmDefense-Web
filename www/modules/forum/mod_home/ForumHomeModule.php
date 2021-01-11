@@ -3,12 +3,12 @@ namespace Module;
 
 use Utils;
 
-class WikiHomeModule extends Module {
+class ForumHomeModule extends Module {
 	/**
 	 * @inheritDoc
 	 */
 	public function __construct() {
-		parent::__construct(new WikiHomeController());
+		parent::__construct(new ForumHomeController());
 	}
 
 	/**
@@ -18,9 +18,10 @@ class WikiHomeModule extends Module {
 		$request = Utils::get("module", "home");
 
 		switch ($request) {
-		case "entity":
-		case "level":
-			$this->controller->pageList($request);
+		case "talk":
+		case "rate":
+		case "strat":
+			$this->controller->postList($request);
 			break;
 		default:
 			$this->controller->home();

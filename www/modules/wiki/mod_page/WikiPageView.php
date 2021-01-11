@@ -3,8 +3,6 @@ namespace Module;
 
 use Utils;
 
-include_once "modules/generic/View.php";
-
 class WikiPageView extends View {
 	public function classicPage($data) { ?>
 			<div class="container-fluid">

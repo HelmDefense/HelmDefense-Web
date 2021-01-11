@@ -17,9 +17,9 @@ function forumtalk(table, posts) {
 				`<tr>
 					<td><a href="/forum/talk/${talk.id}">${Utils.misc.escape(talk.title)}</a></td>
 					<td><a href="/user/profile/${talk.author.id}">${Utils.misc.escape(talk.author.name)}</a></td>
-					<td>${Utils.misc.escape(talk.message_count)}</td>
-					<td>${Utils.date.format(talk.created_at)}</td>
-					<td>${Utils.date.format(talk.last_activity)}</td>
+					<td class="d-none d-md-table-cell">${Utils.misc.escape(talk.message_count)}</td>
+					<td class="d-none d-lg-table-cell">${Utils.date.format(talk.created_at)}</td>
+					<td class="d-none d-md-table-cell">${Utils.date.format(talk.last_activity)}</td>
 				</tr>`
 		);
 	}
@@ -44,12 +44,12 @@ function forumrate(table, posts) {
 		table.append(
 				`<tr>
 					<td><a href="/forum/rate/${rate.id}">${Utils.misc.escape(rate.title)}</a></td>
-					<td><a href="/wiki/page/entity/${rate.entity.id}">${Utils.misc.escape(rate.entity.name)}</a></td>
-					<td>${Utils.misc.escape(rate.rate)}</td>
+					<td class="d-none d-sm-table-cell"><a href="/wiki/page/entity/${rate.entity.id}">${Utils.misc.escape(rate.entity.name)}</a></td>
+					<td class="d-none d-sm-table-cell">${Utils.misc.escape(rate.rate)}</td>
 					<td><a href="/user/profile/${rate.author.id}">${Utils.misc.escape(rate.author.name)}</a></td>
-					<td>${Utils.misc.escape(rate.message_count)}</td>
-					<td>${Utils.date.format(rate.created_at)}</td>
-					<td>${Utils.date.format(rate.last_activity)}</td>
+					<td class="d-none d-md-table-cell">${Utils.misc.escape(rate.message_count)}</td>
+					<td class="d-none d-lg-table-cell">${Utils.date.format(rate.created_at)}</td>
+					<td class="d-none d-md-table-cell">${Utils.date.format(rate.last_activity)}</td>
 				</tr>`
 		);
 	}
@@ -74,12 +74,12 @@ function forumstrat(table, posts) {
 		table.append(
 				`<tr>
 					<td><a href="/forum/strat/${strat.id}">${Utils.misc.escape(strat.title)}</a></td>
-					<td><a href="/wiki/page/level/${strat.level.id}">${Utils.misc.escape(strat.level.name)}</a></td>
-					<td><a href="/wiki/page/entity/${strat.hero.id}">${Utils.misc.escape(strat.hero.name)}</a></td>
+					<td class="d-none d-sm-table-cell"><a href="/wiki/page/level/${strat.level.id}">${Utils.misc.escape(strat.level.name)}</a></td>
+					<td class="d-none d-sm-table-cell"><a href="/wiki/page/entity/${strat.hero.id}">${Utils.misc.escape(strat.hero.name)}</a></td>
 					<td><a href="/user/profile/${strat.author.id}">${Utils.misc.escape(strat.author.name)}</a></td>
-					<td>${Utils.misc.escape(strat.message_count)}</td>
-					<td>${Utils.date.format(strat.created_at)}</td>
-					<td>${Utils.date.format(strat.last_activity)}</td>
+					<td class="d-none d-md-table-cell">${Utils.misc.escape(strat.message_count)}</td>
+					<td class="d-none d-lg-table-cell">${Utils.date.format(strat.created_at)}</td>
+					<td class="d-none d-md-table-cell">${Utils.date.format(strat.last_activity)}</td>
 				</tr>`
 		);
 	}
