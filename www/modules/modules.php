@@ -14,6 +14,9 @@ Utils::$modules["wiki/search"] = new Mod("search", "SearchModule", "<link rel='s
 Utils::$modules["user/"] = // We fake "user" module to redirect to "profile" module
 Utils::$modules["user/settings"] = // We fake "settings" module to redirect to "profile" module
 Utils::$modules["user/profile"] = new Mod("profile", "UserProfileModule", "<link rel='stylesheet' href='/data/css/profile.css' />", true, "user");
+Utils::$modules["user/logout"] = // We fake "logout" module to redirect to "login" module
+Utils::$modules["user/login"] = new Mod("login", "UserLoginModule", array(), true, "user");
+
 
 class Mod {
 	/**
