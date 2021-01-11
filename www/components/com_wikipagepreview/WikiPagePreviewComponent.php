@@ -3,9 +3,6 @@ namespace Component;
 
 use Utils;
 
-include_once "components/generic/Component.php";
-include_once "WikiPagePreviewController.php";
-
 class WikiPagePreviewComponent extends Component {
 	private $idPage;
 	private $heading;

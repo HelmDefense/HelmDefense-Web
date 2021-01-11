@@ -1,10 +1,6 @@
 <?php
 namespace Module;
 
-include_once "WikiHomeModel.php";
-include_once "WikiHomeView.php";
-include_once "modules/generic/Controller.php";
-
 class WikiHomeController extends Controller {
 	/**
 	 * @inheritDoc

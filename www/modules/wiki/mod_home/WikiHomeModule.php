@@ -3,9 +3,6 @@ namespace Module;
 
 use Utils;
 
-include_once "WikiHomeController.php";
-include_once "modules/generic/Module.php";
-
 class WikiHomeModule extends Module {
 	/**
 	 * @inheritDoc

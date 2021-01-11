@@ -3,8 +3,6 @@ namespace Module;
 
 use Utils;
 
-include_once "modules/generic/View.php";
-
 class WikiSearchView extends View {
 	public function searchPage() { ?>
 			<div class="container-fluid">

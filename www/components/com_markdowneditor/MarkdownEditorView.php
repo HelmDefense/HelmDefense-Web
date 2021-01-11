@@ -3,8 +3,6 @@ namespace Component;
 
 use Utils;
 
-include_once "components/generic/View.php";
-
 class MarkdownEditorView extends View {
 	private $firstEditor = true;
 

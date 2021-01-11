@@ -207,3 +207,9 @@ footer {
 	width: 100%;
 	padding: 0 100px !important;
 }
+
+@media all and (max-width: 991px) {
+	footer {
+		padding: 0 15px !important;
+	}
+}

@@ -3,10 +3,6 @@ namespace Component;
 
 use Utils;
 
-include_once "components/generic/Controller.php";
-include_once "WikiPagePreviewModel.php";
-include_once "WikiPagePreviewView.php";
-
 class WikiPagePreviewController extends Controller {
 	public function __construct() {
 		parent::__construct(new WikiPagePreviewModel(), new WikiPagePreviewView());

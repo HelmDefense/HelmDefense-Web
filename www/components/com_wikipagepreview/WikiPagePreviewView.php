@@ -1,8 +1,6 @@
 <?php
 namespace Component;
 
-include_once "components/generic/View.php";
-
 class WikiPagePreviewView extends View {
 	public function generatePagePreview($page, $type, $heading) { ?>
 		<div class="position-relative text-center wiki-pagepreview-container">

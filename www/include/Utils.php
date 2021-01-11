@@ -380,21 +380,18 @@ class Utils {
 
 		// Retrieve the module descriptor object
 		$mod = self::$modules[$mod_full_name];
-		$mod_name = $mod->getName();
 		$mod_class = $mod->className();
-		$mod_section = $mod->isGlobal() ? "" : $mod->getSection() . "/";
 
 		// Include module
-		include_once "modules/${mod_section}mod_$mod_name/$mod_class.php";
+		$mod->include();
 		// Initialise database connection only if needed
 		if ($mod->needsDatabase())
 			self::initConnection($display_errors);
-
 		// Add declared head resources
 		self::loadResources($mod);
 
 		// Create the module and return it
-		$full_mod_class = "\\Module\\$mod_class";
+		$full_mod_class = "\\Module\\${mod_class}Module";
 		return new $full_mod_class(...$args);
 	}
 
@@ -423,16 +420,15 @@ class Utils {
 		$com_class = $com->className();
 
 		// Include component
-		include_once "components/com_$com_name/$com_class.php";
+		$com->include();
 		// Initialise database connection only if needed
 		if ($com->needsDatabase())
 			self::initConnection($display_errors);
-
 		// Add declared head resources
 		self::loadResources($com);
 
 		// Create the component and return it
-		$full_com_class = "\\Component\\$com_class";
+		$full_com_class = "\\Component\\${com_class}Component";
 		return new $full_com_class(...$args);
 	}
 

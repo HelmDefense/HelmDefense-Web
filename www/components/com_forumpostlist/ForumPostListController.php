@@ -3,10 +3,6 @@ namespace Component;
 
 use Utils;
 
-include_once "components/generic/Controller.php";
-include_once "ForumPostListModel.php";
-include_once "ForumPostListView.php";
-
 class ForumPostListController extends Controller {
 	public function __construct() {
 		parent::__construct(new ForumPostListModel(), new ForumPostListView());

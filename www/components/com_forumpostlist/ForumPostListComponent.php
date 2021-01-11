@@ -1,9 +1,6 @@
 <?php
 namespace Component;
 
-include_once "components/generic/Component.php";
-include_once "ForumPostListController.php";
-
 class ForumPostListComponent extends Component {
 	private $type;
 	private $limit;

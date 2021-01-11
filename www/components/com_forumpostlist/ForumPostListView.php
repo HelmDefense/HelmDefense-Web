@@ -3,8 +3,6 @@ namespace Component;
 
 use Utils;
 
-include_once "components/generic/View.php";
-
 class ForumPostListView extends View {
 	private static $i = 0;
 

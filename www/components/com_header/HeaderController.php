@@ -3,10 +3,6 @@ namespace Component;
 
 use Utils;
 
-include_once "components/generic/Controller.php";
-include_once "HeaderModel.php";
-include_once "HeaderView.php";
-
 class HeaderController extends Controller {
 	public function __construct() {
 		parent::__construct(new HeaderModel(), new HeaderView());

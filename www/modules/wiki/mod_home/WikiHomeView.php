@@ -3,8 +3,6 @@ namespace Module;
 
 use Utils;
 
-include_once "modules/generic/View.php";
-
 class WikiHomeView extends View {
 	public function homePage($homeText, $pages, $entities, $levels) { ?>
 			<div class="container-fluid">

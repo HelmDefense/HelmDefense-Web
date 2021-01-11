@@ -1,10 +1,6 @@
 <?php
 namespace Module;
 
-use Utils;
-
-include_once "modules/generic/View.php";
-
 class ErrorView extends View {
 	/**
 	 * @param int $code

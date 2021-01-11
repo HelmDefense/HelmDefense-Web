@@ -3,7 +3,6 @@ namespace Component;
 
 use Parsedown;
 
-include_once "components/generic/Model.php";
 include_once "include/Parsedown.php";
 
 class MarkdownTextModel extends Model {
