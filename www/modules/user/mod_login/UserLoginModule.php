@@ -18,14 +18,20 @@ class UserLoginModule extends Module {
 	 * @inheritDoc
 	 */
 	protected function execute(){
-		$data = Utils::postMany(array("user","password","check" => "invalid"),true);
-		if ($data->check == "invalid")
-			$this->controller->loginPage();
-		else if (is_null($data->user))
-			$this->controller->loginPage(3);
-		else if (is_null($data->password))
-			$this->controller->loginPage(4);
-		else
-			$this->controller->login($data->user,$data->password);
+		$request = Utils::get("module", "login");
+
+		if ($request == "logout"){
+			$this->controller->logout();
+		}else {
+			$data = Utils::postMany(array("user", "password", "check" => "invalid"), true);
+			if ($data->check == "invalid")
+				$this->controller->loginPage();
+			else if (is_null($data->user))
+				$this->controller->loginPage(3);
+			else if (is_null($data->password))
+				$this->controller->loginPage(4);
+			else
+				$this->controller->login($data->user, $data->password);
+		}
 	}
 }
