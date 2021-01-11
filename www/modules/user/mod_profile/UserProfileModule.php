@@ -19,10 +19,26 @@ class UserProfileModule extends Module {
 	 */
 	protected function execute() {
 		$request = Utils::get("module", "profile");
+		$action = Utils::get("action");
+
+		if(is_null($action)) {
+			$this->controller->displayProfileUser(false);
+		}
+		else {
+			$loggedInUser = Utils::session("login");
+			if (is_null($loggedInUser))
+				Utils::error(404);
+
+			$user = Utils::httpGetRequest("v1/users/$loggedInUser");
+			if(Utils::isError($user))
+				Utils::error(404);
+			else
+				$this->controller->displayProfileUser(false);
+		}
 
 		switch ($request) {
 			case "settings":
-				echo "settings";
+				$this->controller->displaySettingsUser();
 				break;
 			case "profile":
 			default:

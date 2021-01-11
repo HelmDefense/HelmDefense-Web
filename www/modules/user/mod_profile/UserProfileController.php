@@ -1,6 +1,8 @@
 <?php
 namespace Module;
 
+use Utils;
+
 include_once "UserProfileModel.php";
 include_once "UserProfileView.php";
 include_once "modules/generic/Controller.php";
@@ -18,8 +20,16 @@ class UserProfileController extends Controller {
 			UserProfileView::defaultToProfile();
 		}
 		else {
-			$name = $this->model->searchInfo("nom", "");
-			$this->view->displayProfile();
+			$user = $this->model->searchInfo();
+			if(is_null($user))
+				Utils::redirect("/user/login");
+			$this->view->displayProfile($user);
 		}
 	}
+
+	function displaySettingsUser() {
+		$user = $this->model->searchInfo();
+		$this->view->displaySettings($user);
+	}
+
 }
