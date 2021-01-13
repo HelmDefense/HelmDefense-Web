@@ -27,4 +27,10 @@ class UserLoginController extends Controller {
 		}
 	}
 
+	public function logout(){
+		$this->model->userDisconnect();
+		header("Location: /");
+		exit(303);
+	}
+
 }

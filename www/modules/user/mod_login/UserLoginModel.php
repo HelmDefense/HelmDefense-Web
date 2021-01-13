@@ -17,4 +17,8 @@ class UserLoginModel extends Model {
 		$_SESSION["login"] = $name;
 		return 0;
 	}
+
+	public function userDisconnect(){
+		$_SESSION["login"] = NULL;
+	}
 }
