@@ -13,16 +13,16 @@ class UserSigninModule extends Module {
 
 	protected function execute(){
 
-		$data = Utils::postMany(array("name","password","email","check" => "invalid"));
+		$data = Utils::postMany(array("id","password","email","check" => "invalid"), true);
 		if ($data->check == "invalid")
 			$this->controller->signinPage();
-		else if (is_null($data->name))
+		else if (is_null($data->id))
 			$this->controller->signinPage(3);
 		else if (is_null($data->password))
 			$this->controller->signinPage(4);
 		else if (is_null($data->email))
 			$this->controller->signinPage(5);
 		else
-			$this->controller->signin($data->user, $data->password, $data->email);
+			$this->controller->signin($data->id, $data->password, $data->email);
 	}
 }
