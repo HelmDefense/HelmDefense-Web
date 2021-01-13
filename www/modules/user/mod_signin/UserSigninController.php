@@ -15,7 +15,14 @@ class UserSigninController extends Controller{
 		$this->view->signin($error);
 	}
 
-	public function signin(){
+	public function signin($name, $password, $email){
+		$result = $this->model->userSignin($name, $password, $email);
+		if ($result){
+			$this->view->signin($result);
+		}else{
+			header("Location: /");
+			exit(303);
+		}
 
 	}
 }
