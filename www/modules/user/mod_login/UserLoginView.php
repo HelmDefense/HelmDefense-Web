@@ -63,7 +63,7 @@ class UserLoginView extends View {
 					<a href="">Mot de passe oublié ?</a>
 				</div>
 				<div>
-				    <a href="">Première visite ? Créer un compte</a>
+				    <a href="http://helmdefense/user/signin">Première visite ? Créer un compte</a>
 				</div>
 			</div>
 		</div>
