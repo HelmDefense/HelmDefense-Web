@@ -12,6 +12,7 @@ class UserSigninModule extends Module {
 	}
 
 	protected function execute(){
+		// Get action if "resetpassword" => appeler les méthodes de reset de mdp
 
 		$data = Utils::postMany(array("id","password","email","passwordConfirm","check" => "invalid"), true);
 		if ($data->check == "invalid")

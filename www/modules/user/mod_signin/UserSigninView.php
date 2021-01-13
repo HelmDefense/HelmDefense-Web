@@ -72,7 +72,7 @@ class UserSigninView extends View{
 
 			<div class="col-12 col-lg-6">
 				<div>
-					<a href="http://helmdefense/user/login">Déjà inscri ? Se connecter</a>
+					<a href="http://helmdefense/user/login">Déjà inscrit ? Se connecter</a>
 				</div>
 			</div>
 		</div>
