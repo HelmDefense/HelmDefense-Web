@@ -32,8 +32,9 @@ class UserLoginView extends View {
 			</div>
 			<?php
 		}
-	?>
-		<div class="container-fluid">
+		?>
+
+		<div class="container">
 			<h2>Connexion</h2>
 
 			<form class="form" method="post">
@@ -57,8 +58,14 @@ class UserLoginView extends View {
 				</div>
 			</form>
 
-			<a href="">Mot de passe oublié ?</a>
-			<a href="">Première visite ? Créer un compte</a>
+			<div class="col-12 col-lg-6">
+				<div>
+					<a href="">Mot de passe oublié ?</a>
+				</div>
+				<div>
+				    <a href="">Première visite ? Créer un compte</a>
+				</div>
+			</div>
 
 
 		</div>
