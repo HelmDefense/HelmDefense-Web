@@ -11,7 +11,7 @@ class UserSigninController extends Controller{
 		parent::__construct(new UserSigninModel(), new UserSigninView());
 	}
 
-	public function loginPage($error = 0){
+	public function signinPage($error = 0){
 		$this->view->signin($error);
 	}
 

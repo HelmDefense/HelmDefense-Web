@@ -13,6 +13,6 @@ class UserSigninModule extends Module {
 
 	protected function execute()
 	{
-		// TODO: Implement execute() method.
+		$this->controller->signinPage();
 	}
 }
