@@ -66,8 +66,6 @@ class UserLoginView extends View {
 				    <a href="">Première visite ? Créer un compte</a>
 				</div>
 			</div>
-
-
 		</div>
 	<?php
 	}
