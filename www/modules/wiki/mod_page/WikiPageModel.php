@@ -19,7 +19,7 @@ class WikiPageModel extends Model {
 	}
 
 	public function getClassicPage($id) {
-		$page = Utils::executeRequest(self::$bdd, "SELECT num, title, content, created_at, edited_at, `name`, published FROM hd_wiki_pages AS p INNER JOIN hd_user_users AS u ON p.author = u.id WHERE p.id = :id", array("id" => $id), false);
+		$page = Utils::executeRequest(self::$bdd, "SELECT p.num, p.title, p.content, p.created_at, p.edited_at, u.`name`, u.login AS author, p.published FROM hd_wiki_pages AS p INNER JOIN hd_user_users AS u ON p.author = u.id WHERE p.id = :id", array("id" => $id), false);
 		if (!$page)
 			return null;
 

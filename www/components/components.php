@@ -5,7 +5,7 @@
 (new Comp("markdowneditor", "MarkdownEditor", array("<link rel='stylesheet' href='https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css'>", "<script src='https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js'></script>", "<script src='/data/plugins/prism/prism.js'></script>", "<link rel='stylesheet' href='/data/plugins/prism/prism.css' />", "<link rel='stylesheet' href='/data/css/markdown.css' />", "<link rel='stylesheet' href='/data/css/markdown-editor.css' />")))->register();
 (new Comp("wikisidebar", "WikiSidebar", "<link rel='stylesheet' href='/data/css/wiki.css' />", true))->register();
 (new Comp("wikipagepreview", "WikiPagePreview", "<link rel='stylesheet' href='/data/css/wiki.css' />", true))->register();
-(new Comp("forumpostlist", "ForumPostList", array(), true))->register();
+(new Comp("forumpostlist", "ForumPostList", null, true))->register();
 (new Comp("forumsidebar", "ForumSidebar", "<link rel='stylesheet' href='/data/css/forum.css' />"))->register();
 
 class Comp extends Element {
@@ -20,7 +20,7 @@ class Comp extends Element {
 	 * @param string[]|string $resources
 	 * @param bool $db
 	 */
-	public function __construct($name, $class, $resources = array(), $db = false) {
+	public function __construct($name, $class, $resources = null, $db = false) {
 		parent::__construct($name, $class, $resources, $db);
 	}
 

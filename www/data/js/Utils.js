@@ -638,6 +638,11 @@ Utils.ajax.getWithCache = function(options) {
  */
 Utils.tooltip = {};
 
+// Enable tooltips
+Utils.misc.jWindow.on("load", () => {
+	$("[data-toggle=tooltip]").tooltip();
+});
+
 /**
  * Add a tooltip on the specified element
  * @param {jQuery|string} element - The targeted element

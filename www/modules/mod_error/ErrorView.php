@@ -21,6 +21,11 @@ class ErrorView extends View {
 							<p><?= $msg ?></p>
 							<?php if (!is_null($additional)) echo "<p>$additional</p>"; ?>
 						</div>
+						<?php if ($code == 401) { ?>
+							<div>
+								<a class="btn main-btn error-btn" href="/user/login">Connexion</a>
+							</div>
+						<?php } ?>
 						<a class="btn main-btn error-btn" href="/">Retour à l'accueil</a>
 					</div>
 				</div>

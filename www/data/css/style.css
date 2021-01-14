@@ -89,12 +89,7 @@ a:hover {
 	text-decoration-color: white;
 }
 
-a.btn:focus {
-	box-shadow: none;
-}
-
-.main-btn {
-	background-color: var(--bg-color);
+.btn {
 	font-family: var(--font-title);
 	border-radius: 0;
 	border: 5px solid white;
@@ -104,9 +99,21 @@ a.btn:focus {
 	transition: text-decoration-color .1s;
 }
 
-.main-btn:hover {
+.btn:hover {
 	color: white;
 	text-decoration: underline white;
+}
+
+a.btn:focus {
+	box-shadow: none;
+}
+
+.main-btn {
+	background-color: var(--bg-color);
+}
+
+.sub-btn {
+	background-color: var(--fg-color);
 }
 
 table.custom-table {

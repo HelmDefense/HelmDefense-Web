@@ -16,24 +16,6 @@
 	border: 3px solid #444444;
 }
 
-.custom-control-input:checked ~ .custom-control-label::before {
-	border-color: var(--fg-color);
-	background-color: var(--fg-color);
-}
-
-.custom-control-input:focus ~ .custom-control-label::before {
-	box-shadow: 0 0 0 .2rem rgba(var(--fg-color-r), var(--fg-color-g), var(--fg-color-b), .25);
-}
-
-.custom-control-input:not(:disabled):active ~ .custom-control-label::before {
-	background-color: rgba(var(--fg-color-r), var(--fg-color-g), var(--fg-color-b), .25);
-	border-color: rgba(var(--fg-color-r), var(--fg-color-g), var(--fg-color-b), .25);
-}
-
-.custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
-	border-color: rgba(var(--fg-color-r), var(--fg-color-g), var(--fg-color-b), .25);
-}
-
 .form-check {
 	padding: 50px;
 }

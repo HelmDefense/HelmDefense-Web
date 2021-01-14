@@ -39,7 +39,7 @@ class Mod extends Element {
 	 * @param bool $db
 	 * @param string|null $section
 	 */
-	public function __construct($name, $class, $resources = array(), $db = false, $section = null) {
+	public function __construct($name, $class, $resources = null, $db = false, $section = null) {
 		parent::__construct($name, $class, $resources, $db);
 		$this->section = $section;
 		$this->full_section = $this->isGlobal() ? "" : $this->section . "/";
