@@ -89,12 +89,7 @@ a:hover {
 	text-decoration-color: white;
 }
 
-a.btn:focus {
-	box-shadow: none;
-}
-
-.main-btn {
-	background-color: var(--bg-color);
+.btn {
 	font-family: var(--font-title);
 	border-radius: 0;
 	border: 5px solid white;
@@ -104,9 +99,21 @@ a.btn:focus {
 	transition: text-decoration-color .1s;
 }
 
-.main-btn:hover {
+.btn:hover {
 	color: white;
 	text-decoration: underline white;
+}
+
+.btn:focus {
+	box-shadow: none;
+}
+
+.main-btn {
+	background-color: var(--bg-color);
+}
+
+.sub-btn {
+	background-color: var(--fg-color);
 }
 
 table.custom-table {
@@ -195,6 +202,30 @@ table.custom-table a {
 
 table.custom-table a:hover {
 	text-decoration-color: var(--bg-color);
+}
+
+.modal.custom-modal .modal-content {
+	background-color: rgba(var(--fg-color-r), var(--fg-color-g), var(--fg-color-b), .9);
+}
+
+.modal.custom-modal .modal-content,
+.modal.custom-modal .modal-header,
+.modal.custom-modal .modal-footer {
+	border: none;
+	border-radius: 0;
+}
+
+.modal.custom-modal .modal-footer {
+	justify-content: center;
+}
+
+.modal.custom-modal .modal-title {
+	font-family: var(--font-title);
+}
+
+.modal.custom-modal .close {
+	color: white;
+	text-shadow: none;
 }
 
 footer {

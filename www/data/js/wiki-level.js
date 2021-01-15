@@ -51,6 +51,7 @@ Utils.misc.jWindow.on("resize load", () => {
 	let dx = tile.offset().left - tile.parent().offset().left - tile.parent().scrollLeft();
 	for (let handler of onResize)
 		handler(size, dx);
+	$(".map-element").tooltip(map.css("display") === "none" ? "disable" : "enable");
 });
 
 const entitiesCarousel = $("#entities .carousel-inner");

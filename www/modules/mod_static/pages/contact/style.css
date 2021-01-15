@@ -1,32 +1,9 @@
-#required-legend {
+.required-legend {
 	text-align: center;
 	font-size: 1.2em;
 }
 
-#nom-container,
-#email-container {
-	padding: 15px;
-}
-
-#objet-container {
-	padding: 15px 0;
-}
-
-#message-container {
-	margin: 15px 0;
-	border: 5px solid var(--fg-color);
-}
-
-#message {
-	min-height: 200px;
-}
-
 #submit {
-	padding: 5px 75px;
-	font-family: var(--font-title);
 	font-size: 1.5em;
-	color: white;
-	background-color: var(--fg-color);
-	border: 5px solid white;
 	margin: 20px 0 75px;
 }

@@ -24,10 +24,10 @@ abstract class Element {
 	 * @param string[]|string $resources
 	 * @param bool $db
 	 */
-	protected function __construct($name, $class, $resources = array(), $db = false) {
+	protected function __construct($name, $class, $resources = null, $db = false) {
 		$this->name = $name;
 		$this->class = $class;
-		$this->resources = is_array($resources) ? $resources : array($resources);
+		$this->resources = is_array($resources) ? $resources : (is_null($resources) ? array() : array($resources));
 		$this->db = $db;
 	}
 

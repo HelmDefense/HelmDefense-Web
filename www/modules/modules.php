@@ -16,6 +16,10 @@ Utils::$modules["forum/rate"] = // We fake "rate" module to redirect to "home" m
 Utils::$modules["forum/strat"] = // We fake "strat" module to redirect to "home" module
 Utils::$modules["forum/"] = new Mod("home", "ForumHome", "<link rel='stylesheet' href='/data/css/forum.css' />", true, "forum");
 
+// Panel module
+Utils::$modules["panel/"] = new Mod("home", "PanelHome", "<link rel='stylesheet' href='/data/css/panel.css' />", false, "panel");
+Utils::$modules["panel/redac"] = new Mod("redac", "PanelRedac", "<link rel='stylesheet' href='/data/css/panel.css' />", true, "panel");
+
 class Mod extends Element {
 	/**
 	 * @var string|null
@@ -39,7 +43,7 @@ class Mod extends Element {
 	 * @param bool $db
 	 * @param string|null $section
 	 */
-	public function __construct($name, $class, $resources = array(), $db = false, $section = null) {
+	public function __construct($name, $class, $resources = null, $db = false, $section = null) {
 		parent::__construct($name, $class, $resources, $db);
 		$this->section = $section;
 		$this->full_section = $this->isGlobal() ? "" : $this->section . "/";

@@ -8,7 +8,7 @@ class WikiHomeModule extends Module {
 	 * @inheritDoc
 	 */
 	public function __construct() {
-		parent::__construct(new WikiHomeController());
+		parent::__construct(new WikiHomeController(), "Wiki");
 	}
 
 	/**

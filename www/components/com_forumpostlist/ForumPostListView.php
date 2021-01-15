@@ -10,7 +10,7 @@ class ForumPostListView extends View {
 		$this->displayTable(array(), function() use ($talks) {
 			foreach ($talks as $talk) { ?>
 				<tr>
-					<td><a href="/forum/talk/<?= $talk->id ?>"><?= htmlspecialchars($talk->title) ?></a></td>
+					<td><a href="/forum/post/talk/<?= $talk->id ?>"><?= htmlspecialchars($talk->title) ?></a></td>
 					<td><a href="/user/profile/<?= $talk->author->id ?>"><?= htmlspecialchars($talk->author->name) ?></a></td>
 					<td class="d-none d-md-table-cell"><?= htmlspecialchars($talk->message_count) ?></td>
 					<td class="d-none d-lg-table-cell"><?= Utils::formatDate($talk->created_at) ?></td>
@@ -24,7 +24,7 @@ class ForumPostListView extends View {
 		$this->displayTable(array("Entité", "Note"), function() use ($rates) {
 			foreach ($rates as $rate) { ?>
 				<tr>
-					<td><a href="/forum/rate/<?= $rate->id ?>"><?= htmlspecialchars($rate->title) ?></a></td>
+					<td><a href="/forum/post/rate/<?= $rate->id ?>"><?= htmlspecialchars($rate->title) ?></a></td>
 					<td class="d-none d-sm-table-cell"><a href="/wiki/page/entity/<?= $rate->entity->id ?>"><?= htmlspecialchars($rate->entity->name) ?></a></td>
 					<td class="d-none d-sm-table-cell"><?= htmlspecialchars($rate->rate) ?></td>
 					<td><a href="/user/profile/<?= $rate->author->id ?>"><?= htmlspecialchars($rate->author->name) ?></a></td>
@@ -40,7 +40,7 @@ class ForumPostListView extends View {
 		$this->displayTable(array("Niveau", "Héros"), function() use ($strats) {
 			foreach ($strats as $strat) { ?>
 				<tr>
-					<td><a href="/forum/strat/<?= $strat->id ?>"><?= htmlspecialchars($strat->title) ?></a></td>
+					<td><a href="/forum/post/strat/<?= $strat->id ?>"><?= htmlspecialchars($strat->title) ?></a></td>
 					<td class="d-none d-sm-table-cell"><a href="/wiki/page/level/<?= $strat->level->id ?>"><?= htmlspecialchars($strat->level->name) ?></a></td>
 					<td class="d-none d-sm-table-cell"><a href="/wiki/page/entity/<?= $strat->hero->id ?>"><?= htmlspecialchars($strat->hero->name) ?></a></td>
 					<td><a href="/user/profile/<?= $strat->author->id ?>"><?= htmlspecialchars($strat->author->name) ?></a></td>
@@ -88,7 +88,7 @@ class ForumPostListView extends View {
 						url: "v1/forum/<?= $type ?>",
 						data: {limit: <?= $limit ?>, page: page.num},
 						callback: data => {
-							forum<?= $type ?>(table<?= self::$i ?>, data.result);
+							forumPosts["<?= $type ?>"](table<?= self::$i ?>, data.result);
 							return data.count !== 0;
 						},
 						toApi: true

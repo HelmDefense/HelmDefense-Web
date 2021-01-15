@@ -692,3 +692,9 @@ Utils.date.format = function(date = "now", format = "d/m/Y à H:i:s", def = "Dat
 		return def;
 	}
 };
+
+// Global loading event
+Utils.misc.jWindow.on("load", () => {
+	// Enable tooltips
+	$("[data-toggle=tooltip]").tooltip();
+});
