@@ -479,6 +479,20 @@ class Utils {
 	}
 
 	/**
+	 * Initialize the session and delete outdated session timeout tokens.
+	 * Note: If the session is already active, it will verify the timeout tokens
+	 * @see Utils::timeout()
+	 */
+	static function initSession() {
+		if (session_status() !== PHP_SESSION_ACTIVE)
+			session_start(array("cookie_lifetime" => 86400));
+
+		foreach ($_SESSION as $key => $val)
+			if (strpos($key, "timeout-") === 0 && $val - time() <= 0)
+				unset($_SESSION[$key]);
+	}
+
+	/**
 	 * Transform an array into a stdClass object. Note that this function is recursive
 	 * @param array $array The array to transform
 	 * @return stdClass A new stdClass with the same content as the initial array
@@ -756,5 +770,74 @@ class Utils {
 	 */
 	static function escapeSqlLikeWildcards($string, $escape = self::SQL_ESCAPE_CHAR) {
 		return strtr($string, array("%" => "$escape%", "_" => "${escape}_"));
+	}
+
+	/**
+	 * Create a 401 error if user is not logged in or a 403 error if none of the $ranks are in user ranks
+	 * @param string[]|null|false $userRanks The already-retrieven user ranks, or null to retrieve them
+	 * @param string $notLoggedMsg The error message when not logged in
+	 * @param string|null $notAccessMsg The error message when insuffisant access
+	 * @param string ...$ranks The ranks that are allowed to access and thus do not create error
+	 * @see Utils::loggedInUser(), Utils::error()
+	 */
+	static function restrictAccess($userRanks, $notLoggedMsg, $notAccessMsg, ...$ranks) {
+		if ($userRanks === null) {
+			$user = self::loggedInUser();
+			$userRanks = is_null($user) ? false : $user->ranks;
+		}
+		if ($userRanks === false)
+			self::error(401, $notLoggedMsg);
+		if (count($ranks) && !count(array_intersect($userRanks, $ranks)))
+			self::error(403, $notAccessMsg);
+	}
+
+	/**
+	 * Add a session timeout token
+	 * @param string $token The name of the timeout token
+	 * @param int $duration The duration in second
+	 * @see Utils::sessionRequired()
+	 */
+	static function timeout($token, $duration) {
+		$_SESSION["timeout-$token"] = time() + $duration;
+	}
+
+	/**
+	 * Create a 403 error if the timeout token doesn't exists
+	 * @param string $token The name of the timeout token
+	 * @param bool $consume Whether to consume, and thus remove from the session, this timeout token
+	 * @param string|null $msg The error message
+	 */
+	static function timeoutCheck($token, $consume = false, $msg = null) {
+		if (is_null(self::session("timeout-$token")))
+			self::error(403, is_null($msg) ? "Vous ne disposez pas du token \"$token\" ou ce dernier a expiré" : $msg);
+		if ($consume)
+			unset($_SESSION["timeout-$token"]);
+	}
+
+	/**
+	 * Normalize the string to a simple identifier
+	 * @param string $str The string to normalize
+	 * @param bool $underscores Whether to replace dots and dashes with underscores in final result
+	 * @return string The normalized string
+	 */
+	static function strNormalize($str, $underscores = false) {
+		$table = array(
+				"Š"=>"S", "š"=>"s", "Đ"=>"Dj", "đ"=>"dj", "Ž"=>"Z", "ž"=>"z", "Č"=>"C", "č"=>"c", "Ć"=>"C", "ć"=>"c",
+				"À"=>"A", "Á"=>"A", "Â"=>"A", "Ã"=>"A", "Ä"=>"A", "Å"=>"A", "Æ"=>"AE", "Ç"=>"C", "È"=>"E", "É"=>"E",
+				"Ê"=>"E", "Ë"=>"E", "Ì"=>"I", "Í"=>"I", "Î"=>"I", "Ï"=>"I", "Ñ"=>"N", "Ò"=>"O", "Ó"=>"O", "Ô"=>"O",
+				"Õ"=>"O", "Ö"=>"O", "Ø"=>"O", "Œ"=>"OE", "Ù"=>"U", "Ú"=>"U", "Û"=>"U", "Ü"=>"U", "Ý"=>"Y", "Þ"=>"B",
+				"ß"=>"Ss", "à"=>"a", "á"=>"a", "â"=>"a", "ã"=>"a", "ä"=>"a", "å"=>"a", "æ"=>"ae", "ç"=>"c", "è"=>"e",
+				"é"=>"e", "ê"=>"e", "ë"=>"e", "ì"=>"i", "í"=>"i", "î"=>"i", "ï"=>"i", "ð"=>"o", "ñ"=>"n", "ò"=>"o",
+				"ó"=>"o", "ô"=>"o", "õ"=>"o", "ö"=>"o", "ø"=>"o", "œ"=>"oe", "ù"=>"u", "ú"=>"u", "û"=>"u", "ý"=>"y",
+				"þ"=>"b", "ÿ"=>"y", "Ŕ"=>"R", "ŕ"=>"r", " "=>"_", "'"=>"_"
+		);
+		$str = strtr($str, $table);
+		$str = strtolower($str);
+		$str = preg_replace("/[^a-z0-9._\-]/i", "-", $str);
+		$str = preg_replace("/([\-_])[\-_]+/", "$1", $str);
+		if ($underscores)
+			$str = preg_replace("/[.\-_]+/", "_", $str);
+		$str = trim($str, "-_\t\n\r\0\x0B");
+		return $str;
 	}
 }

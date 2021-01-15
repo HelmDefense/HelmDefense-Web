@@ -12,13 +12,19 @@ abstract class Module {
 	 * @var Controller Module controller
 	 */
 	protected $controller;
+	/**
+	 * @var string The module title
+	 */
+	private $title;
 
 	/**
 	 * Create the module
 	 * @param Controller $controller
+	 * @param string|null $title
 	 */
-	protected function __construct($controller) {
+	protected function __construct($controller, $title = null) {
 		$this->controller = $controller;
+		$this->title = $title;
 	}
 
 	/**
@@ -29,7 +35,7 @@ abstract class Module {
 		$this->execute();
 
 		$output = new stdClass();
-		$output->title = $this->controller->getTitle();
+		$output->title = implode(" - ", array_filter(array($this->controller->getTitle(), $this->title)));
 		$output->body = $this->controller->getBody();
 		return $output;
 	}

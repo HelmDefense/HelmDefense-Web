@@ -104,7 +104,7 @@ a:hover {
 	text-decoration: underline white;
 }
 
-a.btn:focus {
+.btn:focus {
 	box-shadow: none;
 }
 
@@ -202,6 +202,30 @@ table.custom-table a {
 
 table.custom-table a:hover {
 	text-decoration-color: var(--bg-color);
+}
+
+.modal.custom-modal .modal-content {
+	background-color: rgba(var(--fg-color-r), var(--fg-color-g), var(--fg-color-b), .9);
+}
+
+.modal.custom-modal .modal-content,
+.modal.custom-modal .modal-header,
+.modal.custom-modal .modal-footer {
+	border: none;
+	border-radius: 0;
+}
+
+.modal.custom-modal .modal-footer {
+	justify-content: center;
+}
+
+.modal.custom-modal .modal-title {
+	font-family: var(--font-title);
+}
+
+.modal.custom-modal .close {
+	color: white;
+	text-shadow: none;
 }
 
 footer {

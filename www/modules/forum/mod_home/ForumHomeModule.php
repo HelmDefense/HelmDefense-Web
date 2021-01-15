@@ -8,7 +8,7 @@ class ForumHomeModule extends Module {
 	 * @inheritDoc
 	 */
 	public function __construct() {
-		parent::__construct(new ForumHomeController());
+		parent::__construct(new ForumHomeController(), "Forum");
 	}
 
 	/**

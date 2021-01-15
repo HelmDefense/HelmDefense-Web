@@ -5,7 +5,7 @@ use Utils;
 
 class WikiSearchModule extends Module {
 	public function __construct() {
-		parent::__construct(new WikiSearchController());
+		parent::__construct(new WikiSearchController(), "Wiki");
 	}
 
 	/**

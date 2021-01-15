@@ -638,11 +638,6 @@ Utils.ajax.getWithCache = function(options) {
  */
 Utils.tooltip = {};
 
-// Enable tooltips
-Utils.misc.jWindow.on("load", () => {
-	$("[data-toggle=tooltip]").tooltip();
-});
-
 /**
  * Add a tooltip on the specified element
  * @param {jQuery|string} element - The targeted element
@@ -697,3 +692,9 @@ Utils.date.format = function(date = "now", format = "d/m/Y à H:i:s", def = "Dat
 		return def;
 	}
 };
+
+// Global loading event
+Utils.misc.jWindow.on("load", () => {
+	// Enable tooltips
+	$("[data-toggle=tooltip]").tooltip();
+});
