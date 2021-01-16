@@ -3,7 +3,7 @@ namespace Module;
 
 class UserLoginController extends Controller {
 	public function __construct() {
-		parent::__construct(new UserLoginModel(),new UserLoginView());
+		parent::__construct(new UserLoginModel(), new UserLoginView());
 	}
 
 	public function loginPage($error = 0) {
@@ -11,12 +11,18 @@ class UserLoginController extends Controller {
 	}
 
 	public function login($name, $password) {
-		$result = $this->model->userConnect($name, $password);
-		if ($result) {
-			$this->view->login($result);
-		} else {
-			header("Location: /");
-			exit(303);
+		if (is_null($name))
+			$this->loginPage(3);
+		else if (is_null($password))
+			$this->loginPage(4);
+		else {
+			$result = $this->model->userConnect($name, $password);
+			if ($result) {
+				$this->view->login($result);
+			} else {
+				header("Location: /");
+				exit(303);
+			}
 		}
 	}
 

@@ -18,22 +18,22 @@ class WikiHomeView extends View {
 							<div class="wiki-pagepreview-parent">
 								<?php $this->pagePreviewList($pages); ?>
 							</div>
-							<div class="wiki-link-container">
-								<a class="wiki-link" href="/wiki/search">Rechercher une page</a>
+							<div class="text-center">
+								<a class="inverted important" href="/wiki/search">Rechercher une page</a>
 							</div>
 							<h3 class="section-title">Quelques entités</h3>
 							<div class="wiki-pagepreview-parent">
 								<?php $this->pagePreviewList($entities, "entity"); ?>
 							</div>
-							<div class="wiki-link-container">
-								<a class="wiki-link" href="/wiki/entity">Liste des entités</a>
+							<div class="text-center">
+								<a class="inverted important" href="/wiki/entity">Liste des entités</a>
 							</div>
 							<h3 class="section-title">Quelques niveaux</h3>
 							<div class="wiki-pagepreview-parent">
 								<?php $this->pagePreviewList($levels, "level"); ?>
 							</div>
-							<div class="wiki-link-container">
-								<a class="wiki-link" href="/wiki/level">Liste des niveaux</a>
+							<div class="text-center">
+								<a class="inverted important" href="/wiki/level">Liste des niveaux</a>
 							</div>
 						</div>
 					</div>

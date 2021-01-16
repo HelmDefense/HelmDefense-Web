@@ -5,7 +5,7 @@ use Utils;
 
 class UserLoginModel extends Model {
 	public function userConnect($name, $password) {
-		$user = Utils::httpPostRequest("v1/users/auth/$name", array('password' => $password));
+		$user = Utils::httpPostRequest("v1/users/auth/$name", array("password" => $password));
 		if (Utils::isError($user))
 			return 1;
 		if (is_null($user))

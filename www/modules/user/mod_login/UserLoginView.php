@@ -15,17 +15,17 @@ class UserLoginView extends View {
 						echo "Votre login est inconnu";
 						break;
 					case 2:
-						echo "votre mot de passe est incorrect";
+						echo "Votre mot de passe est incorrect";
 						break;
 					case 3:
-						echo "identifiant non indiqué";
+						echo "Identifiant non indiqué";
 						break;
 					case 4:
-						echo "mot de passe non indiqué";
+						echo "Mot de passe non indiqué";
 						break;
 					case 5:
 					default:
-						echo "il y a eu une erreur lors de votre authentification";
+						echo "Il y a eu une erreur lors de votre authentification";
 						break;
 					}
 					?>
@@ -35,28 +35,29 @@ class UserLoginView extends View {
 
 			<h2>Connexion</h2>
 
-			<form class="form" method="post">
-				<div class="custom-input">
-					<input id="user" name="user" type="text" placeholder="" required />
-					<label for="user">Identifiant</label>
+			<form method="post">
+				<div class="custom-input-container">
+					<div class="custom-input">
+						<input id="user" name="user" type="text" placeholder="" required />
+						<label for="user">Identifiant</label>
+					</div>
 				</div>
-
-				<div class="custom-input">
-					<input id="password" name="password" type="password" placeholder="" required />
-					<label for="password">Mot de passe</label>
+				<div class="custom-input-container">
+					<div class="custom-input">
+						<input id="password" name="password" type="password" placeholder="" required />
+						<label for="password">Mot de passe</label>
+					</div>
 				</div>
-
+				<div class="text-center">
+					<a href="/user/signin/resetpassword">Mot de passe oublié ?</a>
+				</div>
 				<input type="hidden" name="check" value="valid" />
-				<div class="text-center text-lg-right">
-					<input id="submit" type="submit" value="Connexion" />
+				<div class="custom-input-container text-center text-lg-right">
+					<input class="btn sub-btn" type="submit" value="Connexion" />
 				</div>
 			</form>
-
-			<div>
-				<a href="/user/signin/resetpassword">Mot de passe oublié ?</a>
-			</div>
-			<div>
-				<a href="/user/signin">Première visite ? Créer un compte</a>
+			<div class="text-center my-5">
+				<a class="important inverted" href="/user/signin">Première visite ? Créer un compte</a>
 			</div>
 		</div>
 	<?php }

@@ -28,7 +28,7 @@ class Utils {
 	 * @see Utils::SITE_URL
 	 */
 	const API_URL = "https://api.helmdefense.theoszanto.fr/";
-	//const API_URL = "http://helmdefense-api/";
+	// const API_URL = "http://helmdefense-api/";
 
 	/**
 	 * The SQL escape character

@@ -78,22 +78,6 @@
 	padding: 75px;
 }
 
-.wiki-link-container {
-	text-align: center;
-}
-
-.wiki-link {
-	color: white;
-	font-size: 1.25em;
-	text-decoration: underline;
-	transition: text-decoration-color .1s;
-}
-
-.wiki-link:hover {
-	color: white;
-	text-decoration-color: transparent;
-}
-
 .wiki-page-title {
 	overflow-wrap: break-word;
 	hyphens: auto;

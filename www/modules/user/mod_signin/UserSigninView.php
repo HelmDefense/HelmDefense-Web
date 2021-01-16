@@ -4,53 +4,61 @@ namespace Module;
 use Utils;
 
 class UserSigninView extends View {
-	public function resetPasswordRequested($email) { ?>
-		<div class="container">
-			<?php if (is_null($email)) { ?>
-				<h3>Nous n'avons pas pu vous envoyer d'email de confirmation. Veuillez réessayer</h3>
-			<?php } else { ?>
-				<h3>Un mail a été envoyé à l'adresse : <?= $email ?></h3>
-			<?php } ?>
-			<p>Vous pouvez fermer cet onglet</p>
-		</div>
-	<?php }
-
-	public function resetPasswordResult($success) { ?>
-		<div class="container">
-			<?php if ($success) { ?>
-				<h3>Votre mot de passe a été réinitialisé</h3>
-			<?php } else { ?>
-				<h3>Une erreur est survenue lors de la réinitialisation de votre mot de passe</h3>
-			<?php } ?>
-			<a class="btn main-btn" href="/user/login">Se connecter</a>
-		</div>
-	<?php }
-
 	public function resetPassword() {
 		Utils::addResource("<link rel='stylesheet' href='/data/css/form.css' />"); ?>
 		<div class="container">
 			<h2>Réinitialisation du mot de passe</h2>
 			<form method="post">
-				<div class="custom-input">
-					<input id="id" name="id" type="text" placeholder="" value="" required />
-					<label for="id">Identifiant</label>
+				<div class="custom-input-container">
+					<div class="custom-input">
+						<input id="id" name="id" type="text" placeholder="" required />
+						<label for="id">Identifiant</label>
+					</div>
 				</div>
-				<div class="custom-input">
-					<input id="password" name="password" type="password" placeholder="" value="" required />
-					<label for="password">Nouveau mot de passe</label>
+				<div class="custom-input-container">
+					<div class="custom-input">
+						<input id="password" name="password" type="password" placeholder="" required />
+						<label for="password">Nouveau mot de passe</label>
+					</div>
 				</div>
-				<div class="custom-input">
-					<input id="passwordconfirm" name="passwordconfirm" type="password" placeholder="" value="" required />
-					<label for="passwordconfirm">Confirmation du mot de passe</label>
+				<div class="custom-input-container">
+					<div class="custom-input">
+						<input id="passwordconfirm" name="passwordconfirm" type="password" placeholder="" required />
+						<label for="passwordconfirm">Confirmation du mot de passe</label>
+					</div>
 				</div>
 				<input type="hidden" name="check" value="valid" />
-				<div class="text-center text-lg-right">
-					<input id="submit" type="submit" value="Envoyer une demande" />
+				<div class="custom-input-container text-center text-lg-right">
+					<input class="btn sub-btn" type="submit" value="Envoyer une demande" />
 				</div>
 			</form>
-			<div class="text-center">
-				<a href="/user/login">Un éclair de génie ? Se connecter</a>
+			<div class="text-center my-5">
+				<a class="important inverted" href="/user/login">Un éclair de génie ? Se connecter</a>
 			</div>
+		</div>
+	<?php }
+
+	public function resetPasswordRequested($email) { ?>
+		<div class="container text-center py-5">
+			<?php if (is_null($email)) { ?>
+				<h3>Nous n'avons pas pu vous envoyer d'email de confirmation. Veuillez réessayer</h3>
+				<a class="btn sub-btn mt-5" href="/user/signin/resetpassword">Nouvelle demande</a>
+			<?php } else { ?>
+				<h3>Un mail a été envoyé à l'adresse : <code><?= $email ?></code></h3>
+				<p class="mt-5">Vous pouvez fermer cet onglet</p>
+			<?php } ?>
+		</div>
+	<?php }
+
+	public function resetPasswordResult($success) { ?>
+		<div class="container text-center py-5">
+			<?php if ($success) { ?>
+				<h3>Votre mot de passe a bien été réinitialisé</h3>
+				<a class="btn sub-btn mt-5" href="/user/login">Se connecter</a>
+			<?php } else { ?>
+				<h3>Erreur : Ce code est invalide ou a expiré</h3>
+				<a class="btn sub-btn mt-5" href="/user/signin/resetpassword">Nouvelle demande</a>
+			<?php } ?>
 		</div>
 	<?php }
 
@@ -100,39 +108,43 @@ class UserSigninView extends View {
 			<h2>Inscription</h2>
 
 			<form method="post">
-				<div class="custom-input">
-					<input id="email" name="email" type="text" placeholder="" value="<?= $email ?>" required />
-					<label for="email">Email</label>
+				<div class="custom-input-container">
+					<div class="custom-input">
+						<input id="email" name="email" type="text" placeholder="" value="<?= $email ?>" required />
+						<label for="email">Email</label>
+					</div>
 				</div>
-
-				<div class="custom-input">
-					<input id="id" name="id" type="text" placeholder="" value="<?= $id ?>" required />
-					<label for="id">Identifiant</label>
+				<div class="custom-input-container">
+					<div class="custom-input">
+						<input id="id" name="id" type="text" placeholder="" value="<?= $id ?>" required />
+						<label for="id">Identifiant</label>
+					</div>
 				</div>
-
-				<div class="custom-input">
-					<input id="name" name="name" type="text" placeholder="" value="<?= $name ?>" required />
-					<label for="name">Nom</label>
+				<div class="custom-input-container">
+					<div class="custom-input">
+						<input id="name" name="name" type="text" placeholder="" value="<?= $name ?>" required />
+						<label for="name">Nom</label>
+					</div>
 				</div>
-
-				<div class="custom-input">
-					<input id="password" name="password" type="password" placeholder="" required />
-					<label for="password">Mot de passe</label>
+				<div class="custom-input-container">
+					<div class="custom-input">
+						<input id="password" name="password" type="password" placeholder="" required />
+						<label for="password">Mot de passe</label>
+					</div>
 				</div>
-
-				<div class="custom-input">
-					<input id="passwordconfirm" name="passwordconfirm" type="password" placeholder="" required />
-					<label for="passwordconfirm">Confirmation du mot de passe</label>
+				<div class="custom-input-container">
+					<div class="custom-input">
+						<input id="passwordconfirm" name="passwordconfirm" type="password" placeholder="" required />
+						<label for="passwordconfirm">Confirmation du mot de passe</label>
+					</div>
 				</div>
-
 				<input type="hidden" name="check" value="valid" />
-				<div class="text-center text-lg-right">
-					<input id="submit" type="submit" value="Inscritpion" />
+				<div class="custom-input-container text-center text-lg-right">
+					<input class="btn sub-btn" type="submit" value="Inscription" />
 				</div>
 			</form>
-
-			<div class="text-center">
-				<a href="/user/login">Déjà inscrit ? Se connecter</a>
+			<div class="text-center my-5">
+				<a class="important inverted" href="/user/login">Déjà inscrit ? Se connecter</a>
 			</div>
 		</div>
 	<?php }
