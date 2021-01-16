@@ -11,23 +11,27 @@ class UserSigninModule extends Module {
 		parent::__construct(new UserSigninController());
 	}
 
-	protected function execute(){
-		// Get action if "resetpassword" => appeler les méthodes de reset de mdp
-
-		$data = Utils::postMany(array("id","password","email","passwordConfirm","check" => "invalid"), true);
-		if ($data->check == "invalid")
-			$this->controller->signinPage();
-		else if (is_null($data->id))
-			$this->controller->signinPage(3);
-		else if (is_null($data->password))
-			$this->controller->signinPage(4);
-		else if (is_null($data->email))
-			$this->controller->signinPage(5);
-		else if (is_null($data->passwordConfirm))
-			$this->controller->signinPage(6);
-		else if ($data->password != $data->passwordConfirm)
-			$this->controller->signinPage(7);
-		else
-			$this->controller->signin($data->id, $data->password, $data->email);
+	protected function execute() {
+		$action = Utils::get("action", "signin");
+		switch ($action) {
+		case "resetpassword":
+			$code = Utils::extra(0);
+			if (is_null($code)) {
+				$data = Utils::postMany(array("id", "password"), true);
+				if (is_null($data->id))
+					$this->controller->resetPasswordPage();
+				else
+					$this->controller->resetPasswordRequest($data->id,$data->password);
+			} else
+				$this->controller->resetPassword($code);
+			break;
+		case "signin":
+			$data = Utils::postMany(array("id", "name", "password", "email", "passwordconfirm", "check" => "invalid"), true);
+			if ($data->check == "invalid")
+				$this->controller->signinPage();
+			else
+				$this->controller->signin($data->id, $data->name, $data->password, $data->email, $data->passwordconfirm);
+			break;
+		}
 	}
 }
