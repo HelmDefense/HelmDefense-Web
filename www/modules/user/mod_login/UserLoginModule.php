@@ -20,9 +20,9 @@ class UserLoginModule extends Module {
 	protected function execute(){
 		$request = Utils::get("module", "login");
 
-		if ($request == "logout"){
+		if ($request == "logout") {
 			$this->controller->logout();
-		}else {
+		} else {
 			$data = Utils::postMany(array("user", "password", "check" => "invalid"), true);
 			if ($data->check == "invalid")
 				$this->controller->loginPage();

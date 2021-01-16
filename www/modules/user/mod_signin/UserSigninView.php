@@ -1,6 +1,8 @@
 <?php
 namespace Module;
 
+use Utils;
+
 include_once "modules/generic/View.php";
 
 class UserSigninView extends View {
@@ -38,6 +40,46 @@ class UserSigninView extends View {
 	public function signin($id = null, $name = null, $email = null, $error = 0) {
 		Utils::addResource("<link rel='stylesheet' href='/data/css/form.css' />"); ?>
 		<div class="container">
+			<?php if ($error) { ?>
+				<div class="alert alert-danger">
+					<?php
+					switch ($error) {
+					case 1:
+						echo "Votre login ou adresse email est déjà utilisé";
+						break;
+					case 2:
+						echo "Votre login doit être alpha-numérique entre 3 et 32 caractères";
+						break;
+					case 3:
+						echo "Vous n'avez pas précisé votre login";
+						break;
+					case 4:
+						echo "Vous n'avez pas précisé votre mot de passe";
+						break;
+					case 5:
+						echo "Vous n'avez pas précisé votre email";
+						break;
+					case 6:
+						echo "Vous n'avez pas confirmé votre mot de passe";
+						break;
+					case 7:
+						echo "Confirmation du mot de passe invalide";
+						break;
+					case 8:
+						echo "Votre adresse mail n'est pas sous le bon format";
+						break;
+					case 9:
+						echo "Vous n'avez pas précisé votre nom";
+						break;
+					default:
+						echo "Il y a eu une erreur lors de votre inscription";
+						break;
+					}
+					?>
+					<button class="close" data-dismiss="alert"><span>&times;</span></button>
+				</div>
+			<?php } ?>
+
 			<h2>Inscription</h2>
 
 			<form method="post">
@@ -56,30 +98,24 @@ class UserSigninView extends View {
 					<label for="name">Nom</label>
 				</div>
 
-				<div id="pswrd-container" class="col-12 col-lg-6">
-					<div class="custom-input">
-						<input id="password" name="password" type="password" placeholder="" required />
-						<label for="password">Mot de passe</label>
-					</div>
+				<div class="custom-input">
+					<input id="password" name="password" type="password" placeholder="" required />
+					<label for="password">Mot de passe</label>
 				</div>
 
-				<div id="pswrd-container" class="col-12 col-lg-6">
-					<div class="pswrd-input">
-						<input id="passwordConfirm" name="passwordConfirm" type="password" placeholder="" required />
-						<label for="passwordConfirm">Confirmation du mot de passe</label>
-					</div>
+				<div class="custom-input">
+					<input id="passwordconfirm" name="passwordconfirm" type="password" placeholder="" required />
+					<label for="passwordconfirm">Confirmation du mot de passe</label>
 				</div>
 
-				<input type="hidden" name="check" value="valid"/>
-				<div id="submit-container" class="text-center text-lg-right">
-					<input id="submit" name="submit" type="submit" placeholder="" value="Inscritpion" required />
+				<input type="hidden" name="check" value="valid" />
+				<div class="text-center text-lg-right">
+					<input id="submit" type="submit" value="Inscritpion" />
 				</div>
 			</form>
 
-			<div class="col-12 col-lg-6">
-				<div>
-					<a href="http://helmdefense/user/login">Déjà inscrit ? Se connecter</a>
-				</div>
+			<div class="text-center">
+				<a href="/user/login">Déjà inscrit ? Se connecter</a>
 			</div>
 		</div>
 	<?php }

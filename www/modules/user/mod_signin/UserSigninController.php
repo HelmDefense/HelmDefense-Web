@@ -6,13 +6,29 @@ use Utils;
 include_once "modules/generic/Controller.php";
 include_once "UserSigninModel.php";
 include_once "UserSigninView.php";
-class UserSigninController extends Controller{
-	public function __construct(){
+
+class UserSigninController extends Controller {
+	public function __construct() {
 		parent::__construct(new UserSigninModel(), new UserSigninView());
 	}
 
 	public function resetPasswordPage() {
 		$this->view->resetPassword();
+	}
+
+	public function resetPasswordRequest($id,$password) {
+		$email = $this->model->resetPasswordRequest($id, $password);
+		if (!is_null($email))
+			$email = substr_replace($email, str_repeat("*", strlen($email) - 5), 5);
+		$this->view->resetPasswordRequested($email);
+	}
+
+	public function resetPassword($code) {
+		$this->model->resetPassword($code);
+	}
+
+	public function signinPage() {
+		$this->view->signin();
 	}
 
 	public function signin($id, $name, $password, $email, $passwordConfirm) {
