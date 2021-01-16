@@ -17,11 +17,11 @@ class UserSigninModule extends Module {
 		case "resetpassword":
 			$code = Utils::extra(0);
 			if (is_null($code)) {
-				$data = Utils::postMany(array("id", "password"), true);
-				if (is_null($data->id))
+				$data = Utils::postMany(array("check" => "invalid", "id", "password", "passwordconfirm"), true);
+				if ($data->check == "invalid")
 					$this->controller->resetPasswordPage();
 				else
-					$this->controller->resetPasswordRequest($data->id,$data->password);
+					$this->controller->resetPasswordRequest($data->id, $data->password, $data->passwordconfirm);
 			} else
 				$this->controller->resetPassword($code);
 			break;

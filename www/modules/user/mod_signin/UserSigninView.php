@@ -17,6 +17,17 @@ class UserSigninView extends View {
 		</div>
 	<?php }
 
+	public function resetPasswordResult($success) { ?>
+		<div class="container">
+			<?php if ($success) { ?>
+				<h3>Votre mot de passe a été réinitialisé</h3>
+			<?php } else { ?>
+				<h3>Une erreur est survenue lors de la réinitialisation de votre mot de passe</h3>
+			<?php } ?>
+			<a class="btn main-btn" href="/user/login">Se connecter</a>
+		</div>
+	<?php }
+
 	public function resetPassword() {
 		Utils::addResource("<link rel='stylesheet' href='/data/css/form.css' />"); ?>
 		<div class="container">
@@ -28,10 +39,15 @@ class UserSigninView extends View {
 				</div>
 				<div class="custom-input">
 					<input id="password" name="password" type="password" placeholder="" value="" required />
-					<label for="password">Mot de passe</label>
+					<label for="password">Nouveau mot de passe</label>
 				</div>
+				<div class="custom-input">
+					<input id="passwordconfirm" name="passwordconfirm" type="password" placeholder="" value="" required />
+					<label for="passwordconfirm">Confirmation du mot de passe</label>
+				</div>
+				<input type="hidden" name="check" value="valid" />
 				<div class="text-center text-lg-right">
-					<input id="submit" type="submit" value="Inscritpion" />
+					<input id="submit" type="submit" value="Envoyer une demande" />
 				</div>
 			</form>
 		</div>

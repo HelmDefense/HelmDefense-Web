@@ -1,8 +1,6 @@
 <?php
 namespace Module;
 
-use Utils;
-
 include_once "modules/generic/Controller.php";
 include_once "UserSigninModel.php";
 include_once "UserSigninView.php";
@@ -16,7 +14,11 @@ class UserSigninController extends Controller {
 		$this->view->resetPassword();
 	}
 
-	public function resetPasswordRequest($id,$password) {
+	public function resetPasswordRequest($id, $password, $passwordconfirm) {
+		if (is_null($id) || is_null($password) || is_null($passwordconfirm) || $password != $passwordconfirm) {
+			$this->view->resetPassword();
+			return;
+		}
 		$email = $this->model->resetPasswordRequest($id, $password);
 		if (!is_null($email))
 			$email = substr_replace($email, str_repeat("*", strlen($email) - 5), 5);
@@ -24,7 +26,7 @@ class UserSigninController extends Controller {
 	}
 
 	public function resetPassword($code) {
-		$this->model->resetPassword($code);
+		$this->view->resetPasswordResult($this->model->resetPassword($code));
 	}
 
 	public function signinPage() {
