@@ -1,8 +1,7 @@
 <?php
 namespace Component;
 
-include_once "components/generic/Component.php";
-include_once "WikiPagePreviewController.php";
+use Utils;
 
 class WikiPagePreviewComponent extends Component {
 	private $idPage;
@@ -20,8 +19,8 @@ class WikiPagePreviewComponent extends Component {
 	 * @inheritDoc
 	 */
 	protected function calculateRender() {
-		if(is_null($this->idPage))
-			echo "page non trouvé";
+		if (is_null($this->idPage))
+			Utils::error(404, "Page inconnue");
 		else
 			$this->controller->generatePagePreview($this->idPage, $this->type, $this->heading);
 	}

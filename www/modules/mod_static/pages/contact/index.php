@@ -34,36 +34,36 @@
 <h2>Contact</h2>
 
 <div class="container">
-	<p id="required-legend">Les champs marqués d'une étoile sont requis</p>
+	<p class="required-legend">Les champs marqués d'une étoile sont requis</p>
 	<form class="form" method="post">
-		<input type="hidden" name="check" value="ok">
+		<input type="hidden" name="check" value="ok" />
 		<div class="row">
-			<div id="nom-container" class="col-12 col-lg-6">
+			<div class="custom-input-container custom-input-container-inline col-12 col-lg-6">
 				<div class="custom-input">
 					<input id="nom" name="nom" type="text" placeholder="" required />
 					<label for="nom">Nom</label>
 				</div>
 			</div>
-			<div id="email-container" class="col-12 col-lg-6">
+			<div class="custom-input-container custom-input-container-inline col-12 col-lg-6">
 				<div class="custom-input">
 					<input id="email" name="email" type="email" placeholder="" required />
 					<label for="email">Email</label>
 				</div>
 			</div>
 		</div>
-		<div id="objet-container">
+		<div class="custom-input-container">
 			<div class="custom-input">
 				<input id="objet" name="objet" type="text" placeholder="" required />
 				<label for="objet">Objet</label>
 			</div>
 		</div>
-		<div id="message-container">
+		<div class="markdown-editor-container">
 			<textarea id="message" name="message" placeholder="" required></textarea>
 			<label class="sr-only" for="message">Message</label>
 			<?= Utils::renderComponent("markdowneditor", "#message", null, array("placeholder" => "Message")) ?>
 		</div>
-		<div id="submit-container" class="text-center text-lg-right">
-			<input id="submit" name="submit" type="submit" placeholder="" value="Envoyer" required />
+		<div class="text-center text-lg-right">
+			<input id="submit" class="btn sub-btn" name="submit" type="submit" placeholder="" value="Envoyer" required />
 		</div>
 	</form>
 </div>

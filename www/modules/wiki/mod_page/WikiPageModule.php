@@ -3,15 +3,12 @@ namespace Module;
 
 use Utils;
 
-include_once "WikiPageController.php";
-include_once "modules/generic/Module.php";
-
 class WikiPageModule extends Module {
 	/**
 	 * @inheritDoc
 	 */
 	public function __construct() {
-		parent::__construct(new WikiPageController());
+		parent::__construct(new WikiPageController(), "Wiki");
 	}
 
 	/**

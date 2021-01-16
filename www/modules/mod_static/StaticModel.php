@@ -3,8 +3,6 @@ namespace Module;
 
 use Utils;
 
-include_once "modules/generic/Model.php";
-
 class StaticModel extends Model {
 	/**
 	 * @var string

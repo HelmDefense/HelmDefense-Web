@@ -16,7 +16,8 @@
 			</div>
 		</div>
 		<div id="release">
-			<div class="body markdown"></div>
+			<h2 class="name m-0"></h2>
+			<div class="body markdown p-4"></div>
 			<p class="text-center publish-date">Publication : <span class="publish"></span></p>
 			<div class="text-center">
 			    <a class="btn main-btn dl" href="">Télécharger cette version</a>
@@ -31,13 +32,11 @@
 
 	// Open popup on click on download button
 	download.click(e => {
-		if (e) {
-			e.preventDefault();
-			e.stopImmediatePropagation();
-		}
+		e.preventDefault();
+		e.stopImmediatePropagation();
 		popup.removeClass("d-none");
 		// Append #popup to the URL
-		window.history.pushState(e ? "popup" : null, null, "#popup");
+		window.history.pushState("popup", null, "#popup");
 	});
 	// Or if the URL ends with #popup
 	if (window.location.href.endsWith("#popup"))
@@ -58,8 +57,8 @@
 	});
 
 	// Toggle the popup when using back / next browser arrow buttons
-	Utils.misc.jWindow.on("popstate", e => {
-		if (e.originalEvent.state === "popup")
+	Utils.misc.jWindow.on("popstate", () => {
+		if (window.location.href.endsWith("#popup"))
 			// Show popup
 			popup.removeClass("d-none");
 		else
@@ -76,6 +75,7 @@
 				/**
 				 * @type {{
 				 *  tag_name: string,
+				 *  name: string,
 				 *  published_at: string,
 				 *  body: string,
 				 *  assets: {browser_download_url: string, name: string}[]
@@ -84,6 +84,7 @@
 				let version = versions.filter(version => version.tag_name === page.name)[0];
 				if (version === undefined)
 					return false;
+				release.find(".name").text(version.name);
 				$.post(`${Utils.misc.API_URL}v1/markdown`, {text: version.body}, result => release.find(".body").html(result.markdown));
 				let publish_date = new Date(version.published_at);
 				release.find(".publish").text(`${("0" + publish_date.getDate()).slice(-2)}/${("0" + (publish_date.getMonth() + 1)).slice(-2)}/${publish_date.getFullYear()}`);

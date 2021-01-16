@@ -1,3 +1,13 @@
+.custom-input-container {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+.custom-input-container-inline {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
 .custom-input {
 	position: relative;
 	border: 5px solid var(--fg-color);
@@ -5,7 +15,7 @@
 }
 
 .custom-input input,
-.custom-input textarea{
+.custom-input textarea {
 	/* Technical part */
 	border: none;
 	outline: 0;
@@ -39,16 +49,39 @@
 .custom-input input:focus ~ label,
 .custom-input input:not(:placeholder-shown) ~ label,
 .custom-input textarea:focus ~ label,
-.custom-input textarea:not(:placeholder-shown) ~ label{
+.custom-input textarea:not(:placeholder-shown) ~ label {
 	top: .25ex;
 	transform: none;
 }
 
 /* Mark required fields */
-#required-legend::before,
+.required-legend::before,
 .custom-input input:required ~ label::after,
-.custom-input textarea:required ~ label::after{
+.custom-input textarea:required ~ label::after {
 	content: "*";
 	color: red;
 	margin: 0 .25em;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+	border-color: var(--fg-color);
+	background-color: var(--fg-color);
+}
+
+.custom-control-input:focus ~ .custom-control-label::before {
+	box-shadow: 0 0 0 .2rem rgba(var(--fg-color-r), var(--fg-color-g), var(--fg-color-b), .25);
+}
+
+.custom-control-input:not(:disabled):active ~ .custom-control-label::before {
+	background-color: rgba(var(--fg-color-r), var(--fg-color-g), var(--fg-color-b), .25);
+	border-color: rgba(var(--fg-color-r), var(--fg-color-g), var(--fg-color-b), .25);
+}
+
+.custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+	border-color: rgba(var(--fg-color-r), var(--fg-color-g), var(--fg-color-b), .25);
+}
+
+.markdown-editor-container {
+	margin: 15px 0;
+	border: 5px solid var(--fg-color);
 }

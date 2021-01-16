@@ -3,9 +3,7 @@ namespace Module;
 
 use Utils;
 
-include_once "modules/generic/Model.php";
-
-class SearchModel extends Model {
+class WikiSearchModel extends Model {
 	public function search($search, $type) {
 		switch ($type) {
 		case "page":
@@ -18,9 +16,9 @@ class SearchModel extends Model {
 			$sql = "SELECT id FROM hd_game_levels WHERE published AND (`name` LIKE :s OR description LIKE :s)";
 			break;
 		default:
-			return array();
+			return null;
 		}
-		$pages = Utils::executeRequest(self::$bdd, $sql, array("s" => "%" . Utils::escapeSqlLikeWildcards($search) . "%"), true);
+		$pages = Utils::executeRequest(self::$bdd, $sql, array("s" => "%" . Utils::escapeSqlLikeWildcards($search) . "%"));
 		return array_map(function($page) { return $page->id; }, $pages);
 	}
 }

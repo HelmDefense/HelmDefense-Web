@@ -1,8 +1,6 @@
 <?php
 namespace Component;
 
-include_once "components/generic/Model.php";
-
 class MarkdownEditorModel extends Model {
 	private $defaultConfig = array(
 			"blockStyles" => array(

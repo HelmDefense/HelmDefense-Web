@@ -1,8 +1,6 @@
 <?php
 namespace Component;
 
-include_once "components/generic/View.php";
-
 class FooterView extends View {
 	public function generateFooter() { ?>
 			<footer class="container-fluid">

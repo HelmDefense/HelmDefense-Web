@@ -3,8 +3,6 @@ namespace Module;
 
 use Utils;
 
-include_once "modules/generic/View.php";
-
 class WikiPageView extends View {
 	public function classicPage($data) { ?>
 			<div class="container-fluid">
@@ -20,7 +18,7 @@ class WikiPageView extends View {
 									<?= Utils::markdown($data->content) ?>
 								</div>
 								<p>
-									Crée par <strong><?= htmlspecialchars($data->name) ?></strong> le <?= Utils::formatDate($data->created_at) ?>
+									Crée par <strong><a href="/user/profile/<?= $data->author ?>"><?= htmlspecialchars($data->name) ?></a></strong> le <?= Utils::formatDate($data->created_at) ?>
 									<?php if ($data->edited_at) echo " - Modifié le " . Utils::formatDate($data->edited_at); ?>
 								</p>
 							</div>
