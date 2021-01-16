@@ -3,8 +3,6 @@ namespace Module;
 
 use Utils;
 
-include_once "modules/generic/View.php";
-
 class UserSigninView extends View {
 	public function resetPasswordRequested($email) { ?>
 		<div class="container">

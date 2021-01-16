@@ -4,8 +4,6 @@ namespace Module;
 use PDO;
 use Utils;
 
-include_once "modules/generic/Model.php";
-
 class UserSigninModel extends Model{
 	public function resetPasswordRequest($login, $password) {
 		$data = Utils::executeRequest(self::$bdd, "SELECT id, email FROM hd_user_users WHERE login = :login", array("login" => $login), false);

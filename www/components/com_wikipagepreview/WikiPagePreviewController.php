@@ -3,15 +3,7 @@ namespace Component;
 
 use Utils;
 
-include_once "components/generic/Controller.php";
-include_once "WikiPagePreviewModel.php";
-include_once "WikiPagePreviewView.php";
-
 class WikiPagePreviewController extends Controller {
-
-	/**
-	 * WikiPagePreviewController constructor.
-	 */
 	public function __construct() {
 		parent::__construct(new WikiPagePreviewModel(), new WikiPagePreviewView());
 	}
@@ -28,8 +20,10 @@ class WikiPagePreviewController extends Controller {
 			$page = $this->model->getEntity($idPage);
 			break;
 		default:
-			Utils::error(400, "type de page incorrect");
+			Utils::error(400, "Type de page incorrect");
 		}
+		if (is_null($page))
+			Utils::error(404, "Page inconnue");
 		$this->view->generatePagePreview($page, $type, $heading);
 	}
 }

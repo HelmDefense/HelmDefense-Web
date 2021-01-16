@@ -83,6 +83,28 @@ Utils.misc.arrayEquals = function(arr1, arr2) {
 };
 
 /**
+ * The mapping for HTML escape
+ * @type {Object<string, string>}
+ * @see Utils.misc.escape
+ */
+Utils.misc.ESCAPE_MAP = {
+	"&": "&amp;",
+	"<": "&lt;",
+	">": "&gt;",
+	"\"": "&quot;",
+	"'": "&#039;"
+};
+
+/**
+ * Escape the given text using the {@link Utils.misc.ESCAPE_MAP escape map}
+ * @param {*} text - The text to escape
+ * @return {string} - The HTML escaped text
+ */
+Utils.misc.escape = function(text) {
+	return (text === undefined || text === null) ? "" : text.toString().replace(/[&<>"']/g, m => Utils.misc.ESCAPE_MAP[m]);
+};
+
+/**
  * Custom collections redefined
  */
 Utils.collections = {};
@@ -630,3 +652,49 @@ Utils.tooltip.add = function(element, text, placement = "auto", html = false) {
 		el.attr("data-html", "true");
 	el.tooltip();
 };
+
+/**
+ * All functions related to Date manipulation
+ */
+Utils.date = {};
+
+/**
+ * Format a number to a zero-padded two digit representation
+ * @param {number} number - The number
+ * @return {string} - The zero-padded number if necessary
+ */
+Utils.date.twoDigits = function(number) {
+	return ("0" + number).slice(-2);
+};
+
+/**
+ * Format a date with the given format
+ * @param {string|"now"} date - The date to format
+ * @param {string} format - The format. Valid options: d (day) / m (month) / Y (year) / H (hour) / i (minute) / s (second)
+ * @param {string} def - The default value if an error occurs
+ * @return {string} - The formatted date, or the default value in case of error
+ */
+Utils.date.format = function(date = "now", format = "d/m/Y à H:i:s", def = "Date inconnue") {
+	try {
+		let d;
+		if (date === "now")
+			d = new Date();
+		else
+			d = new Date(date);
+		return format
+				.replaceAll("d", Utils.date.twoDigits(d.getDate()))
+				.replaceAll("m", Utils.date.twoDigits(d.getMonth() + 1))
+				.replaceAll("Y", d.getFullYear().toString())
+				.replaceAll("H", Utils.date.twoDigits(d.getHours()))
+				.replaceAll("i", Utils.date.twoDigits(d.getMinutes()))
+				.replaceAll("s", Utils.date.twoDigits(d.getSeconds()));
+	} catch {
+		return def;
+	}
+};
+
+// Global loading event
+Utils.misc.jWindow.on("load", () => {
+	// Enable tooltips
+	$("[data-toggle=tooltip]").tooltip();
+});

@@ -17,7 +17,7 @@ abstract class Controller {
 	/**
 	 * @var string The page title
 	 */
-	protected $title;
+	protected $title = null;
 
 	/**
 	 * Create controller

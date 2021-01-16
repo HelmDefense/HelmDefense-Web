@@ -3,8 +3,6 @@ namespace Component;
 
 use stdClass;
 
-include_once "components/generic/View.php";
-
 class HeaderView extends View {
 	/**
 	 * @param string $currentActiveNav

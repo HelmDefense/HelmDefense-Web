@@ -1,0 +1,33 @@
+.panel {
+	min-height: calc(100vh - 400px);
+	margin: 100px 0;
+}
+
+.panel-body {
+	margin-top: 50px;
+	margin-bottom: 100px;
+}
+
+.panel-link {
+	margin: 35px 0;
+}
+
+.panel-link a {
+	font-size: 1.5em;
+	width: 100%;
+}
+
+.panel-btn {
+	font-size: 1.25em;
+	margin: 10px 0 20px;
+	padding-right: 35px;
+	padding-left: 35px;
+}
+
+.published-switch {
+	transform: scale(2);
+}
+
+.published-switch * {
+	cursor: pointer;
+}

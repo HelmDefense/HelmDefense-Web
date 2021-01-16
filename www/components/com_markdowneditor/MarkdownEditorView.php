@@ -3,8 +3,6 @@ namespace Component;
 
 use Utils;
 
-include_once "components/generic/View.php";
-
 class MarkdownEditorView extends View {
 	private $firstEditor = true;
 
@@ -19,6 +17,13 @@ class MarkdownEditorView extends View {
 				let config = <?= Utils::toJSObject($config) ?>;
 				let element = "<?= $element ?>";
 				config.element = $(element)[0];
+				config.previewRender = function(text, preview) {
+					$.post(`${Utils.misc.API_URL}v1/markdown`, {text: text}, result => {
+						$(preview).html(result.markdown);
+						Prism.highlightAllUnder(preview, true);
+					});
+					return `<div style="height: ${preview.scrollHeight}px;">Chargement du Markdown...</div>`;
+				};
 				simplemde[element] = new SimpleMDE(config);
 			</script>
 		<?php

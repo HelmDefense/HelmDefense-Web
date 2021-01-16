@@ -3,8 +3,6 @@ namespace Module;
 
 use Utils;
 
-include_once "modules/generic/View.php";
-
 class UserLoginView extends View {
 	public function login($error = 0) {
 		Utils::addResource("<link rel='stylesheet' href='/data/css/form.css' />"); ?>
