@@ -15,21 +15,32 @@ class UserProfileController extends Controller {
 		parent::__construct(new UserProfileModel(), new UserProfileView());
 	}
 
-	function displayProfileUser($needUrlCorrection) {
-		if($needUrlCorrection) {
-			UserProfileView::defaultToProfile();
-		}
-		else {
+	public function correctUrl() {
+		$this->view->defaultToProfile();
+	}
+
+	function displayProfileUser($user = null) {
+		if (is_null($user)) {
 			$user = $this->model->searchInfo();
-			if(is_null($user))
+			if (is_null($user))
 				Utils::redirect("/user/login");
-			$this->view->displayProfile($user);
 		}
+		$this->view->displayProfile($user);
 	}
 
 	function displaySettingsUser() {
 		$user = $this->model->searchInfo();
-		$this->view->displaySettings($user);
+		$mail = $this->model->recupMail($user);
+		$this->view->displaySettings($user, $mail);
 	}
 
+	function modifySettings($name, $email, $passwd, $description) {
+		if (is_null($name) || is_null($email) || is_null($description))
+			Utils::error(400, "Il manque des valeurs à mettre à jour");
+		$user = $this->model->searchInfo();
+		if (!is_null($passwd))
+			$this->model->updatePassword($passwd, $user);
+		$this->model->updateSettings($name, $email, $description, $user);
+		Utils::redirect("/user/profile");
+	}
 }
