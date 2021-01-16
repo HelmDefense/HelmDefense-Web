@@ -1,6 +1,8 @@
 <?php
 namespace Module;
 
+use Utils;
+
 class UserSigninController extends Controller {
 	public function __construct() {
 		parent::__construct(new UserSigninModel(), new UserSigninView());
@@ -8,6 +10,7 @@ class UserSigninController extends Controller {
 
 	public function resetPasswordPage() {
 		$this->view->resetPassword();
+		$this->title = "Réinitialisation du mot de passe";
 	}
 
 	public function resetPasswordRequest($id, $password, $passwordconfirm) {
@@ -19,17 +22,22 @@ class UserSigninController extends Controller {
 		if (!is_null($email))
 			$email = substr_replace($email, str_repeat("*", strlen($email) - 5), 5);
 		$this->view->resetPasswordRequested($email);
+		$this->title = "Réinitialisation du mot de passe";
 	}
 
 	public function resetPassword($code) {
 		$this->view->resetPasswordResult($this->model->resetPassword($code));
+		$this->title = "Réinitialisation du mot de passe";
 	}
 
 	public function signinPage() {
+		Utils::timeout("signin", 300);
 		$this->view->signin();
+		$this->title = "Inscription";
 	}
 
 	public function signin($id, $name, $password, $email, $passwordConfirm) {
+		Utils::timeoutCheck("signin");
 		$error = 0;
 		if (!preg_match("/[a-z0-9_-]{3,32}/i", $id))
 			$error = 2;

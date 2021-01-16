@@ -8,7 +8,7 @@ Utils::$modules["wiki/entity"] = // We fake "entity" module to redirect to "home
 Utils::$modules["wiki/level"] = // We fake "level" module to redirect to "home" module
 Utils::$modules["wiki/"] = new Mod("home", "WikiHome", "<link rel='stylesheet' href='/data/css/wiki.css' />", true, "wiki");
 Utils::$modules["wiki/page"] = new Mod("page", "WikiPage", "<link rel='stylesheet' href='/data/css/wiki.css' />", true, "wiki");
-Utils::$modules["wiki/search"] = new Mod("search", "Search", "<link rel='stylesheet' href='/data/css/wiki.css' />", true, "wiki");
+Utils::$modules["wiki/search"] = new Mod("search", "WikiSearch", array("<link rel='stylesheet' href='/data/css/wiki.css' />", "<link rel='stylesheet' href='/data/css/form.css' />"), true, "wiki");
 
 // User modules
 Utils::$modules["user/logout"] = // We fake "logout" module to redirect to "login" module

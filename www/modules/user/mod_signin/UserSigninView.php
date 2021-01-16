@@ -48,6 +48,9 @@ class UserSigninView extends View {
 					<input id="submit" type="submit" value="Envoyer une demande" />
 				</div>
 			</form>
+			<div class="text-center">
+				<a href="/user/login">Un éclair de génie ? Se connecter</a>
+			</div>
 		</div>
 	<?php }
 

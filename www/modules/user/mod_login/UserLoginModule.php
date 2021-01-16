@@ -8,7 +8,7 @@ class UserLoginModule extends Module {
 	 * @inheritDoc
 	 */
 	public function __construct() {
-		parent::__construct(new UserLoginController());
+		parent::__construct(new UserLoginController(), "Connexion");
 	}
 
 	/**
