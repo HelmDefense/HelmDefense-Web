@@ -1,9 +1,8 @@
-<h2 id="h2api">API</h2>
-
-<section id="section1" class="page-content container px-4">
-	<div class="row">
-		<article id="article1" class="col-12 col-md">
-			<h3 class="h3api">route Users</h3>
+<div class="api-page container">
+	<h2>API</h2>
+	<div class="api-content row">
+		<div class="col-12 col-lg-4">
+			<h3>Route Users</h3>
 			<p>
 				Les données des utilisateurs sont intégralement stockées dans une base de données accessible via cette API.
 				Un utilisateur est composé d'un identifiant (dans notre cas, votre login), d'un nom, d'un avatar personnalisé,
@@ -14,10 +13,9 @@
 				impressionnante, pouvoir montrer à votre disciple à quel point vous êtes un doyen de cette communauté, et
 				même vous démarquer des autres utilisateurs si un grade vous est attribué contrairement au commun des mortels !
 			</p>
-		</article>
-
-		<article id="article2" class="col-12 col-md">
-			<h3 class="h3api">route Levels</h3>
+		</div>
+		<div class="col-12 col-lg-4">
+			<h3>Route Levels</h3>
 			<p>
 				Les données des niveaux sont intégralement stockées dans une base de données accessible via cette API.
 				Les niveaux sont constitués d'un identifiant de niveau (défini à partir de son nom), d'un nom, d'une somme
@@ -29,10 +27,9 @@
 				des ennemis prévus dans les différentes vagues. Des données indispensables pour n'importe quel stratège
 				cherchant à rouler sur ses adversaires et ainsi réussir son niveau sans perdre une seule unité !
 			</p>
-		</article>
-
-		<article id="article3" class="col-12 col-md">
-			<h3 class="h3api">route Entities</h3>
+		</div>
+		<div class="col-12 col-lg-4">
+			<h3>Route Entities</h3>
 			<p>
 				Les données des entités sont intégralement stockées dans une base de données accessible via cette API.
 				Une entité est composée d'un identifiant (défini à partir de son nom), d'un nom d'entité, d'un type (attaquant
@@ -44,10 +41,9 @@
 				préparer au mieux à la bataille qui vous attend. Avec cela, les différentes unités n'auront plus aucun secret
 				pour vous !
 			</p>
-		</article>
+		</div>
 	</div>
-</section>
-
-<div id="link">
-	<a href="https://api.helmdefense.theoszanto.fr" target="_blank">api.helmdefense.fr</a>
+	<div class="text-center font-weight-bold">
+		<a href="https://api.helmdefense.theoszanto.fr" target="_blank">api.helmdefense.theoszanto.fr</a>
+	</div>
 </div>

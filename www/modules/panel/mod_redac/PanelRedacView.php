@@ -95,7 +95,7 @@ class PanelRedacView extends View {
 				</div>
 				<div class="row">
 					<div class="col-12 col-lg-4 text-center text-lg-left">
-						<button class="btn sub-btn panel-btn" onclick="window.history.back();">Annuler</button>
+						<a class="btn sub-btn panel-btn" href="/panel/redac">Annuler</a>
 					</div>
 					<div class="col-12 col-lg-4 text-center">
 						<?php if ($num) { ?>

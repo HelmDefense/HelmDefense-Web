@@ -1,0 +1,30 @@
+<?php
+namespace Module;
+
+use Utils;
+
+class UserLoginModule extends Module {
+	/**
+	 * @inheritDoc
+	 */
+	public function __construct() {
+		parent::__construct(new UserLoginController(), "Connexion");
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	protected function execute() {
+		$request = Utils::get("module", "login");
+
+		if ($request == "logout") {
+			$this->controller->logout();
+		} else {
+			$data = Utils::postMany(array("user", "password", "check" => "invalid"), true);
+			if ($data->check == "invalid")
+				$this->controller->loginPage();
+			else
+				$this->controller->login($data->user, $data->password);
+		}
+	}
+}

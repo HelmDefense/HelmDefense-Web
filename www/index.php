@@ -5,18 +5,6 @@ include_once "include/Utils.php";
 
 Utils::initSession();
 
-/*if (Utils::get("module") == "login") {
-	$_SESSION["login"] = "indyteo";
-	header("Location: /");
-	exit;
-}
-
-if (Utils::get("module") == "logout") {
-	unset($_SESSION["login"]);
-	header("Location: /");
-	exit;
-}*/
-
 $module = Utils::loadModule();
 $output = $module->run();
 
@@ -26,7 +14,7 @@ $header->generateRender();
 $footer = Utils::loadComponent("footer");
 $footer->generateRender();
 
-$title = (is_null($output->title) ? "" : "$output->title - ") . "Helm Defense";
+$title = (empty($output->title) ? "" : "$output->title - ") . "Helm Defense";
 $description = "Un jeu de Tower Defense basé sur l'univers de la Terre du Milieu (Et plus précisément la bataille du gouffre de Helm)";
 $url = Utils::SITE_URL . substr($_SERVER["REQUEST_URI"], 1);
 ?>

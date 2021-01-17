@@ -728,7 +728,6 @@ class Utils {
 			return null;
 
 		$user = self::httpGetRequest("v1/users/$loggedInUser");
-		$user->avatar = self::SITE_URL . "data/img/avatar/indyteo.png";
 		return property_exists($user, "id") ? $user : null;
 	}
 
@@ -770,6 +769,20 @@ class Utils {
 	 */
 	static function escapeSqlLikeWildcards($string, $escape = self::SQL_ESCAPE_CHAR) {
 		return strtr($string, array("%" => "$escape%", "_" => "${escape}_"));
+	}
+
+	/**
+	 * Generate a random string of a random length
+	 * @param int $length The number of characters (must be odd)
+	 * @param mixed $def The default value in case of error
+	 * @return string|mixed The random string
+	 */
+	static function randomString($length, $def = null) {
+		try {
+			return bin2hex(random_bytes($length / 2));
+		} catch (Exception $e) {
+			return $def;
+		}
 	}
 
 	/**
