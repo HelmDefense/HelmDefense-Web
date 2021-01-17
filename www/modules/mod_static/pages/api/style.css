@@ -1,36 +1,19 @@
-/*BODY*/
-
-#h2api {
-	margin: 80px 0 50px;
+.api-page {
+	padding-top: 15px;
+	padding-bottom: 75px;
 }
 
-.h3api {
+.api-content {
+	padding-top: 15px;
+	padding-bottom: 25px;
+}
+
+.api-content h3 {
 	font-family: var(--font-title);
-	font-weight: bold;
 	text-align: center;
 }
 
-#article2 {
-	padding-left: 50px;
-	padding-right: 50px;
-}
-
-.page-content p {
+.api-content p {
 	text-align: justify;
 	text-indent: 4rem;
-}
-
-#link {
-	margin-top: 50px;
-	text-align: center;
-	font-weight: bold;
-	margin-bottom: 100px;
-}
-
-a {
-	color: white;
-}
-
-a:hover {
-	color: white;
 }

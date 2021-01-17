@@ -15,24 +15,24 @@ class UserSigninController extends Controller {
 
 	public function resetPasswordRequest($id, $password, $passwordconfirm) {
 		if (is_null($id) || is_null($password) || is_null($passwordconfirm) || $password != $passwordconfirm) {
-			$this->view->resetPassword();
+			$this->resetPasswordPage();
 			return;
 		}
 		$email = $this->model->resetPasswordRequest($id, $password);
 		if (!is_null($email))
 			$email = substr_replace($email, str_repeat("*", strlen($email) - 5), 5);
 		$this->view->resetPasswordRequested($email);
-		$this->title = "Réinitialisation du mot de passe";
+		$this->title = "Demande envoyée - Réinitialisation du mot de passe";
 	}
 
 	public function resetPassword($code) {
 		$this->view->resetPasswordResult($this->model->resetPassword($code));
-		$this->title = "Réinitialisation du mot de passe";
+		$this->title = "État de la demande - Réinitialisation du mot de passe";
 	}
 
-	public function signinPage() {
+	public function signinPage($id = null, $name = null, $email = null, $error = 0) {
 		Utils::timeout("signin", 300);
-		$this->view->signin();
+		$this->view->signin($id, $name, $email, $error);
 		$this->title = "Inscription";
 	}
 
@@ -57,11 +57,11 @@ class UserSigninController extends Controller {
 			$error = 9;
 
 		if ($error)
-			$this->view->signin($id, $name, $email, $error);
+			$this->signinPage($id, $name, $email, $error);
 		else {
 			$result = $this->model->userSignin($id, $name, $password, $email);
             if ($result) {
-                $this->view->signin($id, $name, $email, $result);
+                $this->signinPage($id, $name, $email, $result);
             } else {
                 header("Location: /user/profile");
                 exit(303);
