@@ -4,8 +4,6 @@ namespace Module;
 use Utils;
 use PDO;
 
-include_once "modules/generic/Model.php";
-
 class UserProfileModel extends Model {
 	function searchInfo() {
 		return Utils::loggedInUser();

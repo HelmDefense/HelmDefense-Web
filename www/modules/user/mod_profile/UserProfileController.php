@@ -3,10 +3,6 @@ namespace Module;
 
 use Utils;
 
-include_once "UserProfileModel.php";
-include_once "UserProfileView.php";
-include_once "modules/generic/Controller.php";
-
 class UserProfileController extends Controller {
 	/**
 	 * @inheritDoc
@@ -24,7 +20,8 @@ class UserProfileController extends Controller {
 			$user = $this->model->searchInfo();
 			if (is_null($user))
 				Utils::redirect("/user/login");
-		}
+		} else
+			$this->title = $user->name;
 		$this->view->displayProfile($user);
 	}
 
@@ -32,6 +29,7 @@ class UserProfileController extends Controller {
 		$user = $this->model->searchInfo();
 		$mail = $this->model->recupMail($user);
 		$this->view->displaySettings($user, $mail);
+		$this->title = "Paramètres";
 	}
 
 	function modifySettings($name, $email, $oldpassword, $newpassword, $newpasswordconfirm, $description) {

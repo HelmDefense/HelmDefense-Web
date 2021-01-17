@@ -3,15 +3,12 @@ namespace Module;
 
 use Utils;
 
-include_once "UserProfileController.php";
-include_once "modules/generic/Module.php";
-
 class UserProfileModule extends Module {
 	/**
 	 * @inheritDoc
 	 */
 	public function __construct() {
-		parent::__construct(new UserProfileController());
+		parent::__construct(new UserProfileController(), "Profil");
 	}
 
 	/**
