@@ -54,13 +54,22 @@ class UserProfileView extends View {
 							<label for="email">E-mail</label>
 						</div>
 						<div class="col">
-							<input id="password" name="password" type="password" placeholder="" />
-							<label for="password">changer de mot de passe</label>
+							<input id="oldpassword" name="oldpassword" type="password" placeholder="" />
+							<label for="oldpassword">mot de passe actuel</label>
+						</div>
+						<div class="col">
+							<input id="newpassword" name="newpassword" type="password" placeholder="" />
+							<label for="newpassword">nouveau mot de passe</label>
+						</div>
+						<div class="col">
+							<input id="newpasswordconfirm" name="newpasswordconfirm" type="password" placeholder="" />
+							<label for="newpasswordconfirm">confirmer nouveau mot de passe</label>
 						</div>
 					</div>
 					<h3>Description</h3>
-					<textarea id="description" name="description" placeholder="" required><?= $user->description ?></textarea>
-					<label for="description">Description</label>
+					<textarea id="description" name="description" placeholder="" required></textarea>
+					<label class="sr-only" for="description">Description</label>
+					<?= Utils::renderComponent("markdowneditor", "#description", $user->description, array("placeholder" => "Description")) ?>
 					<input type="hidden" name="check" value="valid" />
 					<input type="submit" value="Enregistrer" />
 				</div>

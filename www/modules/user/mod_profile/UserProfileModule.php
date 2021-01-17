@@ -22,14 +22,16 @@ class UserProfileModule extends Module {
 
 		switch ($request) {
 		case "settings":
-			$data = Utils::postMany(array("check" => "invalid", "name", "email", "password", "description"), true);
+			$data = Utils::postMany(array("check" => "invalid", "name", "email", "oldpassword", "newpassword", "newpasswordconfirm", "description"), true);
 			if ($data->check == "invalid")
 				$this->controller->displaySettingsUser();
 			else
-				$this->controller->modifySettings($data->name, $data->email, $data->password, $data->description);
+				$this->controller->modifySettings($data->name, $data->email, $data->oldpassword, $data->newpassword, $data->newpasswordconfirm, $data->description);
 			break;
+		/* @noinspection PhpMissingBreakStatementInspection */
 		case "home":
 			$this->controller->correctUrl();
+			// no break
 		case "profile":
 			$action = Utils::get("action");
 			if (is_null($action)) {

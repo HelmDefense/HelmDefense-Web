@@ -34,12 +34,13 @@ class UserProfileController extends Controller {
 		$this->view->displaySettings($user, $mail);
 	}
 
-	function modifySettings($name, $email, $passwd, $description) {
+	function modifySettings($name, $email, $oldpassword, $newpassword, $newpasswordconfirm, $description) {
 		if (is_null($name) || is_null($email) || is_null($description))
 			Utils::error(400, "Il manque des valeurs à mettre à jour");
 		$user = $this->model->searchInfo();
-		if (!is_null($passwd))
-			$this->model->updatePassword($passwd, $user);
+		// TODO Vérifier $oldpassword et $newpasswordconfirm
+		if (!is_null($newpassword))
+			$this->model->updatePassword($newpassword, $user);
 		$this->model->updateSettings($name, $email, $description, $user);
 		Utils::redirect("/user/profile");
 	}
