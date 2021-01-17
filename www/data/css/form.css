@@ -81,6 +81,19 @@
 	border-color: rgba(var(--fg-color-r), var(--fg-color-g), var(--fg-color-b), .25);
 }
 
+.custom-file-label {
+	border-radius: 0;
+}
+
+.custom-file-label::after {
+	border-radius: 0;
+}
+
+.custom-file-input:focus ~ .custom-file-label {
+	border-color: rgb(205, 212, 218);
+	box-shadow: none;
+}
+
 .markdown-editor-container {
 	margin: 15px 0;
 	border: 5px solid var(--fg-color);

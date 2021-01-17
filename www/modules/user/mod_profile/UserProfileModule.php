@@ -19,11 +19,24 @@ class UserProfileModule extends Module {
 
 		switch ($request) {
 		case "settings":
-			$data = Utils::postMany(array("check" => "invalid", "name", "email", "oldpassword", "newpassword", "newpasswordconfirm", "description"), true);
-			if ($data->check == "invalid")
-				$this->controller->displaySettingsUser();
-			else
-				$this->controller->modifySettings($data->name, $data->email, $data->oldpassword, $data->newpassword, $data->newpasswordconfirm, $data->description);
+			$action = Utils::get("action", "settings");
+			switch ($action) {
+			case "settings":
+				$data = Utils::postMany(array("check" => "invalid", "name", "email", "oldpassword", "newpassword", "newpasswordconfirm", "description"), true);
+				if ($data->check == "invalid")
+					$this->controller->displaySettingsUser();
+				else
+					$this->controller->modifySettings($data->name, $data->email, $data->oldpassword, $data->newpassword, $data->newpasswordconfirm, $data->description);
+				break;
+			case "delete":
+				$this->controller->deleteAccount(Utils::postRequired("password"));
+				break;
+			case "avatar":
+				$this->controller->modifyAvatar(Utils::toStdClass(Utils::arrRequired($_FILES, "avatar")));
+				break;
+			default:
+				Utils::error(404, "Action inconnue");
+			}
 			break;
 		/* @noinspection PhpMissingBreakStatementInspection */
 		case "home":

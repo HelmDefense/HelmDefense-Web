@@ -60,12 +60,10 @@ class UserSigninController extends Controller {
 			$this->signinPage($id, $name, $email, $error);
 		else {
 			$result = $this->model->userSignin($id, $name, $password, $email);
-            if ($result) {
+            if ($result)
                 $this->signinPage($id, $name, $email, $result);
-            } else {
-                header("Location: /user/profile");
-                exit(303);
-            }
+            else
+	            Utils::redirect("/user/profile");
 		}
 	}
 }

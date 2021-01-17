@@ -1,6 +1,8 @@
 <?php
 namespace Module;
 
+use Utils;
+
 class UserLoginController extends Controller {
 	public function __construct() {
 		parent::__construct(new UserLoginModel(), new UserLoginView());
@@ -20,15 +22,13 @@ class UserLoginController extends Controller {
 			if ($result) {
 				$this->view->login($result);
 			} else {
-				header("Location: /");
-				exit(303);
+				Utils::redirect("/");
 			}
 		}
 	}
 
 	public function logout() {
 		$this->model->userDisconnect();
-		header("Location: /");
-		exit(303);
+		Utils::redirect("/");
 	}
 }
