@@ -728,7 +728,7 @@ class Utils {
 			return null;
 
 		$user = self::httpGetRequest("v1/users/$loggedInUser");
-		return property_exists($user, "id") ? $user : null;
+		return self::isError($user) ? null : $user;
 	}
 
 	/**
@@ -769,6 +769,18 @@ class Utils {
 	 */
 	static function escapeSqlLikeWildcards($string, $escape = self::SQL_ESCAPE_CHAR) {
 		return strtr($string, array("%" => "$escape%", "_" => "${escape}_"));
+	}
+
+	/**
+	 * End the transmission by redirecting the client to the given url
+	 * @param string $url Where to redirect to client
+	 * @param int $code The redirection code
+	 * @see Utils::$response_status
+	 */
+	static function redirect($url, $code = 302) {
+		http_response_code($code);
+		header("Location: $url");
+		exit;
 	}
 
 	/**

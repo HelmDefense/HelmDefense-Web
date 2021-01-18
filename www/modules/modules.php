@@ -11,6 +11,9 @@ Utils::$modules["wiki/page"] = new Mod("page", "WikiPage", "<link rel='styleshee
 Utils::$modules["wiki/search"] = new Mod("search", "WikiSearch", array("<link rel='stylesheet' href='/data/css/wiki.css' />", "<link rel='stylesheet' href='/data/css/form.css' />"), true, "wiki");
 
 // User modules
+Utils::$modules["user/"] = // We fake "user" module to redirect to "profile" module
+Utils::$modules["user/settings"] = // We fake "settings" module to redirect to "profile" module
+Utils::$modules["user/profile"] = new Mod("profile", "UserProfile", "<link rel='stylesheet' href='/data/css/profile.css' />", true, "user");
 Utils::$modules["user/logout"] = // We fake "logout" module to redirect to "login" module
 Utils::$modules["user/login"] = new Mod("login", "UserLogin", "<link rel='stylesheet' href='/data/css/user.css' />", true, "user");
 Utils::$modules["user/signin"] = new Mod("signin", "UserSignin", "<link rel='stylesheet' href='/data/css/user.css' />", true, "user");

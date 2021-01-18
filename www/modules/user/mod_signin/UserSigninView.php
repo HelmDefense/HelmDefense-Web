@@ -44,7 +44,7 @@ class UserSigninView extends View {
 				<h3>Nous n'avons pas pu vous envoyer d'email de confirmation. Veuillez réessayer</h3>
 				<a class="btn sub-btn mt-5" href="/user/signin/resetpassword">Nouvelle demande</a>
 			<?php } else { ?>
-				<h3>Un mail a été envoyé à l'adresse : <code><?= $email ?></code></h3>
+				<h3>Un mail a été envoyé à l'adresse : <span class="badge sub-badge"><?= $email ?></span></h3>
 				<p class="mt-5">Vous pouvez fermer cet onglet</p>
 			<?php } ?>
 		</div>

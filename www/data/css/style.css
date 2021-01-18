@@ -112,6 +112,10 @@ a.inverted:hover {
 	transition: text-decoration-color .1s;
 }
 
+.btn.small-btn {
+	padding: 5px 10px;
+}
+
 .btn:hover {
 	color: white;
 	text-decoration: underline white;
@@ -121,11 +125,13 @@ a.inverted:hover {
 	box-shadow: none;
 }
 
-.main-btn {
+.main-btn,
+.main-badge {
 	background-color: var(--bg-color);
 }
 
-.sub-btn {
+.sub-btn,
+.sub-badge {
 	background-color: var(--fg-color);
 }
 

@@ -99,8 +99,11 @@ class PanelRedacView extends View {
 					</div>
 					<div class="col-12 col-lg-4 text-center">
 						<?php if ($num) { ?>
-							<button type="button" class="btn sub-btn panel-btn" data-toggle="modal" data-target="#confirm-suppress">Supprimer la page</button>
-							<div class="modal custom-modal fade" id="confirm-suppress" data-backdrop="static" data-keyboard="false">
+							<button id="suppress" class="btn sub-btn panel-btn" data-toggle="modal" data-target="#confirm-suppress">Supprimer la page</button>
+							<script>
+								$("#suppress").click(e => e.preventDefault());
+							</script>
+							<div id="confirm-suppress" class="modal custom-modal fade" data-backdrop="static" data-keyboard="false">
 								<div class="modal-dialog modal-dialog-centered">
 									<div class="modal-content">
 										<div class="modal-header">
@@ -111,8 +114,8 @@ class PanelRedacView extends View {
 											Êtes-vous sûr de confirmer la suppression de la page "<?= htmlspecialchars($title) ?>" (<?= htmlspecialchars($id) ?>) ? Cette action est irréversible !
 										</div>
 										<div class="modal-footer">
-											<button class="btn main-btn panel-btn" data-dismiss="modal">Annuler</button>
 											<a class="btn main-btn panel-btn" href="/panel/redac/delete/<?= $num ?>">Confirmer la suppression</a>
+											<button class="btn main-btn panel-btn" data-dismiss="modal">Annuler</button>
 										</div>
 									</div>
 								</div>
