@@ -30,10 +30,10 @@ class UserProfileController extends Controller {
 		$this->view->displayProfile($user);
 	}
 
-	public function displaySettingsUser() {
+	public function displaySettingsUser($error = 0) {
 		$user = $this->user();
 		$mail = $this->model->recupMail($user);
-		$this->view->displaySettings($user, $mail);
+		$this->view->displaySettings($user, $mail, $error);
 		$this->title = "Paramètres";
 	}
 
@@ -41,11 +41,20 @@ class UserProfileController extends Controller {
 		if (is_null($name) || is_null($email) || is_null($description))
 			Utils::error(400, "Il manque des valeurs à mettre à jour");
 		$user = $this->user();
-		// TODO Vérifier $oldpassword et $newpasswordconfirm
-		if (!is_null($newpassword))
-			$this->model->updatePassword($newpassword, $user);
 		$this->model->updateSettings($name, $email, $description, $user);
-		Utils::redirect("/user/profile");
+		if (!is_null($newpassword) || !is_null($newpasswordconfirm) || !is_null($oldpassword)) {
+			if (is_null($newpassword) || is_null($newpasswordconfirm) || is_null($oldpassword))
+				$this->displaySettingsUser(1);
+			else if (!$this->model->passwordCheck($oldpassword, $user))
+				$this->displaySettingsUser(2);
+			else if ($newpassword != $newpasswordconfirm)
+				$this->displaySettingsUser(3);
+			else {
+				$this->model->updatePassword($newpassword, $user);
+				Utils::redirect("/user/profile");
+			}
+		} else
+			Utils::redirect("/user/profile");
 	}
 
 	public function modifyAvatar($avatar) {
