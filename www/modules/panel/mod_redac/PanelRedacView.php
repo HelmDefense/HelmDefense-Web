@@ -99,7 +99,10 @@ class PanelRedacView extends View {
 					</div>
 					<div class="col-12 col-lg-4 text-center">
 						<?php if ($num) { ?>
-							<button class="btn sub-btn panel-btn" data-toggle="modal" data-target="#confirm-suppress">Supprimer la page</button>
+							<button id="suppress" class="btn sub-btn panel-btn" data-toggle="modal" data-target="#confirm-suppress">Supprimer la page</button>
+							<script>
+								$("#suppress").click(e => e.preventDefault());
+							</script>
 							<div id="confirm-suppress" class="modal custom-modal fade" data-backdrop="static" data-keyboard="false">
 								<div class="modal-dialog modal-dialog-centered">
 									<div class="modal-content">

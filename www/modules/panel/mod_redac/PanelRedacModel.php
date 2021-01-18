@@ -27,6 +27,7 @@ class PanelRedacModel extends Model {
 			return false;
 		$author = Utils::executeRequest(self::$bdd, "SELECT id FROM hd_user_users WHERE login = :login", array("login" => Utils::session("login")), false)->id;
 		Utils::executeRequest(self::$bdd, "INSERT INTO hd_wiki_pages (id, title, content, author, published) VALUES (:id, :title, :content, :author, :published)", array("id" => $id, "title" => $title, "content" => $content, "author" => $author, "published" => intval($published)));
+		// Get l'id pour le nom du fichier image : self::$bdd->lastInsertId()
 		return true;
 	}
 

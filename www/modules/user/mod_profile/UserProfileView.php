@@ -76,19 +76,19 @@ class UserProfileView extends View {
 										<div class="modal-footer">
 											<form method="post" enctype="multipart/form-data" action="/user/settings/avatar">
 												<div class="custom-input-container">
-												    <div class="custom-file">
-    													<input id="avatar" name="avatar" class="custom-file-input" type="file" accept="image/*" />
-    													<label class="custom-file-label text-left" for="avatar" data-browse="Charger">Nouvel avatar</label>
-													    <script>
-														    $("#avatar").change(e1 => {
-														    	let file = e1.currentTarget.files[0];
-															    $("label[for=avatar]").text(file.name);
-															    let reader = new FileReader();
-															    reader.onload = e2 => $("#newavatar").attr("src", e2.target.result);
-															    reader.readAsDataURL(file);
-														    });
-													    </script>
-    												</div>
+													<div class="custom-file">
+														<input id="avatar" name="avatar" class="custom-file-input" type="file" accept="image/*" required />
+														<label class="custom-file-label text-left" for="avatar" data-browse="Charger">Nouvel avatar</label>
+														<script>
+															$("#avatar").change(e1 => {
+																let file = e1.currentTarget.files[0];
+																$("label[for=avatar]").text(file.name);
+																let reader = new FileReader();
+																reader.onload = e2 => $("#newavatar").attr("src", e2.target.result);
+																reader.readAsDataURL(file);
+															});
+														</script>
+													</div>
 												</div>
 												<div class="custom-input-container">
 													<input class="btn main-btn small-btn" type="submit" value="Modifier l'avatar" />
@@ -167,13 +167,13 @@ class UserProfileView extends View {
 									</div>
 									<h3 class="profile-title">Description</h3>
 									<div class="markdown-editor-container">
-									    <textarea id="description" name="description" placeholder="" required></textarea>
-    									<label class="sr-only" for="description">Description</label>
-    									<?= Utils::renderComponent("markdowneditor", "#description", $user->description, array("placeholder" => "Description")) ?>
+										<textarea id="description" name="description" placeholder="" required></textarea>
+										<label class="sr-only" for="description">Description</label>
+										<?= Utils::renderComponent("markdowneditor", "#description", $user->description, array("placeholder" => "Description")) ?>
 									</div>
 									<input type="hidden" name="check" value="valid" />
 									<div class="custom-input-container pb-0 text-center text-lg-right">
-									    <input class="btn sub-btn" type="submit" value="Enregistrer" />
+										<input class="btn sub-btn" type="submit" value="Enregistrer" />
 									</div>
 								</form>
 							</div>
