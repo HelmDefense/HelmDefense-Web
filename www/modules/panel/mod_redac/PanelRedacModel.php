@@ -20,18 +20,22 @@ class PanelRedacModel extends Model {
 		return Utils::executeRequest(self::$bdd, "SELECT num, id, title, content, published FROM hd_wiki_pages WHERE num = :num", array("num" => $page), false);
 	}
 
-	public function createNewPage($id, $title, $content, $published) {
+	private function image($image, $num) {
+		$imagePath = $_SERVER["DOCUMENT_ROOT"] . "/data/img/wiki/$num.png";
+		return move_uploaded_file($image->tmp_name, $imagePath);
+	}
+
+	public function createNewPage($id, $title, $content, $published, $image) {
 		$id = Utils::strNormalize($id);
 		$duplicate = Utils::executeRequest(self::$bdd, "SELECT count(1) FROM hd_wiki_pages WHERE id = :id", array("id" => $id), false, PDO::FETCH_COLUMN);
 		if ($duplicate)
 			return false;
 		$author = Utils::executeRequest(self::$bdd, "SELECT id FROM hd_user_users WHERE login = :login", array("login" => Utils::session("login")), false)->id;
 		Utils::executeRequest(self::$bdd, "INSERT INTO hd_wiki_pages (id, title, content, author, published) VALUES (:id, :title, :content, :author, :published)", array("id" => $id, "title" => $title, "content" => $content, "author" => $author, "published" => intval($published)));
-		// Get l'id pour le nom du fichier image : self::$bdd->lastInsertId()
-		return true;
+		return $this->image($image, self::$bdd->lastInsertId());
 	}
 
-	public function editPage($page, $id, $title, $content, $published) {
+	public function editPage($page, $id, $title, $content, $published, $image) {
 		$old = $this->getPage($page);
 		if (!$old)
 			return false;
@@ -40,7 +44,7 @@ class PanelRedacModel extends Model {
 				$$val = $old->$val;
 		$id = Utils::strNormalize($id);
 		Utils::executeRequest(self::$bdd, "UPDATE hd_wiki_pages SET id = :id, title = :title, content = :content, published = :published WHERE num = :num", array("id" => $id, "title" => $title, "content" => $content, "published" => intval($published), "num" => $page));
-		return true;
+		return is_null($image) || $this->image($image, $page);
 	}
 
 	public function deletePage($page) {
@@ -48,6 +52,6 @@ class PanelRedacModel extends Model {
 		if (!$exists)
 			return false;
 		Utils::executeRequest(self::$bdd, "DELETE FROM hd_wiki_pages WHERE num = :num", array("num" => $page));
-		return true;
+		return unlink($_SERVER["DOCUMENT_ROOT"] . "/data/img/wiki/$page.png");
 	}
 }

@@ -66,8 +66,24 @@ class PanelRedacView extends View {
 				</div>
 			<?php } ?>
 			<h2><?= $num ? "Édition de la" : "Nouvelle" ?> page Wiki</h2>
-			<form method="post">
+			<form method="post" enctype="multipart/form-data">
 				<input type="hidden" name="check" value="valid" />
+				<img id="page-image" class="w-100" src="https://via.placeholder.com/250?text=data/img/wiki/<?= $num ?>.png" alt="Aucune" />
+				<div class="custom-input-container">
+					<div class="custom-file">
+						<input id="image" name="image" class="custom-file-input" type="file" accept="image/png" required />
+						<label class="custom-file-label" for="image" data-browse="Charger">Image de la page</label>
+						<script>
+                            $("#image").change(e1 => {
+                                let file = e1.currentTarget.files[0];
+                                $("label[for=image]").text(file.name);
+                                let reader = new FileReader();
+                                reader.onload = e2 => $("#page-image").attr("src", e2.target.result);
+                                reader.readAsDataURL(file);
+                            });
+						</script>
+					</div>
+				</div>
 				<div class="custom-input-container">
 					<div class="custom-input">
 						<input id="title" name="title" type="text" placeholder="" value="<?= $title ?>" required />

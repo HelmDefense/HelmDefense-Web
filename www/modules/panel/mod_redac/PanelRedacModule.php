@@ -23,7 +23,7 @@ class PanelRedacModule extends Module {
 			if ($data->check == "invalid")
 				$this->controller->displayNewPage();
 			else
-				$this->controller->createNewPage($data->id, $data->title, $data->content, !is_null($data->published));
+				$this->controller->createNewPage($data->id, $data->title, $data->content, !is_null($data->published), Utils::files("image"));
 			break;
 		case "edit":
 			$page = Utils::extraRequired(0, "La page à éditer n'a pas été précisée");
@@ -31,7 +31,7 @@ class PanelRedacModule extends Module {
 			if ($data->check == "invalid")
 				$this->controller->displayEditPage($page);
 			else
-				$this->controller->editPage($page, $data->id, $data->title, $data->content, !is_null($data->published));
+				$this->controller->editPage($page, $data->id, $data->title, $data->content, !is_null($data->published), Utils::files("image"));
 			break;
 		case "delete":
 			$page = Utils::extraRequired(0, "La page à supprimer n'a pas été précisée");

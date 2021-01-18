@@ -32,7 +32,7 @@ class UserProfileModule extends Module {
 				$this->controller->deleteAccount(Utils::postRequired("password"));
 				break;
 			case "avatar":
-				$this->controller->modifyAvatar(Utils::toStdClass(Utils::arrRequired($_FILES, "avatar")));
+				$this->controller->modifyAvatar(Utils::filesRequired("avatar"));
 				break;
 			default:
 				Utils::error(404, "Action inconnue");
