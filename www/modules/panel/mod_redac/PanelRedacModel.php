@@ -10,7 +10,7 @@ class PanelRedacModel extends Model {
 		$offset = ($p - 1) * $limit;
 		$pages = new stdClass();
 		self::$bdd->beginTransaction();
-		$pages->result = Utils::executeRequest(self::$bdd, "SELECT SQL_CALC_FOUND_ROWS p.num, p.id, p.title, p.created_at, p.edited_at, u.login AS author, u.name AS author_name, p.published FROM hd_wiki_pages AS p INNER JOIN hd_user_users AS u on p.author = u.id LIMIT $offset, $limit");
+		$pages->result = Utils::executeRequest(self::$bdd, "SELECT SQL_CALC_FOUND_ROWS p.num, p.id, p.title, p.created_at, p.edited_at, u.login AS author, u.name AS author_name, p.published FROM hd_wiki_pages AS p INNER JOIN hd_user_users AS u on p.author = u.id WHERE p.title <> '' LIMIT $offset, $limit");
 		$pages->count = Utils::executeRequest(self::$bdd, "SELECT found_rows() AS total", array(), false, PDO::FETCH_COLUMN);
 		self::$bdd->commit();
 		return $pages;
