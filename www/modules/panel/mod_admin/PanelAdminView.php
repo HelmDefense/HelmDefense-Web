@@ -56,8 +56,8 @@ class PanelAdminView extends View {
 					<tr>
 						<td><img class="user-avatar" src="/data/img/avatar/<?= is_null($user->avatar) ? "default.png" : $user->avatar ?>" alt="Avatar de <?= $user->name ?>" /></td>
 						<td><?= htmlspecialchars($user->id) ?></td>
-						<td><a href="/panel/admin/edit/<?= $user->id ?>" data-toggle="tooltip" title="modifier les rôles de l'utilisateur" target="_blank"><?= htmlspecialchars($user->login) ?></a></td>
-						<td><a href="/user/profile/<?= $user->login ?>" data-toggle="tooltip" title="Voir le profil de l'utilisateur" target="_blank"><?= htmlspecialchars($user->name) ?></a></td>
+						<td><a href="/panel/admin/edit/<?= $user->id ?>" data-toggle="tooltip" title="Modifier les rôles"><?= htmlspecialchars($user->login) ?></a></td>
+						<td><a href="/user/profile/<?= $user->login ?>" data-toggle="tooltip" title="Voir le profil" target="_blank"><?= htmlspecialchars($user->name) ?></a></td>
 						<td><a href="mailto:<?= $user->email ?>"><?= htmlspecialchars($user->email) ?></a></td>
 						<td><?= Utils::formatDate($user->joined_at) ?></td>
 						<td>
@@ -120,7 +120,7 @@ class PanelAdminView extends View {
 			<img src="/data/img/avatar/<?= is_null($user->avatar) ? "default.png" : $user->avatar ?>" alt="Avatar de <?= $user->name ?>" />
 			<form method="post">
 				<div class="custom-input">
-					<input id="login" name="login" type="text" value="<?= htmlspecialchars($user->name) ?>" placeholder="" required/>
+					<input id="login" name="login" type="text" value="<?= $user->login ?>" placeholder="" required/>
 					<label for="login">Login</label>
 				</div>
 				<h3><a href="mailto:<?= $user->email ?>"><?= $user->email ?></a></h3>

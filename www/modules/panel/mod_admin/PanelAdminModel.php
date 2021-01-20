@@ -43,7 +43,7 @@ class PanelAdminModel extends Model {
 	}
 
 	public function getUser($id) {
-		return Utils::executeRequest(self::$bdd, "SELECT name, avatar, email, ranks FROM hd_user_users WHERE id = :id", array("id" => $id), false);
+		return Utils::executeRequest(self::$bdd, "SELECT login, name, avatar, email, ranks FROM hd_user_users WHERE id = :id", array("id" => $id), false);
 	}
 
 	public function editRole($id, $login, $admin, $dev, $modo, $redac) {
@@ -51,16 +51,15 @@ class PanelAdminModel extends Model {
 		if (!$exists)
 			return false;
 		$ranks = 0;
-		if (isset($admin))
-			$ranks += 1;
-		if (isset($dev))
-			$ranks += 2;
-		if (isset($modo))
-			$ranks += 4;
-		if (isset($redac))
-			$ranks += 8;
-		Utils::executeRequest(self::$bdd, "UPDATE hd_user_users SET login = :login WHERE id = :id", array("login" => $login, "id" => $id));
-		Utils::executeRequest(self::$bdd, "UPDATE hd_user_users SET ranks = :ranks WHERE id = :id", array("ranks" => $ranks, "id" => $id));
+		if (!is_null($admin))
+			$ranks |= 0b0001;
+		if (!is_null($dev))
+			$ranks |= 0b0010;
+		if (!is_null($modo))
+			$ranks |= 0b0100;
+		if (!is_null($redac))
+			$ranks |= 0b1000;
+		Utils::executeRequest(self::$bdd, "UPDATE hd_user_users SET ranks = :ranks, login = :login WHERE id = :id", array("ranks" => $ranks, "login" => $login, "id" => $id));
 		return true;
 	}
 }
