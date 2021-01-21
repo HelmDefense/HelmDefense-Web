@@ -21,6 +21,11 @@ class UserProfileModel extends Model {
 		Utils::executeRequest(self::$bdd, "UPDATE hd_user_users SET `name` = :name, email = :email, description = :description WHERE login = :id", array("name" => $name, "email" => $email, "description" => $description, "id" => $user->id));
 	}
 
+	public function passwordCheck($password, $user){
+		$result = Utils::httpPostRequest("v1/users/auth/$user->id",array("password" => $password));
+		return !Utils::isError($result) && $result;
+	}
+
 	private function deleteAvatar($user) {
 		$oldAvatar = Utils::executeRequest(self::$bdd, "SELECT avatar FROM hd_user_users WHERE login = :id", array("id" => $user->id), false, PDO::FETCH_COLUMN);
 		return is_null($oldAvatar) || unlink($_SERVER["DOCUMENT_ROOT"] . "/data/img/avatar/$oldAvatar");

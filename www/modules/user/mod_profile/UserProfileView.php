@@ -51,11 +51,32 @@ class UserProfileView extends View {
 		}
 	}
 
-	public function displaySettings($user, $email) {
+	public function displaySettings($user, $email, $error = 0) {
 		Utils::addResource("<link rel='stylesheet' href='/data/css/form.css' />"); ?>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="profile-page col-12 col-xl-9">
+					<?php if ($error) { ?>
+						<div class="alert alert-danger">
+							<?php
+							switch ($error) {
+							case 1:
+								echo "Il vous manque des éléments dans la modification de mot de passe";
+								break;
+							case 2:
+								echo "Votre mot de passe est invalide";
+								break;
+							case 3:
+								echo "Les deux mots de passe ne correspondent pas";
+								break;
+							default:
+								echo "Il y a eu une erreur lors du changement de vos informations";
+								break;
+							}
+							?>
+							<button class="close" data-dismiss="alert"><span>&times;</span></button>
+						</div>
+					<?php } ?>
 					<div class="row">
 						<div class="text-center col-12 col-md-4">
 							<img class="w-100" src="<?= $user->avatar ?>" alt="Avatar de <?= $user->name ?>" />
