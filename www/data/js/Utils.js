@@ -697,4 +697,19 @@ Utils.date.format = function(date = "now", format = "d/m/Y à H:i:s", def = "Dat
 Utils.misc.jWindow.on("load", () => {
 	// Enable tooltips
 	$("[data-toggle=tooltip]").tooltip();
+
+	// Require captcha complete
+	$("form[data-require-captcha]").submit(e => {
+		if (grecaptcha.getResponse().length === 0) {
+			let container = e.currentTarget.dataset.requireCaptcha;
+			Utils.alerts.warning("Vous devez remplir le captcha", true, true, container ? $(container) : null);
+			return false;
+		}
+		return true;
+	});
 });
+
+/**
+ * @function grecaptcha.getResponse
+ * @return {string} - Captcha response (empty when uncompleted)
+ */

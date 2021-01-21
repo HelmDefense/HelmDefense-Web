@@ -137,6 +137,11 @@ class Utils {
 	);
 
 	/**
+	 * @var string|null Server configuration
+	 */
+	private static $config = null;
+
+	/**
 	 * Private constructor to mark this class as static
 	 */
 	private function __construct() {}
@@ -446,12 +451,13 @@ class Utils {
 	}
 
 	/**
-	 * Shortcut for `Utils::renderComponent("markdowntext", $text)`
+	 * Shortcut for `Utils::renderComponent("markdowntext", $text, $inverted)`
 	 * @param string $text The text to translate as Markdown
+	 * @param bool $inverted Whether to invert the Markdown style colors
 	 * @return string The markdown translated text
 	 */
-	static function markdown($text) {
-		return self::renderComponent("markdowntext", $text);
+	static function markdown($text, $inverted = false) {
+		return self::renderComponent("markdowntext", $text, $inverted);
 	}
 
 	/**
@@ -490,6 +496,39 @@ class Utils {
 		foreach ($_SESSION as $key => $val)
 			if (strpos($key, "timeout-") === 0 && $val - time() <= 0)
 				unset($_SESSION[$key]);
+	}
+
+	/**
+	 * Load the config from the `config.json` file
+	 * @see Utils::config()
+	 */
+	static function loadConfig() {
+		$config = self::file($_SERVER["DOCUMENT_ROOT"] . "/../config.json");
+		if (!is_null($config))
+			self::$config = json_decode($config);
+	}
+
+	/**
+	 * Retrieve a value from the server config
+	 * @param string $path The path of the config resource (use a dot to access objects' properties)
+	 * @param mixed|null $def The default value if the resource doesn't exists
+	 * @return mixed The retrieved value or $def
+	 */
+	static function config($path, $def = null) {
+		// Load config if needed
+		if (is_null(self::$config))
+			self::loadConfig();
+		// Split path
+		$parts = explode(".", $path);
+		$config = self::$config;
+		// Explore the config to find the requested value
+		foreach ($parts as $part) {
+			if (isset($config->$part))
+				$config = $config->$part;
+			else
+				return $def;
+		}
+		return $config;
 	}
 
 	/**
@@ -864,5 +903,18 @@ class Utils {
 			$str = preg_replace("/[.\-_]+/", "_", $str);
 		$str = trim($str, "-_\t\n\r\0\x0B");
 		return $str;
+	}
+
+	/**
+	 * Verify whether a captcha is validated
+	 * @return boolean Whether the captcha is valid
+	 */
+	static function checkCaptcha() {
+		$captcha = self::httpPostRequest("https://www.google.com/recaptcha/api/siteverify", array(
+				"secret" => self::config("captcha.secret"),
+				"response" => self::post("g-recaptcha-response", "invalid"),
+				"remoteip" => $_SERVER["REMOTE_ADDR"]
+		), false, true, false);
+		return $captcha->success;
 	}
 }

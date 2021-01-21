@@ -88,6 +88,11 @@ class Utils {
 	);
 
 	/**
+	 * @var string|null Server configuration
+	 */
+	private static $config = null;
+
+	/**
 	 * @param string $val
 	 * @param string|null $def
 	 * @return string|null
@@ -193,6 +198,39 @@ class Utils {
 	}
 
 	/**
+	 * Load the config from the `config.json` file
+	 * @see Utils::config()
+	 */
+	static function loadConfig() {
+		$config = self::file($_SERVER["DOCUMENT_ROOT"] . "/../config.json");
+		if (!is_null($config))
+			self::$config = json_decode($config);
+	}
+
+	/**
+	 * Retrieve a value from the server config
+	 * @param string $path The path of the config resource (use a dot to access objects' properties)
+	 * @param mixed|null $def The default value if the resource doesn't exists
+	 * @return mixed The retrieved value or $def
+	 */
+	static function config($path, $def = null) {
+		// Load config if needed
+		if (is_null(self::$config))
+			self::loadConfig();
+		// Split path
+		$parts = explode(".", $path);
+		$config = self::$config;
+		// Explore the config to find the requested value
+		foreach ($parts as $part) {
+			if (isset($config->$part))
+				$config = $config->$part;
+			else
+				return $def;
+		}
+		return $config;
+	}
+
+	/**
 	 * @param array $array
 	 * @return stdClass
 	 */
@@ -237,5 +275,17 @@ class Utils {
 		if (!$query->execute($params))
 			Utils::error(500, "SQL request error (" . $query->errorInfo()[2] . ")");
 		return $multiple ? $query->fetchAll($fetch_style) : $query->fetch($fetch_style);
+	}
+
+	/**
+	 * Read a file to get the content
+	 * @param string $filename The file to read
+	 * @param string $start Additional string to insert before the returned file content
+	 * @param string $end Additional string to insert after the returned file content
+	 * @return string|null The file content surrounded with start and end if the file exists, null otherwise
+	 * @see file_exists(), file_get_contents()
+	 */
+	static function file($filename, $start = "", $end = "") {
+		return file_exists($filename) ? $start . file_get_contents($filename) . $end : null;
 	}
 }

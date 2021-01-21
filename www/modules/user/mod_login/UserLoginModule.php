@@ -16,15 +16,15 @@ class UserLoginModule extends Module {
 	 */
 	protected function execute() {
 		$request = Utils::get("module", "login");
-
+		$referer = Utils::arr($_SERVER, "HTTP_REFERER", Utils::SITE_URL);
 		if ($request == "logout") {
-			$this->controller->logout();
+			$this->controller->logout($referer);
 		} else {
-			$data = Utils::postMany(array("user", "password", "check" => "invalid"), true);
+			$data = Utils::postMany(array("user", "password", "referer" => Utils::SITE_URL, "check" => "invalid"), true);
 			if ($data->check == "invalid")
-				$this->controller->loginPage();
+				$this->controller->loginPage($referer);
 			else
-				$this->controller->login($data->user, $data->password);
+				$this->controller->login($data->user, $data->password, $data->referer);
 		}
 	}
 }

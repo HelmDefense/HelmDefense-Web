@@ -6,7 +6,7 @@ class MarkdownTextController extends Controller {
 		parent::__construct(new MarkdownTextModel(), new MarkdownTextView());
 	}
 
-	public function generateMarkdown($text) {
-		$this->view->displayMarkdown($this->model->parseMarkdown($text));
+	public function generateMarkdown($text, $inverted) {
+		$this->view->displayMarkdown($this->model->parseMarkdown($text), $inverted);
 	}
 }

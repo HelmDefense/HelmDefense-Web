@@ -50,7 +50,7 @@ class PanelRedacView extends View {
 					defaultPage: <?= $p ?>,
 					triggerOnCreation: false,
 					ignoreWhenSelected: true,
-					customClass: "justify-content-center"
+					customClass: "justify-content-center dark"
 				});
 			</script>
 		</div>

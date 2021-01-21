@@ -2,7 +2,7 @@
 namespace Component;
 
 class MarkdownTextView extends View {
-	public function displayMarkdown($text) {
-		echo "<div class='markdown'>$text</div>";
+	public function displayMarkdown($text, $inverted) {
+		echo "<div class='markdown" . ($inverted ? " inverted" : "") . "'>$text</div>";
 	}
 }

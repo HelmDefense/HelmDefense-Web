@@ -1,42 +1,54 @@
+<?php
+$user = Utils::loggedInUser();
+$name = is_null($user) ? "" : addslashes($user->name);
+?>
+
 <div class="container">
-	<div class="my-5">
+	<div id="message-container" class="my-5">
     	<?php
     	$contact = Utils::postMany(array("check", "nom", "email", "objet", "message"), true);
     	if ($contact->check == "ok") {
-    		$valid = true;
-    		foreach ($contact as $key => $value) {
-    			if (is_null($value) || empty($value)) {
-    				$valid = false; ?>
-    				<div class="alert alert-warning" role="alert">
-    					Vous n'avez pas renseigné le champ : "<?= $key?>" !
-    					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    				</div>
-    			<?php }
-    		}
-    		if ($valid) {
-    			if (@mail("contact@helmdefense.theoszanto.fr", $contact->objet, Utils::markdown($contact->message), "From: $contact->nom <$contact->email>")) { ?>
-    				<div class="alert alert-success" role="alert">
-    					Votre message a bien été envoyé !
-    					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    				</div>
-    			<?php } else { ?>
-    				<div class="alert alert-danger" role="alert">
-    					Votre message n'a pas pu être envoyé !
-    					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    				</div>
-    			<?php }
-    		}
+		    if (Utils::checkCaptcha()) {
+			    $valid = true;
+			    foreach ($contact as $key => $value) {
+				    if (is_null($value) || empty($value)) {
+					    $valid = false; ?>
+					    <div class="alert alert-warning" role="alert">
+						    Vous n'avez pas renseigné le champ : "<?= $key?>" !
+						    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					    </div>
+				    <?php }
+			    }
+			    if ($valid) {
+				    if (@mail("contact@helmdefense.theoszanto.fr", $contact->objet, Utils::markdown($contact->message), "From: $contact->nom <$contact->email>")) { ?>
+					    <div class="alert alert-success" role="alert">
+						    Votre message a bien été envoyé !
+						    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					    </div>
+				    <?php } else { ?>
+					    <div class="alert alert-danger" role="alert">
+						    Votre message n'a pas pu être envoyé !
+						    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					    </div>
+				    <?php }
+			    }
+		    } else { ?>
+			    <div class="alert alert-danger" role="alert">
+				    Vous n'avez pas complété le captcha !
+				    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			    </div>
+		    <?php }
     	}
     	?>
 	</div>
 	<h2>Contact</h2>
 	<p class="required-legend">Les champs marqués d'une étoile sont requis</p>
-	<form class="form" method="post">
+	<form id="contact-form" method="post" data-require-captcha>
 		<input type="hidden" name="check" value="ok" />
 		<div class="row">
 			<div class="custom-input-container custom-input-container-inline col-12 col-lg-6">
 				<div class="custom-input">
-					<input id="nom" name="nom" type="text" placeholder="" required />
+					<input id="nom" name="nom" type="text" placeholder="" value="<?= $name ?>" required />
 					<label for="nom">Nom</label>
 				</div>
 			</div>
@@ -58,6 +70,7 @@
 			<label class="sr-only" for="message">Message</label>
 			<?= Utils::renderComponent("markdowneditor", "#message", null, array("placeholder" => "Message")) ?>
 		</div>
+		<?= Utils::renderComponent("captcha", "d-flex justify-content-center justify-content-lg-end custom-input-container") ?>
 		<div class="text-center text-lg-right">
 			<input id="submit" class="btn sub-btn" name="submit" type="submit" placeholder="" value="Envoyer" required />
 		</div>

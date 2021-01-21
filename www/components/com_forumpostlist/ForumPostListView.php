@@ -98,7 +98,7 @@ class ForumPostListView extends View {
 				defaultPage: <?= $page ?>,
 				triggerOnCreation: false,
 				ignoreWhenSelected: true,
-				customClass: "justify-content-center"
+				customClass: "justify-content-center dark"
 			});
 		</script>
 	<?php }

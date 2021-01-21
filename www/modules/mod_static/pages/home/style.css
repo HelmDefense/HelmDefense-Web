@@ -35,11 +35,14 @@
 .carousel-item h2 {
 	font-size: 60px;
 	width: 100%;
+	margin-top: 0;
+	text-shadow: 0 0 5px black;
 }
 
 .carousel-item p {
 	font-family: var(--font-title);
 	font-size: 100px;
+	text-shadow: 0 0 5px black;
 }
 
 .carousel-btn {

@@ -25,30 +25,10 @@ class Connection {
 	 * @return PDO
 	 */
 	private static function dbconnect() {
-		$dbconnect = self::get_dbconnect_info();
-		if (is_null($dbconnect))
+		$dbconnect = Utils::config("database");
+		if (is_null($dbconnect) || !isset($dbconnect->dsn, $dbconnect->user, $dbconnect->pass))
 			throw new PDOException("Fichier de connexion invalide");
 
-		return new PDO($dbconnect["dsn"], $dbconnect["user"], $dbconnect["pass"]);
-	}
-
-	/**
-	 * @return array|null
-	 */
-	private static function get_dbconnect_info() {
-		$file = Utils::file($_SERVER["DOCUMENT_ROOT"] . "/../.dbconnect");
-		if (is_null($file))
-			return null;
-
-		$file = str_replace("\r", "", $file);
-		$file_split = explode("\n", $file);
-		if (count($file_split) != 3)
-			return null;
-
-		return array(
-				"dsn" => $file_split[0],
-				"user" => $file_split[1],
-				"pass" => $file_split[2]
-		);
+		return new PDO($dbconnect->dsn, $dbconnect->user, $dbconnect->pass);
 	}
 }

@@ -4,11 +4,11 @@ namespace Module;
 use Utils;
 
 class UserLoginView extends View {
-	public function login($error = 0) {
+	public function login($referer, $error = 0) {
 		Utils::addResource("<link rel='stylesheet' href='/data/css/form.css' />"); ?>
 		<div class="container">
 			<?php if ($error) { ?>
-				<div class="alert alert-danger">
+				<div class="alert alert-danger mt-5">
 					<?php
 					switch ($error) {
 					case 1:
@@ -36,6 +36,7 @@ class UserLoginView extends View {
 			<h2>Connexion</h2>
 
 			<form method="post">
+				<input type="hidden" name="referer" value="<?= $referer ?>" />
 				<div class="custom-input-container">
 					<div class="custom-input">
 						<input id="user" name="user" type="text" placeholder="" required />

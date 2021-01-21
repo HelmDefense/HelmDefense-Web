@@ -1,3 +1,13 @@
+.markdown-editor-container {
+	margin: 15px 0;
+	border: 5px solid var(--fg-color);
+}
+
+.markdown-editor-container-small .CodeMirror,
+.markdown-editor-container-small .CodeMirror-scroll {
+	min-height: 100px;
+}
+
 .editor-preview-side {
 	z-index: 60;
 }

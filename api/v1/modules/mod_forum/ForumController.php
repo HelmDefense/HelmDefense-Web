@@ -28,12 +28,17 @@ class ForumController {
 		$this->view->json($posts);
 	}
 
-	public function get($type, $id) {
-		$post = $this->model->get($type, $id);
+	public function get($type, $id, $limit, $page) {
+		if ($limit <= 0)
+			Utils::error(400, "Invalid limit");
+		if ($page <= 0)
+			Utils::error(400, "Invalid page");
+		$offset = ($page - 1) * $limit;
+		$post = $this->model->get($type, $id, $limit, $offset);
 		if (is_null($post))
 			Utils::error(404, "Unknown post type");
 		if (!$post)
-			Utils::error(404, "Invalid post id");
+			Utils::error(404, "Invalid post or msg id");
 		$this->view->json($post);
 	}
 }

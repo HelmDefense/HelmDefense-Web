@@ -8,6 +8,7 @@
 }
 
 .custom-pagination .custom-pagination-item .page-link {
+	background-color: var(--fg-color);
 	border-color: white;
 	margin: 0 -2px;
 	font-family: var(--font-title);
@@ -17,6 +18,10 @@
 
 .custom-pagination .custom-pagination-item.active .page-link {
 	background-color: var(--bg-color) !important;
+}
+
+.custom-pagination.dark .custom-pagination-item.active .page-link {
+	background-color: var(--active-color) !important;
 }
 
 .custom-pagination .custom-pagination-item:hover .page-link {

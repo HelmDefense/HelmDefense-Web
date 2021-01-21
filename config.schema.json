@@ -1,0 +1,253 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://helmdefense.theoszanto.fr/config.json",
+  "type": "object",
+  "title": "Helm Defense config.json",
+  "description": "The configuration of Helm Defense website",
+  "default": {
+    "database": {
+      "dsn": "mysql:dbname=DB_NAME_HERE;host=localhost;charset=utf8",
+      "user": "",
+      "pass": ""
+    },
+    "captcha": {
+      "sitekey": "",
+      "secret": ""
+    },
+    "smtp": {
+      "host": "",
+      "port": 25,
+      "username": "",
+      "password": ""
+    },
+    "discord": {
+      "webhook": "https://discord.com/api/webhooks/WEBHOOK_ID_HERE/WEBHOOK_TOKEN_HERE"
+    }
+  },
+  "examples": [
+    {
+      "database": {
+        "dsn": "mysql:dbname=DB_NAME_HERE;host=localhost;charset=utf8",
+        "user": "",
+        "pass": ""
+      },
+      "captcha": {
+        "sitekey": "",
+        "secret": ""
+      },
+      "smtp": {
+        "host": "",
+        "port": 25,
+        "username": "",
+        "password": ""
+      },
+      "discord": {
+        "webhook": "https://discord.com/api/webhooks/WEBHOOK_ID_HERE/WEBHOOK_TOKEN_HERE"
+      }
+    }
+  ],
+  "required": [
+    "database",
+    "captcha",
+    "smtp",
+    "discord"
+  ],
+  "properties": {
+    "database": {
+      "$id": "#database",
+      "type": "object",
+      "title": "Database connection configuration",
+      "description": "The configuration of the database",
+      "default": {
+        "dsn": "mysql:dbname=DB_NAME_HERE;host=localhost;charset=utf8",
+        "user": "",
+        "pass": ""
+      },
+      "examples": [
+        {
+          "dsn": "mysql:dbname=DB_NAME_HERE;host=localhost;charset=utf8",
+          "user": "",
+          "pass": ""
+        }
+      ],
+      "required": [
+        "dsn",
+        "user",
+        "pass"
+      ],
+      "properties": {
+        "dsn": {
+          "$id": "#database.dsn",
+          "type": "string",
+          "title": "Data Source Name",
+          "description": "The database DSN used to connect",
+          "default": "mysql:dbname=DB_NAME_HERE;host=localhost;charset=utf8",
+          "examples": [
+            "mysql:dbname=DB_NAME_HERE;host=localhost;charset=utf8"
+          ]
+        },
+        "user": {
+          "$id": "#database.user",
+          "type": "string",
+          "title": "Database username",
+          "description": "The database username used to connect",
+          "default": "",
+          "examples": [
+            ""
+          ]
+        },
+        "pass": {
+          "$id": "#database.pass",
+          "type": "string",
+          "title": "Database password",
+          "description": "The database password used to connect",
+          "default": "",
+          "examples": [
+            ""
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "captcha": {
+      "$id": "#captcha",
+      "type": "object",
+      "title": "Google reCAPTCHA configuration",
+      "description": "The configuration of the captcha",
+      "default": {},
+      "examples": [
+        {
+          "sitekey": "",
+          "secret": ""
+        }
+      ],
+      "required": [
+        "sitekey",
+        "secret"
+      ],
+      "properties": {
+        "sitekey": {
+          "$id": "#captcha.sitekey",
+          "type": "string",
+          "title": "reCAPTCHA Site Key",
+          "description": "The site key of your Google reCAPTCHA",
+          "default": "",
+          "examples": [
+            ""
+          ]
+        },
+        "secret": {
+          "$id": "#captcha.secret",
+          "type": "string",
+          "title": "reCAPTCHA Secret",
+          "description": "The secret of your Google reCAPTCHA",
+          "default": "",
+          "examples": [
+            ""
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "smtp": {
+      "$id": "#smtp",
+      "type": "object",
+      "title": "Simple Mail Transfer Protocol configuration",
+      "description": "The configuration of the SMTP",
+      "default": {
+        "host": "",
+        "port": 25,
+        "username": "",
+        "password": ""
+      },
+      "examples": [
+        {
+          "host": "",
+          "port": 25,
+          "username": "",
+          "password": ""
+        }
+      ],
+      "required": [
+        "host",
+        "port",
+        "username",
+        "password"
+      ],
+      "properties": {
+        "host": {
+          "$id": "#smtp.host",
+          "type": "string",
+          "title": "SMTP host",
+          "description": "The hostname of the SMTP server",
+          "default": "",
+          "examples": [
+            "localhost"
+          ]
+        },
+        "port": {
+          "$id": "#smtp.port",
+          "type": "integer",
+          "title": "SMTP port",
+          "description": "The port of the SMTP server",
+          "default": 25,
+          "examples": [
+            25
+          ]
+        },
+        "username": {
+          "$id": "#smtp.username",
+          "type": "string",
+          "title": "SMTP username",
+          "description": "The username to connect to the SMTP server",
+          "default": "",
+          "examples": [
+            ""
+          ]
+        },
+        "password": {
+          "$id": "#smtp.password",
+          "type": "string",
+          "title": "SMTP password",
+          "description": "The password to connect to the SMTP server",
+          "default": "",
+          "examples": [
+            ""
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "discord": {
+      "$id": "#discord",
+      "type": "object",
+      "title": "Discord configuration",
+      "description": "The configuration of the Discord",
+      "default": {
+        "webhook": "https://discord.com/api/webhooks/WEBHOOK_ID_HERE/WEBHOOK_TOKEN_HERE"
+      },
+      "examples": [
+        {
+          "webhook": "https://discord.com/api/webhooks/WEBHOOK_ID_HERE/WEBHOOK_TOKEN_HERE"
+        }
+      ],
+      "required": [
+        "webhook"
+      ],
+      "properties": {
+        "webhook": {
+          "$id": "#discord.webhook",
+          "type": "string",
+          "title": "Discord Webhook",
+          "description": "The Discord Webhook triggered on site interactions",
+          "default": "https://discord.com/api/webhooks/WEBHOOK_ID_HERE/WEBHOOK_TOKEN_HERE",
+          "examples": [
+            "https://discord.com/api/webhooks/WEBHOOK_ID_HERE/WEBHOOK_TOKEN_HERE"
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

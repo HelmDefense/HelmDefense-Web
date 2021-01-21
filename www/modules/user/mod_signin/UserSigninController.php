@@ -14,7 +14,7 @@ class UserSigninController extends Controller {
 	}
 
 	public function resetPasswordRequest($id, $password, $passwordconfirm) {
-		if (is_null($id) || is_null($password) || is_null($passwordconfirm) || $password != $passwordconfirm) {
+		if (is_null($id) || is_null($password) || is_null($passwordconfirm) || $password != $passwordconfirm || !Utils::checkCaptcha()) {
 			$this->resetPasswordPage();
 			return;
 		}
@@ -39,7 +39,9 @@ class UserSigninController extends Controller {
 	public function signin($id, $name, $password, $email, $passwordConfirm) {
 		Utils::timeoutCheck("signin");
 		$error = 0;
-		if (!preg_match("/[a-z0-9_-]{3,32}/i", $id))
+		if (!Utils::checkCaptcha())
+			$error = 10;
+		else if (!preg_match("/[a-z0-9_-]{3,32}/i", $id))
 			$error = 2;
 		else if (is_null($id))
 			$error = 3;

@@ -23,6 +23,7 @@ Utils::$modules["forum/talk"] = // We fake "talk" module to redirect to "home" m
 Utils::$modules["forum/rate"] = // We fake "rate" module to redirect to "home" module
 Utils::$modules["forum/strat"] = // We fake "strat" module to redirect to "home" module
 Utils::$modules["forum/"] = new Mod("home", "ForumHome", "<link rel='stylesheet' href='/data/css/forum.css' />", true, "forum");
+Utils::$modules["forum/post"] = new Mod("post", "ForumPost", "<link rel='stylesheet' href='/data/css/forum.css' />", true, "forum");
 
 // Panel modules
 Utils::$modules["panel/"] = new Mod("home", "PanelHome", "<link rel='stylesheet' href='/data/css/panel.css' />", false, "panel");

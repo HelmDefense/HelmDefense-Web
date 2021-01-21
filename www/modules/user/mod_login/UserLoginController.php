@@ -8,27 +8,29 @@ class UserLoginController extends Controller {
 		parent::__construct(new UserLoginModel(), new UserLoginView());
 	}
 
-	public function loginPage($error = 0) {
-		$this->view->login($error);
+	public function loginPage($referer, $error = 0) {
+		$this->view->login($referer, $error);
 	}
 
-	public function login($name, $password) {
+	public function login($name, $password, $referer) {
 		if (is_null($name))
-			$this->loginPage(3);
+			$this->loginPage($referer, 3);
 		else if (is_null($password))
-			$this->loginPage(4);
+			$this->loginPage($referer, 4);
 		else {
 			$result = $this->model->userConnect($name, $password);
 			if ($result) {
-				$this->view->login($result);
+				$this->view->login($referer, $result);
 			} else {
-				Utils::redirect("/");
+				if (preg_match("/^[^\/]+\/\/[^\/]+\/user\/(login|signin)(\/|$)/i", $referer))
+					$referer = "/";
+				Utils::redirect($referer);
 			}
 		}
 	}
 
-	public function logout() {
+	public function logout($referer) {
 		$this->model->userDisconnect();
-		Utils::redirect("/");
+		Utils::redirect($referer);
 	}
 }

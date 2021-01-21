@@ -35,6 +35,6 @@ class UserSigninModel extends Model{
 			return 1;
 		Utils::executeRequest(self::$bdd, "INSERT INTO hd_user_users (login, password, email, name, description) VALUES (:login, :password, :email, :name, :description)", array("login" => $login, "password" => password_hash($password, PASSWORD_DEFAULT), "email" => $email, "name" => $name, "description" => "Je suis la description par defaut. N'hésitez pas à me modifier !"));
 		$_SESSION["login"] = $login;
-		return mail($email, "Nouveau compte Helm Defense", "Bonjour $name\r\n"."Nous vous confirmons la création de votre compte !", "From: Helm Defense <helmdefense@theoszanto.fr>") ? 0 : 10;
+		return mail($email, "Nouveau compte Helm Defense", "Bonjour $name\r\nNous vous confirmons la création de votre compte !", "From: Helm Defense <helmdefense@theoszanto.fr>") ? 0 : 11;
 	}
 }
