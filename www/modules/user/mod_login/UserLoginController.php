@@ -18,12 +18,17 @@ class UserLoginController extends Controller {
 		else if (is_null($password))
 			$this->loginPage(4);
 		else {
-			$result = $this->model->userConnect($name, $password);
-			if ($result) {
-				$this->view->login($result);
-			} else {
-				Utils::redirect("/");
+			$reason = $this->model->getBan($name);
+			if ($reason === false) {
+				$result = $this->model->userConnect($name, $password);
+				if ($result) {
+					$this->view->login($result);
+				} else {
+					Utils::redirect("/");
+				}
 			}
+			else
+				$this->view->login(5, $reason);
 		}
 	}
 

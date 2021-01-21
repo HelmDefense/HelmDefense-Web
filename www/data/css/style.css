@@ -225,6 +225,7 @@ table.custom-table a:hover {
 
 .modal.custom-modal .modal-content {
 	background-color: rgba(var(--fg-color-r), var(--fg-color-g), var(--fg-color-b), .9);
+	color: white;
 }
 
 .modal.custom-modal .modal-content,

@@ -27,6 +27,8 @@ Utils::$modules["forum/"] = new Mod("home", "ForumHome", "<link rel='stylesheet'
 // Panel modules
 Utils::$modules["panel/"] = new Mod("home", "PanelHome", "<link rel='stylesheet' href='/data/css/panel.css' />", false, "panel");
 Utils::$modules["panel/redac"] = new Mod("redac", "PanelRedac", "<link rel='stylesheet' href='/data/css/panel.css' />", true, "panel");
+Utils::$modules["panel/modo"] = new Mod("modo", "PanelModo", "<link rel='stylesheet' href='/data/css/panel.css' />", true, "panel");
+Utils::$modules["panel/admin"] = new Mod("admin", "PanelAdmin", "<link rel='stylesheet' href='/data/css/panel.css' />", true, "panel");
 
 class Mod extends Element {
 	/**

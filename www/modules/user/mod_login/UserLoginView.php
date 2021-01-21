@@ -4,7 +4,7 @@ namespace Module;
 use Utils;
 
 class UserLoginView extends View {
-	public function login($error = 0) {
+	public function login($error = 0, $reason = null) {
 		Utils::addResource("<link rel='stylesheet' href='/data/css/form.css' />"); ?>
 		<div class="container">
 			<?php if ($error) { ?>
@@ -24,6 +24,8 @@ class UserLoginView extends View {
 						echo "Mot de passe non indiqué";
 						break;
 					case 5:
+						echo "Vous avez été banni pour la raison suivante : $reason";
+						break;
 					default:
 						echo "Il y a eu une erreur lors de votre authentification";
 						break;
