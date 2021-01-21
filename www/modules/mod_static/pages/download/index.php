@@ -1,4 +1,4 @@
-<div class="download d-flex align-items-center">
+<div class="download d-flex align-items-center" style="background-image: url(/data/img/download.jpeg);">
 	<div class="mx-auto text-center">
 		<h2 class="col-12">commencez l'aventure</h2>
 		<p class="col-12">Maintenant</p>

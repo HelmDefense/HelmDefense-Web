@@ -93,8 +93,3 @@
 	border-color: rgb(205, 212, 218);
 	box-shadow: none;
 }
-
-.markdown-editor-container {
-	margin: 15px 0;
-	border: 5px solid var(--fg-color);
-}

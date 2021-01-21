@@ -88,6 +88,10 @@ a {
 	transition: text-decoration-color .1s;
 }
 
+a.font-weight-bold {
+	text-decoration-thickness: 2px;
+}
+
 a:hover {
 	color: white;
 	text-decoration-color: white;
@@ -99,6 +103,23 @@ a.inverted {
 
 a.inverted:hover {
 	text-decoration-color: transparent;
+}
+
+a.dark {
+	color: var(--fg-color);
+}
+
+a.dark:hover {
+	color: var(--fg-color);
+	text-decoration-color: var(--fg-color);
+}
+
+a.dark.inverted {
+	text-decoration-color: var(--fg-color);
+}
+
+hr {
+	border-top-color: rgba(255, 255, 255, .25);
 }
 
 .btn {
@@ -125,14 +146,18 @@ a.inverted:hover {
 	box-shadow: none;
 }
 
+.main-element,
 .main-btn,
 .main-badge {
 	background-color: var(--bg-color);
+	color: white;
 }
 
+.sub-element,
 .sub-btn,
 .sub-badge {
 	background-color: var(--fg-color);
+	color: white;
 }
 
 table.custom-table {
@@ -149,6 +174,8 @@ table.custom-table tbody {
 table.custom-table thead,
 table.custom-table tbody {
 	position: relative;
+	/* Chrome fix: https://github.com/w3c/csswg-drafts/issues/1899 */
+	transform: scale(1);
 }
 
 table.custom-table thead::before,

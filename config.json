@@ -1,0 +1,20 @@
+{
+  "database": {
+    "dsn": "mysql:dbname=DB_NAME_HERE;host=localhost;charset=utf8",
+    "user": "",
+    "pass": ""
+  },
+  "captcha": {
+    "sitekey": "",
+    "secret": ""
+  },
+  "smtp": {
+    "host": "",
+    "port": 25,
+    "username": "",
+    "password": ""
+  },
+  "discord": {
+    "webhook": "https://discord.com/api/webhooks/WEBHOOK_ID_HERE/WEBHOOK_TOKEN_HERE"
+  }
+}

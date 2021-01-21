@@ -25,7 +25,7 @@
 }
 
 .published-switch {
-	transform: scale(2);
+	transform: scale(1.75);
 }
 
 .published-switch * {

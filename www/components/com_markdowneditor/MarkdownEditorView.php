@@ -4,7 +4,7 @@ namespace Component;
 use Utils;
 
 class MarkdownEditorView extends View {
-	private $firstEditor = true;
+	private static $firstEditor = true;
 
 	public function displayEditor($element, $config) { ?>
 			<script>
@@ -13,9 +13,9 @@ class MarkdownEditorView extends View {
 				 * @const simplemde
 				 * @type {Object<string, SimpleMDE>}
 				 */
-				<?php if ($this->firstEditor) echo "const simplemde = {};"; ?>
-				let config = <?= Utils::toJSObject($config) ?>;
-				let element = "<?= $element ?>";
+				<?php if (self::$firstEditor) echo "const simplemde = {}; let config; let element;"; ?>
+				config = <?= Utils::toJSObject($config) ?>;
+				element = "<?= $element ?>";
 				config.element = $(element)[0];
 				config.previewRender = function(text, preview) {
 					$.post(`${Utils.misc.API_URL}v1/markdown`, {text: text}, result => {
@@ -27,6 +27,6 @@ class MarkdownEditorView extends View {
 				simplemde[element] = new SimpleMDE(config);
 			</script>
 		<?php
-		$this->firstEditor = false;
+		self::$firstEditor = false;
 	}
 }

@@ -5,7 +5,7 @@
 		<li data-target="#slider" data-slide-to="2"></li>
 	</ol>
 	<div class="carousel-accueil carousel-inner" role="listbox">
-		<div class="carousel-item active" style="background-image: url(https://via.placeholder.com/1000);">
+		<div class="carousel-item active" style="background-image: url(/data/img/home.png);">
 			<div class="d-flex align-items-center h-100">
 				<div class="mx-auto box text-center">
 					<h2 class="col-12">bienvenue sur</h2>
@@ -14,7 +14,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="carousel-item" style="background-image: url(https://via.placeholder.com/1500);">
+		<div class="carousel-item" style="background-image: url(/data/img/wiki.png);">
 			<div class="d-flex align-items-center h-100">
 				<div class="mx-auto box text-center">
 					<h2 class="col-12">consultez</h2>
@@ -23,7 +23,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="carousel-item" style="background-image: url(https://via.placeholder.com/500);">
+		<div class="carousel-item" style="background-image: url(/data/img/forum.png);">
 			<div class="d-flex align-items-center h-100">
 				<div class="mx-auto box text-center">
 					<h2 class="col-12">échangez sur</h2>
@@ -45,7 +45,7 @@
 <div class="container w-100">
 	<div class="presentation row">
 		<div class="col-12 col-lg-6">
-			<img src="https://via.placeholder.com/400" alt="Présentation du jeu" />
+			<img src="/data/img/presentation.png" alt="Présentation du jeu" />
 		</div>
 		<div class="col-12 col-lg-6">
 			<h2 class="mt-lg-0">Présentation du jeu</h2>

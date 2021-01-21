@@ -10,10 +10,10 @@ class PanelHomeView extends View {
 				    <a class="btn sub-btn<?php if (!in_array("administrator", $ranks)) echo " disabled"; ?>" href="/panel/admin">Administration</a>
 				</div>
 				<div class="panel-link">
-				    <a class="btn sub-btn<?php if (!in_array("moderator", $ranks)) echo " disabled"; ?>" href="/panel/modo">Modération</a>
+					<a class="btn sub-btn<?php if (!in_array("developer", $ranks)) echo " disabled"; ?>" href="/panel/dev">Développement</a>
 				</div>
 				<div class="panel-link">
-				    <a class="btn sub-btn<?php if (!in_array("developer", $ranks)) echo " disabled"; ?>" href="/panel/dev">Développement</a>
+				    <a class="btn sub-btn<?php if (!in_array("moderator", $ranks)) echo " disabled"; ?>" href="/panel/modo">Modération</a>
 				</div>
 				<div class="panel-link">
 				    <a class="btn sub-btn<?php if (!in_array("redactor", $ranks)) echo " disabled"; ?>" href="/panel/redac">Rédaction</a>

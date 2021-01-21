@@ -1,16 +1,21 @@
 .download {
 	height: calc(100vh - 200px);
 	min-height: 500px;
+	background-position: 50%;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 .download h2 {
 	font-size: 60px;
 	margin: 0;
+	text-shadow: 0 0 5px black
 }
 
 .download p {
 	font-family: var(--font-title);
 	font-size: 100px;
+	text-shadow: 0 0 5px black
 }
 
 .download .btn {

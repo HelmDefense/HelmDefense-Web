@@ -23,8 +23,7 @@ class WikiPageModel extends Model {
 		if (!$page)
 			return null;
 
-		// $page->img = "data/img/wiki/$page->num.png";
-		$page->img = "https://via.placeholder.com/250?text=data/img/wiki/$page->num.png";
+		$page->img = "/data/img/wiki/$page->num.png";
 		return $page;
 	}
 }
