@@ -28,7 +28,7 @@ class PanelAdminController extends Controller {
 	}
 
 	public function displayProfileRole($id) {
-		if($id == null)
+		if ($id == null)
 			Utils::error(400, "Login invalide");
 		$user = $this->model->getUser($id);
 		if (!$user)

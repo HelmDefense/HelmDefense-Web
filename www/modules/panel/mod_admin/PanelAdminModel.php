@@ -32,7 +32,7 @@ class PanelAdminModel extends Model {
 	}
 
 	public function getUser($id) {
-		return Utils::executeRequest(self::$bdd, "SELECT login, name, avatar, email, ranks FROM hd_user_users WHERE id = :id", array("id" => $id), false);
+		return Utils::executeRequest(self::$bdd, "SELECT id, login, name, avatar, email, ranks FROM hd_user_users WHERE id = :id", array("id" => $id), false);
 	}
 
 	public function editRole($id, $login, $admin, $dev, $modo, $redac) {
