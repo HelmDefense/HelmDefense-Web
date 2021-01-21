@@ -26,7 +26,7 @@ class HeaderView extends View {
 										<a href="/panel/admin">Administration</a>
 									<?php } ?>
 									<?php if (in_array("developer", $user->ranks)) { ?>
-										<a href="/panel/dev">Développement</a>
+										<a class="in-dev" href="/panel/dev">Développement</a>
 									<?php } ?>
 									<?php if (in_array("moderator", $user->ranks)) { ?>
 										<a href="/panel/modo">Modération</a>
@@ -48,7 +48,7 @@ class HeaderView extends View {
 						<div class="custom-dropdown">
 							<a class="main-nav <?php if ($currentActiveNav == "forum") echo "custom-dropdown-active"; ?>" href="/forum"><span class="main-nav-label">Forum</span></a>
 							<div class="custom-dropdown-content">
-								<a href="/forum/search">Recherche</a>
+								<a class="in-dev" href="/forum/search">Recherche</a>
 								<a href="/forum/talk">Discussions</a>
 								<a href="/forum/strat">Stratégies</a>
 								<a href="/forum/rate">Avis</a>

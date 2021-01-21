@@ -9,7 +9,7 @@ class UserSigninView extends View {
 		<div class="container">
 			<div id="message-container" class="mt-5"></div>
 			<h2>Réinitialisation du mot de passe</h2>
-			<form method="post" data-require-captcha>
+			<form id="password-reset-form" method="post" data-require-captcha>
 				<div class="custom-input-container">
 					<div class="custom-input">
 						<input id="id" name="id" type="text" placeholder="" required />
@@ -28,7 +28,7 @@ class UserSigninView extends View {
 						<label for="passwordconfirm">Confirmation du mot de passe</label>
 					</div>
 				</div>
-				<?= Utils::renderComponent("captcha", "d-flex justify-content-center justify-content-lg-end custom-input-container") ?>
+				<?= Utils::renderComponent("captcha", "#password-reset-form", "d-flex justify-content-center justify-content-lg-end custom-input-container") ?>
 				<input type="hidden" name="check" value="valid" />
 				<div class="custom-input-container text-center text-lg-right">
 					<input class="btn sub-btn" type="submit" value="Envoyer une demande" />
@@ -117,7 +117,7 @@ class UserSigninView extends View {
 
 			<h2>Inscription</h2>
 
-			<form method="post" data-require-captcha>
+			<form id="signin-form" method="post" data-require-captcha>
 				<div class="custom-input-container">
 					<div class="custom-input">
 						<input id="email" name="email" type="text" placeholder="" value="<?= $email ?>" required />
@@ -148,7 +148,7 @@ class UserSigninView extends View {
 						<label for="passwordconfirm">Confirmation du mot de passe</label>
 					</div>
 				</div>
-				<?= Utils::renderComponent("captcha", "d-flex justify-content-center justify-content-lg-end custom-input-container") ?>
+				<?= Utils::renderComponent("captcha", "#signin-form", "d-flex justify-content-center justify-content-lg-end custom-input-container") ?>
 				<input type="hidden" name="check" value="valid" />
 				<div class="custom-input-container text-center text-lg-right">
 					<input class="btn sub-btn" type="submit" value="Inscription" />

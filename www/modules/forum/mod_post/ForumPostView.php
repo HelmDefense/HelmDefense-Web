@@ -25,7 +25,7 @@ class ForumPostView extends View {
 							<?= Utils::markdown($message->content, !$self) ?>
 							<?php if (!is_null($user) && $user->id == $message->author->id) { ?>
 								<div class="position-absolute edit-btn" data-toggle="tooltip" title="Éditer le message">
-									<img src="/data/img/edit-<?php if (!$self) echo "dark"; ?>.svg" alt="Éditer" data-toggle="modal" data-target="#msg-edit" data-msg-id="<?= $message->id ?>" />
+									<img src="/data/img/edit<?php if (!$self) echo "-dark"; ?>.svg" alt="Éditer" data-toggle="modal" data-target="#msg-edit" data-msg-id="<?= $message->id ?>" />
 								</div>
 							<?php } ?>
 						</div>
@@ -52,7 +52,7 @@ class ForumPostView extends View {
 									<label class="sr-only" for="newmessage">Message</label>
 									<?= Utils::renderComponent("markdowneditor", "#newmessage", null, array("placeholder" => "Votre nouveau commentaire...")) ?>
 								</div>
-								<?= Utils::renderComponent("captcha", "d-flex justify-content-center custom-input-container") ?>
+								<?= Utils::renderComponent("captcha", "#msg-edit-form", "d-flex justify-content-center custom-input-container") ?>
 								<div class="text-center">
 									<div class="custom-input-container pt-0">
 										<input class="btn main-btn small-btn" type="submit" value="Confirmer la modification" />
@@ -123,7 +123,7 @@ class ForumPostView extends View {
 														</div>
 													</div>
 													${message.author.id === "<?= is_null($user) ? "" : $user->id ?>" ? `<div class="position-absolute edit-btn" data-toggle="tooltip" title="Éditer le message">
-														<img src="/data/img/edit-${self ? "" : "dark"}.svg" alt="Éditer" data-toggle="modal" data-target="#msg-edit" data-msg-id="${message.id}" />
+														<img src="/data/img/edit${self ? "" : "-dark"}.svg" alt="Éditer" data-toggle="modal" data-target="#msg-edit" data-msg-id="${message.id}" />
 													</div>` : ""}
 												</div>
 											</div>
@@ -176,7 +176,7 @@ class ForumPostView extends View {
 		</div>
 		<?php if ($post->opened) {
 			if (!is_null($user)) { ?>
-				<form method="post" data-require-captcha>
+				<form id="add-message-form" method="post" data-require-captcha>
 					<div class="my-4 mx-5">
 						<div id="message-container" class="no-avatar"></div>
 						<div class="d-flex">
@@ -190,7 +190,7 @@ class ForumPostView extends View {
 							</div>
 						</div>
 						<div class="no-avatar">
-							<?= Utils::renderComponent("captcha", "d-flex justify-content-center justify-content-lg-end custom-input-container") ?>
+							<?= Utils::renderComponent("captcha", "#add-message-form", "d-flex justify-content-center justify-content-lg-end custom-input-container") ?>
 							<div class="custom-input-container text-center text-lg-right">
 								<input class="btn sub-btn" type="submit" value="Commenter" />
 							</div>
@@ -367,7 +367,7 @@ class ForumPostView extends View {
 														<a class="btn main-btn" href="/user/login">Se connecter</a>
 													</div>
 												<?php } else { ?>
-													<form class="w-100" method="post" action="/forum/post/strat/<?= $strat->id ?>/rating" data-require-captcha>
+													<form id="add-rate-form" class="w-100" method="post" action="/forum/post/strat/<?= $strat->id ?>/rating" data-require-captcha>
 														<div class="markdown-editor-container markdown-editor-container-small mt-0">
 															<textarea id="comment" name="comment"></textarea>
 															<label class="sr-only" for="comment">Commentaire</label>
@@ -387,7 +387,7 @@ class ForumPostView extends View {
 																<input id="star-1" class="star star-1" type="radio" name="rate" value="1" required />
 																<label class="star star-1" for="star-1"></label>
 															</div>
-															<?= Utils::renderComponent("captcha", "mt-3 d-flex justify-content-center") ?>
+															<?= Utils::renderComponent("captcha", "#add-rate-form", "mt-3 d-flex justify-content-center") ?>
 															<div class="custom-input-container">
 																<input class="btn main-btn" type="submit" value="Noter" />
 															</div>
@@ -429,7 +429,7 @@ class ForumPostView extends View {
 					<div class="mx-5">
 						<div id="message-container" class="mt-5"></div>
 						<h2>Nouvelle discussion</h2>
-						<form method="post" data-require-captcha>
+						<form id="new-talk-form" method="post" data-require-captcha>
 							<div class="custom-input-container">
 								<div class="custom-input">
 									<input id="title" name="title" type="text" placeholder="" required />
@@ -441,7 +441,7 @@ class ForumPostView extends View {
 								<label class="sr-only" for="message">Message</label>
 								<?= Utils::renderComponent("markdowneditor", "#message", null, array("placeholder" => "Message de la discussion...")) ?>
 							</div>
-							<?= Utils::renderComponent("captcha", "d-flex justify-content-center justify-content-lg-end custom-input-container") ?>
+							<?= Utils::renderComponent("captcha", "#new-talk-form", "d-flex justify-content-center justify-content-lg-end custom-input-container") ?>
 							<input type="hidden" name="check" value="valid" />
 							<div class="custom-input-container text-center text-lg-right mb-4">
 								<input class="btn sub-btn" type="submit" value="Publier" />
@@ -464,7 +464,7 @@ class ForumPostView extends View {
 					<div class="mx-5">
 						<div id="message-container" class="mt-5"></div>
 						<h2>Nouvel avis</h2>
-						<form method="post" data-require-captcha>
+						<form id="new-rate-form" method="post" data-require-captcha>
 							<div class="custom-input-container">
 								<div class="custom-input">
 									<input id="title" name="title" type="text" placeholder="" required />
@@ -504,7 +504,7 @@ class ForumPostView extends View {
 								<label class="sr-only" for="message">Message</label>
 								<?= Utils::renderComponent("markdowneditor", "#message", null, array("placeholder" => "Message de la discussion...")) ?>
 							</div>
-							<?= Utils::renderComponent("captcha", "d-flex justify-content-center justify-content-lg-end custom-input-container") ?>
+							<?= Utils::renderComponent("captcha", "#new-rate-form", "d-flex justify-content-center justify-content-lg-end custom-input-container") ?>
 							<input type="hidden" name="check" value="valid" />
 							<div class="custom-input-container text-center text-lg-right mb-4">
 								<input class="btn sub-btn" type="submit" value="Publier" />
@@ -527,7 +527,7 @@ class ForumPostView extends View {
 					<div class="mx-5">
 						<div id="message-container" class="mt-5"></div>
 						<h2>Nouvelle stratégie</h2>
-						<form method="post" data-require-captcha>
+						<form id="new-strat-form" method="post" data-require-captcha>
 							<div class="custom-input-container">
 								<div class="custom-input">
 									<input id="title" name="title" type="text" placeholder="" required />
@@ -592,7 +592,7 @@ class ForumPostView extends View {
 								<label class="sr-only" for="message">Message</label>
 								<?= Utils::renderComponent("markdowneditor", "#message", null, array("placeholder" => "Message de la discussion...")) ?>
 							</div>
-							<?= Utils::renderComponent("captcha", "d-flex justify-content-center justify-content-lg-end custom-input-container") ?>
+							<?= Utils::renderComponent("captcha", "#new-strat-form", "d-flex justify-content-center justify-content-lg-end custom-input-container") ?>
 							<input type="hidden" name="check" value="valid" />
 							<div class="custom-input-container text-center text-lg-right mb-4">
 								<input class="btn sub-btn" type="submit" value="Publier" />

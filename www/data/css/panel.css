@@ -31,3 +31,20 @@
 .published-switch * {
 	cursor: pointer;
 }
+
+.rank-switch {
+	transform: scale(1.25);
+	margin: 10px 0;
+}
+
+.rank-switch .custom-control-label {
+	line-height: 1;
+}
+
+.rank-switch * {
+	cursor: pointer;
+}
+
+.panel-img {
+	max-width: 250px;
+}

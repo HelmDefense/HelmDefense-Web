@@ -7,7 +7,7 @@
 (new Comp("wikipagepreview", "WikiPagePreview", "<link rel='stylesheet' href='/data/css/wiki.css' />", true))->register();
 (new Comp("forumpostlist", "ForumPostList", null, true))->register();
 (new Comp("forumsidebar", "ForumSidebar", "<link rel='stylesheet' href='/data/css/forum.css' />"))->register();
-(new Comp("captcha", "Captcha", "<script src='https://www.google.com/recaptcha/api.js' async defer></script>"))->register();
+(new Comp("captcha", "Captcha", "<script src='https://www.google.com/recaptcha/api.js?onload=loadCaptcha&render=explicit' async defer></script>"))->register();
 
 class Comp extends Element {
 	/**

@@ -2,10 +2,12 @@
 namespace Component;
 
 class CaptchaComponent extends Component {
+	private $form;
 	private $classes;
 
-	public function __construct($classes = "") {
+	public function __construct($form = "form", $classes = "") {
 		parent::__construct(new CaptchaController());
+		$this->form = $form;
 		$this->classes = $classes;
 	}
 
@@ -13,6 +15,6 @@ class CaptchaComponent extends Component {
 	 * @inheritDoc
 	 */
 	protected function calculateRender() {
-		$this->controller->captcha($this->classes);
+		$this->controller->captcha($this->form, $this->classes);
 	}
 }

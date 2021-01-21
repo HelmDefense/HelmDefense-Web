@@ -31,11 +31,11 @@ class PanelAdminController extends Controller {
 		if($id == null)
 			Utils::error(400, "Login invalide");
 		$user = $this->model->getUser($id);
-		if(!$user)
+		if (!$user)
 			Utils::error(404, "L'utilisateur n°" .  htmlspecialchars($id) . " n'existe pas");
 
 		$this->model->defineRanks($user);
-		$this->title = "$id - Édition de page";
+		$this->title = "$user->name - Édition d'utilisateur";
 		$this->view->displayProfileRole($user);
 		Utils::timeout("delete", 300);
 	}
@@ -47,5 +47,4 @@ class PanelAdminController extends Controller {
 		} else
 			Utils::error(404, "L'utilisateur n°" .  htmlspecialchars($id) . " n'existe pas");
 	}
-
 }

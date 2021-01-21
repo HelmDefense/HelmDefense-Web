@@ -68,10 +68,12 @@ class PanelRedacView extends View {
 			<h2><?= $num ? "Édition de la" : "Nouvelle" ?> page Wiki</h2>
 			<form method="post" enctype="multipart/form-data">
 				<input type="hidden" name="check" value="valid" />
-				<img id="page-image" class="w-100" src="/data/img/wiki/<?= $num ?>.png" alt="Aucune" />
+				<div class="text-center">
+					<img id="page-image" class="panel-img" src="/data/img/wiki/<?= $num ?>.png" alt="Aucune" />
+				</div>
 				<div class="custom-input-container">
 					<div class="custom-file">
-						<input id="image" name="image" class="custom-file-input" type="file" accept="image/png" required />
+						<input id="image" name="image" class="custom-file-input" type="file" accept="image/png" />
 						<label class="custom-file-label" for="image" data-browse="Charger">Image de la page</label>
 						<script>
                             $("#image").change(e1 => {
