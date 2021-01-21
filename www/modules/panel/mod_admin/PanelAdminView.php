@@ -25,7 +25,7 @@ class PanelAdminView extends View {
 				<tbody>
 					<?php foreach ($users as $user) { ?>
 						<tr>
-							<td><img class="user-avatar" src="/data/img/avatar/<?= is_null($user->avatar) ? "default.png" : $user->avatar ?>" alt="Avatar de <?= $user->name ?>" /></td>
+							<td><img class="user-avatar" src="/data/img/avatar/<?= is_null($user->avatar) ? "default.png" : "$user->id-$user->avatar" ?>" alt="Avatar de <?= $user->name ?>" /></td>
 							<td><?= htmlspecialchars($user->id) ?></td>
 							<td><a href="/panel/admin/edit/<?= $user->id ?>" data-toggle="tooltip" title="Modifier les rôles"><?= htmlspecialchars($user->login) ?></a></td>
 							<td><a href="/user/profile/<?= $user->login ?>" data-toggle="tooltip" title="Voir le profil" target="_blank"><?= htmlspecialchars($user->name) ?></a></td>
@@ -87,7 +87,7 @@ class PanelAdminView extends View {
 	public function displayProfileRole($user) {
 		Utils::addResource("<link href='/data/css/form.css' rel='stylesheet' />"); ?>
 		<div class="container panel-body text-center">
-			<img class="panel-img" src="/data/img/avatar/<?= is_null($user->avatar) ? "default.png" : $user->avatar ?>" alt="Avatar de <?= $user->name ?>" />
+			<img class="panel-img" src="/data/img/avatar/<?= is_null($user->avatar) ? "default.png" : "$user->id-$user->avatar" ?>" alt="Avatar de <?= $user->name ?>" />
 			<h2 class="mt-3 mb-2"><?= $user->name ?></h2>
 			<div class="important">
 				<a href="mailto:<?= $user->email ?>"><?= $user->email ?></a>
