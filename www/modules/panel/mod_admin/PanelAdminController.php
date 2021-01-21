@@ -21,14 +21,10 @@ class PanelAdminController extends Controller {
 		if ($limit <= 0)
 			Utils::error(400, "Nombre d'éléments invalide");
 		$users = $this->model->users($p, $limit);
-		$pages = $this->model->pages($p, $limit);
-		if (!$users->result || !$pages->result)
+		if (!$users->result)
 			Utils::error(400, "Page invalide");
 
-		if (!$pages->result)
-			Utils::error(400, "Page invalide");
-
-		$this->view->displayList($users->result, $pages->result, $users->count, $limit, $p);
+		$this->view->displayList($users->result, $users->count, $limit, $p);
 	}
 
 	public function displayProfileRole($id) {

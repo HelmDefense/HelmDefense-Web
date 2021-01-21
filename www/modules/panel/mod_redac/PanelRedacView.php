@@ -68,7 +68,7 @@ class PanelRedacView extends View {
 			<h2><?= $num ? "Édition de la" : "Nouvelle" ?> page Wiki</h2>
 			<form method="post" enctype="multipart/form-data">
 				<input type="hidden" name="check" value="valid" />
-				<img id="page-image" class="w-100" src="https://via.placeholder.com/250?text=data/img/wiki/<?= $num ?>.png" alt="Aucune" />
+				<img id="page-image" class="w-100" src="/data/img/wiki/<?= $num ?>.png" alt="Aucune" />
 				<div class="custom-input-container">
 					<div class="custom-file">
 						<input id="image" name="image" class="custom-file-input" type="file" accept="image/png" required />
