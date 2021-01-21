@@ -76,7 +76,7 @@ class ForumModel extends Connection {
 			$post->entities = Utils::executeRequest(self::$bdd, "SELECT e.id AS entity_id, e.name AS entity_name, concat('https://helmdefense.theoszanto.fr/data/img/wiki/entity/', e.num, '.png') AS entity_image, s.count FROM hd_forum_strat_entities AS s INNER JOIN hd_game_entities AS e ON s.entity = e.num WHERE s.strat = :id", array("id" => $id));
 			foreach ($post->entities as $entity)
 				$this->setProp($entity, "entity", "id", "name", "image");
-			$post->ratings = Utils::executeRequest(self::$bdd, "SELECT u.login AS user_id, u.name AS user_name, concat('https://helmdefense.theoszanto.fr/data/img/avatar/', ifnull(u.avatar, 'default.png')) AS user_avatar, s.rate, s.comment, s.date FROM hd_forum_strat_ratings AS s INNER JOIN hd_user_users AS u ON s.user = u.id WHERE s.strat = :id ORDER BY s.date DESC", array("id" => $id));
+			$post->ratings = Utils::executeRequest(self::$bdd, "SELECT u.login AS user_id, u.name AS user_name, concat('https://helmdefense.theoszanto.fr/data/img/avatar/', if(u.avatar IS NULL, 'default.png', concat(u.id, '-', u.avatar))) AS user_avatar, s.rate, s.comment, s.date FROM hd_forum_strat_ratings AS s INNER JOIN hd_user_users AS u ON s.user = u.id WHERE s.strat = :id ORDER BY s.date DESC", array("id" => $id));
 			foreach ($post->ratings as $rating)
 				$this->setProp($rating, "user", "id", "name", "avatar");
 			break;
@@ -92,7 +92,7 @@ class ForumModel extends Connection {
 			return null;
 
 		self::$bdd->beginTransaction();
-		$msgs = Utils::executeRequest(self::$bdd, "SELECT SQL_CALC_FOUND_ROWS m.id, u.login AS author_id, u.name AS author_name, concat('https://helmdefense.theoszanto.fr/data/img/avatar/', ifnull(u.avatar, 'default.png')) AS author_avatar, m.content, m.created_at, m.edited_at FROM hd_forum_msgs AS m INNER JOIN hd_user_users AS u ON m.author = u.id WHERE m.topic = :id AND m.type = :type ORDER BY m.created_at LIMIT $offset, $limit", array("id" => $post->id, "type" => $type));
+		$msgs = Utils::executeRequest(self::$bdd, "SELECT SQL_CALC_FOUND_ROWS m.id, u.login AS author_id, u.name AS author_name, concat('https://helmdefense.theoszanto.fr/data/img/avatar/', if(u.avatar IS NULL, 'default.png', concat(u.id, '-', u.avatar))) AS author_avatar, m.content, m.created_at, m.edited_at FROM hd_forum_msgs AS m INNER JOIN hd_user_users AS u ON m.author = u.id WHERE m.topic = :id AND m.type = :type ORDER BY m.created_at LIMIT $offset, $limit", array("id" => $post->id, "type" => $type));
 		$post->message_count = Utils::executeRequest(self::$bdd, "SELECT found_rows()", array(), false, PDO::FETCH_COLUMN);
 		self::$bdd->commit();
 		$lastActivity = "1970-01-01 00:00:00";

@@ -23,7 +23,7 @@ class PanelModoView extends View {
 				<tbody>
 					<?php foreach ($users as $user) { ?>
 						<tr>
-							<td><img class="user-avatar" src="/data/img/avatar/<?= is_null($user->avatar) ? "default.png" : $user->avatar ?>" alt="Avatar de <?= $user->name ?>" /></td>
+							<td><img class="user-avatar" src="/data/img/avatar/<?= is_null($user->avatar) ? "default.png" : "$user->id-$user->avatar" ?>" alt="Avatar de <?= $user->name ?>" /></td>
 							<td><?= htmlspecialchars($user->id) ?></td>
 							<td><a href="/user/profile/<?= $user->login ?>" data-toggle="tooltip" title="Voir le profil de l'utilisateur" target="_blank"><?= htmlspecialchars($user->name) ?></a></td>
 							<td><?= Utils::formatDate($user->joined_at) ?></td>
