@@ -21,18 +21,19 @@ class UserProfileModel extends Model {
 		Utils::executeRequest(self::$bdd, "UPDATE hd_user_users SET `name` = :name, email = :email, description = :description WHERE login = :id", array("name" => $name, "email" => $email, "description" => $description, "id" => $user->id));
 	}
 
-	public function passwordCheck($password, $user){
-		$result = Utils::httpPostRequest("v1/users/auth/$user->id",array("password" => $password));
+	public function passwordCheck($password, $user) {
+		$result = Utils::httpPostRequest("v1/users/auth/$user->id", array("password" => $password));
 		return !Utils::isError($result) && $result;
 	}
 
 	private function deleteAvatar($user) {
-		$oldAvatar = Utils::executeRequest(self::$bdd, "SELECT avatar FROM hd_user_users WHERE login = :id", array("id" => $user->id), false, PDO::FETCH_COLUMN);
-		return is_null($oldAvatar) || unlink($_SERVER["DOCUMENT_ROOT"] . "/data/img/avatar/$oldAvatar");
+		$info = Utils::executeRequest(self::$bdd, "SELECT id, avatar FROM hd_user_users WHERE login = :id", array("id" => $user->id), false);
+		return !$info->oldAvatar || unlink($_SERVER["DOCUMENT_ROOT"] . "/data/img/avatar/$info->id-$info->oldAvatar");
 	}
 
 	public function modifyAvatar($avatar, $user) {
-		$avatarDir = $_SERVER["DOCUMENT_ROOT"] . "/data/img/avatar/";
+		$id = Utils::executeRequest(self::$bdd, "SELECT id FROM hd_user_users WHERE login = :id", array("id" => $user->id), false, PDO::FETCH_COLUMN);
+		$avatarDir = $_SERVER["DOCUMENT_ROOT"] . "/data/img/avatar/$id-";
 		$this->deleteAvatar($user);
 		$newAvatar = basename($avatar->name);
 		if (move_uploaded_file($avatar->tmp_name, $avatarDir . $newAvatar) && Utils::cropSquare($avatarDir . $newAvatar)) {
@@ -46,7 +47,8 @@ class UserProfileModel extends Model {
 		$result = Utils::httpPostRequest("v1/users/auth/$user->name", array("password" => $password));
 		if (Utils::isError($result) || !$result)
 			return false;
+		$deleteAvatar = $this->deleteAvatar($user);
 		Utils::executeRequest(self::$bdd, "DELETE FROM hd_user_users WHERE login = :id", array("id" => $user->id));
-		return $this->deleteAvatar($user);
+		return $deleteAvatar;
 	}
 }
