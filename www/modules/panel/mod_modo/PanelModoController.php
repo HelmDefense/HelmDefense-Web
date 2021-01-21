@@ -23,7 +23,7 @@ class PanelModoController extends Controller {
 		$users = $this->model->users($p, $limit);
 		if (!$users->result)
 			Utils::error(400, "Page invalide");
-		$this->view->displayList($users->result, $users->count, $limit, $p);
+		$this->view->displayList($users->result, $users->count, $limit, $p, $users->sanctions);
 	}
 
 	public function warn($id, $reason) {
@@ -34,5 +34,9 @@ class PanelModoController extends Controller {
 	public function ban($id, $reason) {
 		$this->model->addSanction($id, 2, $reason);
 		Utils::redirect("/panel/modo");
+	}
+
+	public function historique(){
+
 	}
 }

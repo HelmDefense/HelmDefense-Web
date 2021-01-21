@@ -4,7 +4,7 @@ namespace Module;
 use Utils;
 
 class PanelModoView extends View {
-	public function displayList($users, $count, $limit, $p) {
+	public function displayList($users, $count, $limit, $p, $sanctions) {
 		Utils::addResource("<link href='/data/css/pagination.css' rel='stylesheet' />");
 		Utils::addResource("<link href='/data/css/form.css' rel='stylesheet' />");
 		$total = ceil($count / $limit); ?>
@@ -84,6 +84,25 @@ class PanelModoView extends View {
 										</div>
 									</div>
 								</div>
+								<a href="#" class="badge sub-badge text-white" data-toggle="modal" data-target="#history-<?= $user->id ?>">Historique</a>
+								<div id="history-<?= $user->id ?>" class="modal custom-modal fade" data-backdrop="static" data-keyboard="false">
+									<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h3 class="modal-title">Historique de sanctions de <?= $user->name ?></h3>
+												<button class="close" data-dismiss="modal"><span>&times;</span></button>
+											</div>
+											<div class="modal-body">
+												<?php foreach ($sanctions as $sanction) {
+													 if($sanction->user == $user->id) { ?>
+														<?= $this->defineSanction($sanction->type) ?> le <?= Utils::formatDate($sanction->date) ?> pour raison : "<?= $sanction->reason ?>" appliqué par le modérateur <?= $sanction->name ?> <br>
+														 <hr>
+													<?php }
+												} ?>
+											</div>
+										</div>
+									</div>
+								</div>
 							</td>
 						</tr>
 					<?php } ?>
@@ -108,4 +127,15 @@ class PanelModoView extends View {
 			</script>
 		</div>
 	<?php }
+
+	function defineSanction($sanction) {
+		switch ($sanction) {
+			case 1:
+				return "<span class='badge badge-warning text-white'>Warn</span>";
+			case 2:
+				return "<span class='badge badge-danger'>Ban</span>";
+			default:
+				return "";
+		}
+	}
 }

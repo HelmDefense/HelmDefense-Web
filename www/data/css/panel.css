@@ -17,6 +17,10 @@
 	width: 100%;
 }
 
+hr {
+	background-color: white;
+}
+
 .panel-btn {
 	font-size: 1.25em;
 	margin: 10px 0 20px;
