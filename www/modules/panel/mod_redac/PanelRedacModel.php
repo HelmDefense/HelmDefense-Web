@@ -44,7 +44,7 @@ class PanelRedacModel extends Model {
 				$$val = $old->$val;
 		$id = Utils::strNormalize($id);
 		Utils::executeRequest(self::$bdd, "UPDATE hd_wiki_pages SET id = :id, title = :title, content = :content, published = :published WHERE num = :num", array("id" => $id, "title" => $title, "content" => $content, "published" => intval($published), "num" => $page));
-		return is_null($image) || $this->image($image, $page);
+		return is_null($image) || $image->error || $this->image($image, $page);
 	}
 
 	public function deletePage($page) {
