@@ -20,11 +20,11 @@ class PanelAdminModule extends Module {
 			break;
 		case "edit":
 			$id = Utils::extraRequired(0, "L'utilisateur à éditer n'a pas été précisé");
-			$data = Utils::postMany(array("check" => "invalid", "login", "admin", "modo", "dev", "redac"), true);
+			$data = Utils::postMany(array("check" => "invalid", "login", "admin", "dev", "modo", "redac"), true);
 			if ($data->check == "invalid")
 				$this->controller->displayProfileRole($id);
 			else
-				$this->controller->editRole($id, $data->login, $data->admin, $data->modo, $data->dev, $data->redac);
+				$this->controller->editRole($id, $data->login, $data->admin, $data->dev, $data->modo, $data->redac);
 			break;
 		default:
 			Utils::error(404, "Action inconnue");

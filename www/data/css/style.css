@@ -118,6 +118,12 @@ a.dark.inverted {
 	text-decoration-color: var(--fg-color);
 }
 
+a.disabled,
+a:not([href]) {
+	pointer-events: none;
+	opacity: .65;
+}
+
 hr {
 	border-top-color: rgba(255, 255, 255, .25);
 }
@@ -290,4 +296,9 @@ footer {
 	footer {
 		padding: 0 15px !important;
 	}
+}
+
+.in-dev {
+	pointer-events: none !important;
+	opacity: .65 !important;
 }

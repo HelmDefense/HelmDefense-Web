@@ -70,7 +70,7 @@ $name = is_null($user) ? "" : addslashes($user->name);
 			<label class="sr-only" for="message">Message</label>
 			<?= Utils::renderComponent("markdowneditor", "#message", null, array("placeholder" => "Message")) ?>
 		</div>
-		<?= Utils::renderComponent("captcha", "d-flex justify-content-center justify-content-lg-end custom-input-container") ?>
+		<?= Utils::renderComponent("captcha", "#contact-form", "d-flex justify-content-center justify-content-lg-end custom-input-container") ?>
 		<div class="text-center text-lg-right">
 			<input id="submit" class="btn sub-btn" name="submit" type="submit" placeholder="" value="Envoyer" required />
 		</div>

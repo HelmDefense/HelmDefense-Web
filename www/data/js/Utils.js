@@ -700,7 +700,7 @@ Utils.misc.jWindow.on("load", () => {
 
 	// Require captcha complete
 	$("form[data-require-captcha]").submit(e => {
-		if (grecaptcha.getResponse().length === 0) {
+		if (grecaptcha.getResponse(e.currentTarget.dataset.captcha).length === 0) {
 			let container = e.currentTarget.dataset.requireCaptcha;
 			Utils.alerts.warning("Vous devez remplir le captcha", true, true, container ? $(container) : null);
 			return false;
@@ -711,5 +711,6 @@ Utils.misc.jWindow.on("load", () => {
 
 /**
  * @function grecaptcha.getResponse
+ * @param {string} [opt_widget_id] - The captcha ID (default to first created)
  * @return {string} - Captcha response (empty when uncompleted)
  */

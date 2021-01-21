@@ -6,7 +6,6 @@ use stdClass;
 use Utils;
 
 class PanelAdminModel extends Model {
-
 	public function users($p, $limit) {
 		$offset = ($p - 1) * $limit;
 		$users = new stdClass();

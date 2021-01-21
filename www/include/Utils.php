@@ -961,4 +961,50 @@ class Utils {
 		), false, true, false);
 		return $captcha->success;
 	}
+
+	/**
+	 * Crop an image to make a square
+	 * @param string $filename The image filename
+	 * @return bool Whether the action was a success or not
+	 */
+	static function cropSquare($filename) {
+		$type = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+		switch ($type) {
+		case "png":
+			$image = imagecreatefrompng($filename);
+			break;
+		case "jpeg":
+		case "jpg":
+			$image = imagecreatefromjpeg($filename);
+			break;
+		case "gif":
+			$image = imagecreatefromgif($filename);
+			break;
+		default:
+			$image = imagecreatefromstring(self::file($filename));
+		}
+		$size = min(imagesx($image), imagesy($image));
+		$cropped = imagecrop($image, array("x" => 0, "y" => 0, "width" => $size, "height" => $size));
+		if ($cropped !== FALSE) {
+			switch ($type) {
+			case "png":
+				imagepng($cropped, $filename);
+				break;
+			case "jpeg":
+			case "jpg":
+				imagejpeg($cropped, $filename);
+				break;
+			case "gif":
+				imagegif($cropped, $filename);
+				break;
+			default:
+				imagedestroy($cropped);
+				return false;
+			}
+			imagedestroy($cropped);
+			return true;
+		}
+		imagedestroy($image);
+		return false;
+	}
 }

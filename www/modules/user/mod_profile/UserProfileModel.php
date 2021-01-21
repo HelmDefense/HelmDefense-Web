@@ -35,7 +35,7 @@ class UserProfileModel extends Model {
 		$avatarDir = $_SERVER["DOCUMENT_ROOT"] . "/data/img/avatar/";
 		$this->deleteAvatar($user);
 		$newAvatar = basename($avatar->name);
-		if (move_uploaded_file($avatar->tmp_name, $avatarDir . $newAvatar)) {
+		if (move_uploaded_file($avatar->tmp_name, $avatarDir . $newAvatar) && Utils::cropSquare($avatarDir . $newAvatar)) {
 			Utils::executeRequest(self::$bdd, "UPDATE hd_user_users SET avatar = :avatar WHERE login = :id", array("id" => $user->id, "avatar" => $newAvatar));
 			return true;
 		}

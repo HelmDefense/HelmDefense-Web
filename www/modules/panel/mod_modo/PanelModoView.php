@@ -16,7 +16,7 @@ class PanelModoView extends View {
 						<th>Avatar</th>
 						<th>ID</th>
 						<th>Nom</th>
-						<th>Date de création</th>
+						<th>Date d'inscription</th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -29,86 +29,99 @@ class PanelModoView extends View {
 							<td><?= Utils::formatDate($user->joined_at) ?></td>
 							<td class="important">
 								<a href="#" class="badge badge-warning text-white" data-toggle="modal" data-target="#apply-santion-<?= $user->id ?>">Avertir</a>
-								<div id="apply-santion-<?= $user->id ?>" class="modal custom-modal fade" data-backdrop="static" data-keyboard="false">
-									<div class="modal-dialog modal-dialog-centered">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h3 class="modal-title">Confirmer l'avertissement</h3>
-												<button class="close" data-dismiss="modal"><span>&times;</span></button>
-											</div>
-											<div class="modal-body">
-												Êtes-vous sûr de vouloir sanctionner "<?= htmlspecialchars($user->name) ?>" ? Cet avertissement sera permanent !
-											</div>
-											<div class="modal-footer">
-												<form method="post" action="/panel/modo/warn/<?= $user->id ?>">
-													<div class="custom-input-container">
-														<div class="custom-input">
-															<input id="reason-<?= $user->id ?>" name="reason" type="text" placeholder="" required />
-															<label for="reason-<?= $user->id ?>">Raison</label>
-														</div>
-													</div>
-													<div class="custom-input-container">
-														<input class="btn main-btn small-btn" type="submit" value="Confirmer l'avertissement" />
-													</div>
-												</form>
-												<button class="btn main-btn small-btn" data-dismiss="modal">Annuler</button>
-											</div>
-										</div>
-									</div>
-								</div>
 								<a href="#" class="badge badge-danger text-white" data-toggle="modal" data-target="#apply-ban-<?= $user->id ?>">Bannir</a>
-								<div id="apply-ban-<?= $user->id ?>" class="modal custom-modal fade" data-backdrop="static" data-keyboard="false">
-									<div class="modal-dialog modal-dialog-centered">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h3 class="modal-title">Confirmer le bannissement</h3>
-												<button class="close" data-dismiss="modal"><span>&times;</span></button>
-											</div>
-											<div class="modal-body">
-												Êtes-vous sûr de vouloir bannir "<?= htmlspecialchars($user->name) ?>" ? Cet avertissement sera permanent !
-											</div>
-											<div class="modal-footer">
-												<form method="post" action="/panel/modo/ban/<?= $user->id ?>">
-													<div class="custom-input-container">
-														<div class="custom-input">
-															<input id="reason-<?= $user->id ?>" name="reason" type="text" placeholder="" required />
-															<label for="reason-<?= $user->id ?>">Raison</label>
-														</div>
-													</div>
-													<div class="custom-input-container">
-														<input class="btn main-btn small-btn" type="submit" value="Confirmer le bannissement" />
-													</div>
-												</form>
-												<button class="btn main-btn small-btn" data-dismiss="modal">Annuler</button>
-											</div>
-										</div>
-									</div>
-								</div>
 								<a href="#" class="badge sub-badge text-white" data-toggle="modal" data-target="#history-<?= $user->id ?>">Historique</a>
-								<div id="history-<?= $user->id ?>" class="modal custom-modal fade" data-backdrop="static" data-keyboard="false">
-									<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h3 class="modal-title">Historique de sanctions de <?= $user->name ?></h3>
-												<button class="close" data-dismiss="modal"><span>&times;</span></button>
-											</div>
-											<div class="modal-body">
-												<?php foreach ($sanctions as $sanction) {
-													 if($sanction->user == $user->id) { ?>
-														<?= $this->defineSanction($sanction->type) ?> le <?= Utils::formatDate($sanction->date) ?> pour raison : "<?= $sanction->reason ?>" appliqué par le modérateur <?= $sanction->name ?> <br>
-														 <hr>
-													<?php }
-												} ?>
-											</div>
-										</div>
-									</div>
-								</div>
 							</td>
 						</tr>
 					<?php } ?>
 				</tbody>
 			</table>
 			<div class="navigation mt-4"></div>
+			<?php foreach ($users as $user) { ?>
+				<div id="apply-santion-<?= $user->id ?>" class="modal custom-modal fade" data-backdrop="static" data-keyboard="false">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h3 class="modal-title">Confirmer l'avertissement</h3>
+								<button class="close" data-dismiss="modal"><span>&times;</span></button>
+							</div>
+							<div class="modal-body">
+								Êtes-vous sûr de vouloir sanctionner "<?= htmlspecialchars($user->name) ?>" ? Cet avertissement sera permanent !
+							</div>
+							<div class="modal-footer">
+								<form method="post" action="/panel/modo/warn/<?= $user->id ?>">
+									<div class="custom-input-container">
+										<div class="custom-input">
+											<input id="reason-<?= $user->id ?>" name="reason" type="text" placeholder="" required />
+											<label for="reason-<?= $user->id ?>">Raison</label>
+										</div>
+									</div>
+									<div class="custom-input-container">
+										<input class="btn main-btn small-btn" type="submit" value="Confirmer l'avertissement" />
+									</div>
+								</form>
+								<button class="btn main-btn small-btn" data-dismiss="modal">Annuler</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="apply-ban-<?= $user->id ?>" class="modal custom-modal fade" data-backdrop="static" data-keyboard="false">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h3 class="modal-title">Confirmer le bannissement</h3>
+								<button class="close" data-dismiss="modal"><span>&times;</span></button>
+							</div>
+							<div class="modal-body">
+								Êtes-vous sûr de vouloir bannir "<?= htmlspecialchars($user->name) ?>" ? Cet avertissement sera permanent !
+							</div>
+							<div class="modal-footer">
+								<form method="post" action="/panel/modo/ban/<?= $user->id ?>">
+									<div class="custom-input-container">
+										<div class="custom-input">
+											<input id="reason-<?= $user->id ?>" name="reason" type="text" placeholder="" required />
+											<label for="reason-<?= $user->id ?>">Raison</label>
+										</div>
+									</div>
+									<div class="custom-input-container">
+										<input class="btn main-btn small-btn" type="submit" value="Confirmer le bannissement" />
+									</div>
+								</form>
+								<button class="btn main-btn small-btn" data-dismiss="modal">Annuler</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="history-<?= $user->id ?>" class="modal custom-modal fade">
+					<div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h3 class="modal-title">Historique des sanctions de <?= $user->name ?></h3>
+								<button class="close" data-dismiss="modal"><span>&times;</span></button>
+							</div>
+							<div class="modal-body">
+								<?php $i = 0;
+								foreach ($sanctions as $sanction) {
+									if ($sanction->user == $user->id) {
+										$i++; ?>
+										<hr />
+										<div>
+											<?= $this->defineSanction($sanction->type) ?> Le <strong><?= Utils::formatDate($sanction->date) ?></strong> pour la raison : &laquo; <em><?= $sanction->reason ?></em> &raquo; par le modérateur <a class="inverted" href="/user/profile/<?= $sanction->mod_id ?>" target="_blank"><?= $sanction->mod_name ?></a>
+										</div>
+									<?php }
+								}
+								if ($i) { ?>
+									<hr />
+								<?php } else { ?>
+									<div class="text-center">
+										Cet utilisateur n'a reçu aucune sanction
+									</div>
+								<?php } ?>
+							</div>
+						</div>
+					</div>
+				</div>
+			<?php } ?>
 			<script>
                 Utils.pagination.show({
                     container: $(".navigation"),
@@ -122,7 +135,7 @@ class PanelModoView extends View {
                     defaultPage: <?= $p ?>,
                     triggerOnCreation: false,
                     ignoreWhenSelected: true,
-                    customClass: "justify-content-center"
+                    customClass: "justify-content-center dark"
                 });
 			</script>
 		</div>

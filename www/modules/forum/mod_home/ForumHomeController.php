@@ -25,10 +25,10 @@ class ForumHomeController extends Controller {
 		default:
 			Utils::error(404, "Type de post inconnu");
 		}
-		$this->view->postList($type);
+		$this->view->postList($type, !is_null(Utils::loggedInUser()));
 	}
 
 	public function home() {
-		$this->view->homePage($this->model->homeText(), 3);
+		$this->view->homePage($this->model->homeText(), 3, !is_null(Utils::loggedInUser()));
 	}
 }
