@@ -350,6 +350,48 @@ class Utils {
 	}
 
 	/**
+	 * Shortcut for `Utils::arr($_FILES, $index, $def)`
+	 * @param string $key The key to search for
+	 * @param string|null $def The value to return if the key isn't it the array
+	 * @return string|null The value associated, or the default one if the key is absent
+	 * @see Utils::arr(), $_FILES
+	 */
+	static function files($key, $def = null) {
+		return self::toStdClass(self::arr($_FILES, $key, $def));
+	}
+
+	/**
+	 * Shortcut for `Utils::arrMany($_FILES, $vals, $stdClass)`
+	 * @param string[] $vals The keys to search for, and the default values associated, if any
+	 * @param bool $stdClass Whether to return an stdClass or not (an array is used by default)
+	 * @return string[]|stdClass The values associated to keys in the array, or the default values of some were absent
+	 * @see Utils::arrMany(), $_FILES
+	 */
+	static function filesMany($vals, $stdClass = false) {
+		$files = self::arrMany($_FILES, $vals, $stdClass);
+		foreach ($files as &$file) {
+			$file = self::toStdClass($file);
+		}
+		return $files;
+	}
+
+	/**
+	 * Shortcut for `Utils::arrRequired($_FILES, $val, $msg)`
+	 * @param string $val The key to search for
+	 * @param string|null $msg The error message if the key is absent
+	 * @return string The value associated
+	 * @see Utils::arrRequired(), $_FILES
+	 */
+	static function filesRequired($val, $msg = null) {
+		if (is_null($msg))
+			$msg = "Fichier requis \"$val\" manquante";
+		$file = self::toStdClass(self::arrRequired($_FILES, $val, $msg));
+		if ($file->error)
+			self::error(400, $msg);
+		return $file;
+	}
+
+	/**
 	 * Load a specific module. The load process do the following:
 	 * * If `$mod_full_name` is `null`:
 	 *     * Retrieve the required GET parameter `module` (if none is present and no section is specified, an error occur)
@@ -538,6 +580,8 @@ class Utils {
 	 * @see stdClass
 	 */
 	static function toStdClass($array) {
+		if (is_null($array))
+			return null;
 		$object = new stdClass();
 		// Iterate through the array
 		foreach ($array as $key => $value) {

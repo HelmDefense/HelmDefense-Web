@@ -18,14 +18,19 @@ class UserLoginController extends Controller {
 		else if (is_null($password))
 			$this->loginPage($referer, 4);
 		else {
-			$result = $this->model->userConnect($name, $password);
-			if ($result) {
-				$this->view->login($referer, $result);
-			} else {
-				if (preg_match("/^[^\/]+\/\/[^\/]+\/user\/(login|signin)(\/|$)/i", $referer))
-					$referer = "/";
-				Utils::redirect($referer);
+			$reason = $this->model->getBan($name);
+			if ($reason === false) {
+				$result = $this->model->userConnect($name, $password);
+				if ($result) {
+					$this->view->login($referer, $result);
+				} else {
+					if (preg_match("/^[^\/]+\/\/[^\/]+\/user\/(login|signin)(\/|$)/i", $referer))
+					  $referer = "/";
+				  Utils::redirect($referer);
+				}
 			}
+			else
+				$this->view->login($referer, 5, $reason);
 		}
 	}
 

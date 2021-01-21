@@ -43,7 +43,7 @@ class PanelRedacController extends Controller {
 		Utils::timeout("delete", 300);
 	}
 
-	public function createNewPage($id, $title, $content, $published) {
+	public function createNewPage($id, $title, $content, $published, $image) {
 		$errors = array();
 		if (is_null($id))
 			$errors[] = "Identifiant non renseigné";
@@ -51,9 +51,11 @@ class PanelRedacController extends Controller {
 			$errors[] = "Titre non renseigné";
 		if (is_null($content))
 			$errors[] = "Contenu non renseigné";
+		if (is_null($image) || $image->error)
+			$errors[] = "Image non renseignée";
 
 		if (!count($errors)) {
-			if ($this->model->createNewPage($id, $title, $content, $published)) {
+			if ($this->model->createNewPage($id, $title, $content, $published, $image)) {
 				header("Location: /panel/redac");
 				exit;
 			} else
@@ -63,8 +65,8 @@ class PanelRedacController extends Controller {
 		$this->view->displayEditPage(0, $id, $title, $content, $published, ...$errors);
 	}
 
-	public function editPage($page, $id, $title, $content, $published) {
-		if ($this->model->editPage($page, $id, $title, $content, $published)) {
+	public function editPage($page, $id, $title, $content, $published, $image) {
+		if ($this->model->editPage($page, $id, $title, $content, $published, $image)) {
 			header("Location: /panel/redac");
 			exit;
 		} else
