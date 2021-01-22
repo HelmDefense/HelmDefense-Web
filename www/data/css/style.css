@@ -165,6 +165,7 @@ table.custom-table {
 	padding: 8px;
 	background-color: white;
 	text-align: center;
+	position: relative;
 }
 
 table.custom-table tbody {
