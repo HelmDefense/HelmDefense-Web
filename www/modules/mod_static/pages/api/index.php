@@ -44,6 +44,6 @@
 		</div>
 	</div>
 	<div class="text-center font-weight-bold">
-		<a href="https://api.helmdefense.theoszanto.fr" target="_blank">api.helmdefense.theoszanto.fr</a>
+		<a href="https://api.helmdefense.theoszanto.fr/v1/" target="_blank">api.helmdefense.theoszanto.fr</a>
 	</div>
 </div>

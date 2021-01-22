@@ -11,7 +11,7 @@ class PanelModoModel extends Model {
 		$offset = ($p - 1) * $limit;
 		$users = new stdClass();
 		self::$bdd->beginTransaction();
-		$users->result = Utils::executeRequest(self::$bdd, "SELECT SQL_CALC_FOUND_ROWS id, login, name, avatar, joined_at FROM hd_user_users LIMIT $offset, $limit");
+		$users->result = Utils::executeRequest(self::$bdd, "SELECT SQL_CALC_FOUND_ROWS id, login, name, avatar, joined_at FROM hd_user_users WHERE id > 0 LIMIT $offset, $limit");
 		$users->count = Utils::executeRequest(self::$bdd, "SELECT found_rows() AS total", array(), false, PDO::FETCH_COLUMN);
 		self::$bdd->commit();
 		$users->sanctions = Utils::executeRequest(self::$bdd, "SELECT s.type, s.user, s.date, s.reason, u.login AS mod_id, u.name AS mod_name FROM hd_user_sanctions AS s INNER JOIN hd_user_users AS u ON s.moderator = u.id ORDER BY s.date DESC");

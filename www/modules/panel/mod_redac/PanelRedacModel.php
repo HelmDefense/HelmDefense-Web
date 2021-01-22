@@ -1,6 +1,7 @@
 <?php
 namespace Module;
 
+use DateTime;
 use PDO;
 use stdClass;
 use Utils;
@@ -25,14 +26,45 @@ class PanelRedacModel extends Model {
 		return move_uploaded_file($image->tmp_name, $imagePath);
 	}
 
+	private function postDiscordEmbed($num, $id, $title, $content, $author, $edited = false) {
+		$discordEmbed = array(
+				"embeds" => array(
+						array(
+								"author" => array(
+										"name" => $author->name,
+										"url" => Utils::SITE_URL . "user/profile/$author->login",
+										"icon_url" => $author->avatar
+								),
+								"title" => $title,
+								"url" => Utils::SITE_URL . "wiki/page/$id",
+								"description" => substr($content, 0, 500) . "...\n\nVisitez le site pour découvrir la suite du " . ($edited ? "nouveau " : "") . "contenu de cette " . ($edited ? "" : "nouvelle ") . "page Wiki !",
+								"thumbnail" => array(
+										"url" => Utils::SITE_URL . "data/img/icon.png"
+								),
+								"image" => array(
+										"url" => Utils::SITE_URL . "data/img/wiki/$num.png"
+								),
+								"footer" => array(
+										"text" => $edited ? "Page Wiki Helm Defense éditée" : "Nouvelle page Wiki Helm Defense"
+								),
+								"timestamp" => date(DateTime::ISO8601)
+						)
+				)
+		);
+		Utils::httpPostRequest(Utils::config("discord.webhook"), $discordEmbed, true, false, false);
+	}
+
 	public function createNewPage($id, $title, $content, $published, $image) {
 		$id = Utils::strNormalize($id);
 		$duplicate = Utils::executeRequest(self::$bdd, "SELECT count(1) FROM hd_wiki_pages WHERE id = :id", array("id" => $id), false, PDO::FETCH_COLUMN);
 		if ($duplicate)
 			return false;
-		$author = Utils::executeRequest(self::$bdd, "SELECT id FROM hd_user_users WHERE login = :login", array("login" => Utils::session("login")), false)->id;
-		Utils::executeRequest(self::$bdd, "INSERT INTO hd_wiki_pages (id, title, content, author, published) VALUES (:id, :title, :content, :author, :published)", array("id" => $id, "title" => $title, "content" => $content, "author" => $author, "published" => intval($published)));
-		return $this->image($image, self::$bdd->lastInsertId());
+		$author = Utils::executeRequest(self::$bdd, "SELECT id, login, name, concat('https://helmdefense.theoszanto.fr/data/img/avatar/', if(avatar IS NULL, 'default.png', concat(id, '-', avatar))) AS avatar FROM hd_user_users WHERE login = :login", array("login" => Utils::session("login")), false);
+		Utils::executeRequest(self::$bdd, "INSERT INTO hd_wiki_pages (id, title, content, author, published) VALUES (:id, :title, :content, :author, :published)", array("id" => $id, "title" => $title, "content" => $content, "author" => $author->id, "published" => intval($published)));
+		$num = self::$bdd->lastInsertId();
+		if ($published)
+			$this->postDiscordEmbed($num, $id, $title, $content, $author);
+		return $this->image($image, $num);
 	}
 
 	public function editPage($page, $id, $title, $content, $published, $image) {
@@ -44,6 +76,10 @@ class PanelRedacModel extends Model {
 				$$val = $old->$val;
 		$id = Utils::strNormalize($id);
 		Utils::executeRequest(self::$bdd, "UPDATE hd_wiki_pages SET id = :id, title = :title, content = :content, published = :published WHERE num = :num", array("id" => $id, "title" => $title, "content" => $content, "published" => intval($published), "num" => $page));
+		if ($published) {
+			$author = Utils::executeRequest(self::$bdd, "SELECT id, login, name, concat('https://helmdefense.theoszanto.fr/data/img/avatar/', if(avatar IS NULL, 'default.png', concat(id, '-', avatar))) AS avatar FROM hd_user_users WHERE login = :login", array("login" => Utils::session("login")), false);
+			$this->postDiscordEmbed($page, $id, $title, $content, $author, true);
+		}
 		return is_null($image) || $image->error || $this->image($image, $page);
 	}
 
